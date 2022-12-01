@@ -1,0 +1,5 @@
+{
+  "AppSyncApiName": "f1fantasy",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false
+}
