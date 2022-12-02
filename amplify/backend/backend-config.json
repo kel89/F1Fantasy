@@ -20,7 +20,7 @@
     }
   },
   "auth": {
-    "f1fantasyee28746d": {
+    "F1Fantasy": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
@@ -31,7 +31,9 @@
           "EMAIL"
         ],
         "signupAttributes": [
-          "EMAIL"
+          "NICKNAME",
+          "GIVEN_NAME",
+          "FAMILY_NAME"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,

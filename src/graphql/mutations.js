@@ -137,6 +137,9 @@ export const createUser = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      Rosters {
+        nextToken
+      }
       createdAt
       updatedAt
       leagueUsersId
@@ -156,6 +159,9 @@ export const updateUser = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      Rosters {
+        nextToken
+      }
       createdAt
       updatedAt
       leagueUsersId
@@ -174,6 +180,9 @@ export const deleteUser = /* GraphQL */ `
         id
         createdAt
         updatedAt
+      }
+      Rosters {
+        nextToken
       }
       createdAt
       updatedAt
@@ -238,8 +247,14 @@ export const createRoster = /* GraphQL */ `
       }
       total_points
       breakdown
+      leauge {
+        id
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      userRostersId
     }
   }
 `;
@@ -255,8 +270,14 @@ export const updateRoster = /* GraphQL */ `
       }
       total_points
       breakdown
+      leauge {
+        id
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      userRostersId
     }
   }
 `;
@@ -272,8 +293,14 @@ export const deleteRoster = /* GraphQL */ `
       }
       total_points
       breakdown
+      leauge {
+        id
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      userRostersId
     }
   }
 `;

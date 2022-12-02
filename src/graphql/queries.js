@@ -89,6 +89,9 @@ export const getUser = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      Rosters {
+        nextToken
+      }
       createdAt
       updatedAt
       leagueUsersId
@@ -150,8 +153,14 @@ export const getRoster = /* GraphQL */ `
       }
       total_points
       breakdown
+      leauge {
+        id
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
+      userRostersId
     }
   }
 `;
@@ -168,6 +177,7 @@ export const listRosters = /* GraphQL */ `
         breakdown
         createdAt
         updatedAt
+        userRostersId
       }
       nextToken
     }

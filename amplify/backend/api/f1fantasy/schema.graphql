@@ -43,6 +43,7 @@ type User @model {
     id: ID!
     name: String!
     Leagues: [League]
+    Rosters: [Roster] @hasMany
 }
 
 type League @model {
@@ -54,5 +55,6 @@ type Roster @model {
     id: ID!
     drivers: [Driver] @hasMany
     total_points: Int
-    breakdown: [Int]        
+    breakdown: [Int]
+    leauge: League
 }
