@@ -83,7 +83,7 @@ export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
-      name
+      email
       Leagues {
         id
         createdAt
@@ -107,7 +107,7 @@ export const listUsers = /* GraphQL */ `
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        email
         createdAt
         updatedAt
         leagueUsersId

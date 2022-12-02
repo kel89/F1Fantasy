@@ -1,6 +1,6 @@
 projects:
   f1fantasy:
-    schemaPath: src/graphql/schema.json
+    schemaPath: amplify/backend/api/f1fantasy/build/schema.graphql
     includes:
       - src/graphql/**/*.js
     excludes:

@@ -1,13 +1,15 @@
 //App.js
 import { useEffect } from 'react';
 import { Authenticator } from "@aws-amplify/ui-react";
-import { Hub } from 'aws-amplify';
+import { Hub, API , graphqlOperation } from 'aws-amplify';
 import { Protected } from "./ProtectedComponentExample";
 import { RequireAuth } from "./RequireAuth";
 import { Login } from "./Login";
 // import { ProtectedSecond } from '.ProtectSecond';
 import { Home } from "./Home";
 import { Layout } from "./Layout";
+
+import { createUser } from './graphql/mutations';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -45,12 +47,19 @@ function MyRoutes() {
 
 function App() {
     useEffect(() => {
-        Hub.listen('auth', (data) => {
+        Hub.listen('auth', async (data) => {
             const { payload } = data;
             console.log(payload);
             if (payload.event == 'signUp'){
                 // Get the username (identifier) and make DB entry
-                console.log("User ID", payload.data.userSub);
+                // console.log("User ID", payload.data.userSub);
+                // console.log(payload);
+                await API.graphql(graphqlOperation(createUser, {
+                    input: {
+                        'id': payload.data.userSub, 
+                        'email': payload.data.user.username 
+                    }
+                }))
             }
         })
     }, [])

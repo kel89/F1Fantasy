@@ -41,7 +41,7 @@ type Race @model {
 
 type User @model {
     id: ID!
-    name: String!
+    email: String
     Leagues: [League]
     Rosters: [Roster] @hasMany
 }
