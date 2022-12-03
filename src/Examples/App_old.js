@@ -4,7 +4,7 @@ import './App.css';
 // Testing amplify auth
 // import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
 import { Amplify, Auth } from 'aws-amplify';
-import awsExports from './aws-exports';
+import awsExports from '../aws-exports';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { atRule } from 'postcss';

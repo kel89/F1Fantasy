@@ -84,10 +84,11 @@ export const getUser = /* GraphQL */ `
     getUser(id: $id) {
       id
       email
+      given_name
+      family_name
+      nickname
       Leagues {
-        id
-        createdAt
-        updatedAt
+        nextToken
       }
       Rosters {
         nextToken
@@ -108,6 +109,9 @@ export const listUsers = /* GraphQL */ `
       items {
         id
         email
+        given_name
+        family_name
+        nickname
         createdAt
         updatedAt
         leagueUsersId
@@ -125,6 +129,7 @@ export const getLeague = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      userLeaguesId
     }
   }
 `;
@@ -139,6 +144,7 @@ export const listLeagues = /* GraphQL */ `
         id
         createdAt
         updatedAt
+        userLeaguesId
       }
       nextToken
     }
@@ -157,6 +163,7 @@ export const getRoster = /* GraphQL */ `
         id
         createdAt
         updatedAt
+        userLeaguesId
       }
       createdAt
       updatedAt

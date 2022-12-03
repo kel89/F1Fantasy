@@ -2,16 +2,26 @@
 import { useEffect } from 'react';
 import { Authenticator } from "@aws-amplify/ui-react";
 import { Hub, API , graphqlOperation } from 'aws-amplify';
-import { UserHome } from "./UserHome";
-import { RequireAuth } from "./RequireAuth";
-import { Login } from "./Login";
+import { UserHome } from "./Pages/UserHome";
+import { RequireAuth } from "./Utils/RequireAuth";
+import { Login } from "./Pages/Login";
+
+import { red } from '@mui/material/colors';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 
-import { createUser } from './graphql/mutations';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
+
+const theme = createTheme({
+    palatte: {
+        primary: {
+            main: red[500]
+        }
+    }
+})
 
 function MyRoutes() {
 	return (
@@ -57,7 +67,9 @@ function App() {
     // }, [])
 	return (
 		<Authenticator.Provider>
-			<MyRoutes />
+			<ThemeProvider theme={theme}>
+                <MyRoutes />
+            </ThemeProvider>
 		</Authenticator.Provider>
 	);
 }

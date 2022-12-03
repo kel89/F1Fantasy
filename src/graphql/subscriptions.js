@@ -111,10 +111,11 @@ export const onCreateUser = /* GraphQL */ `
     onCreateUser(filter: $filter) {
       id
       email
+      given_name
+      family_name
+      nickname
       Leagues {
-        id
-        createdAt
-        updatedAt
+        nextToken
       }
       Rosters {
         nextToken
@@ -130,10 +131,11 @@ export const onUpdateUser = /* GraphQL */ `
     onUpdateUser(filter: $filter) {
       id
       email
+      given_name
+      family_name
+      nickname
       Leagues {
-        id
-        createdAt
-        updatedAt
+        nextToken
       }
       Rosters {
         nextToken
@@ -149,10 +151,11 @@ export const onDeleteUser = /* GraphQL */ `
     onDeleteUser(filter: $filter) {
       id
       email
+      given_name
+      family_name
+      nickname
       Leagues {
-        id
-        createdAt
-        updatedAt
+        nextToken
       }
       Rosters {
         nextToken
@@ -172,6 +175,7 @@ export const onCreateLeague = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      userLeaguesId
     }
   }
 `;
@@ -184,6 +188,7 @@ export const onUpdateLeague = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      userLeaguesId
     }
   }
 `;
@@ -196,6 +201,7 @@ export const onDeleteLeague = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      userLeaguesId
     }
   }
 `;
@@ -212,6 +218,7 @@ export const onCreateRoster = /* GraphQL */ `
         id
         createdAt
         updatedAt
+        userLeaguesId
       }
       createdAt
       updatedAt
@@ -232,6 +239,7 @@ export const onUpdateRoster = /* GraphQL */ `
         id
         createdAt
         updatedAt
+        userLeaguesId
       }
       createdAt
       updatedAt
@@ -252,6 +260,7 @@ export const onDeleteRoster = /* GraphQL */ `
         id
         createdAt
         updatedAt
+        userLeaguesId
       }
       createdAt
       updatedAt

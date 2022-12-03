@@ -132,10 +132,11 @@ export const createUser = /* GraphQL */ `
     createUser(input: $input, condition: $condition) {
       id
       email
+      given_name
+      family_name
+      nickname
       Leagues {
-        id
-        createdAt
-        updatedAt
+        nextToken
       }
       Rosters {
         nextToken
@@ -154,10 +155,11 @@ export const updateUser = /* GraphQL */ `
     updateUser(input: $input, condition: $condition) {
       id
       email
+      given_name
+      family_name
+      nickname
       Leagues {
-        id
-        createdAt
-        updatedAt
+        nextToken
       }
       Rosters {
         nextToken
@@ -176,10 +178,11 @@ export const deleteUser = /* GraphQL */ `
     deleteUser(input: $input, condition: $condition) {
       id
       email
+      given_name
+      family_name
+      nickname
       Leagues {
-        id
-        createdAt
-        updatedAt
+        nextToken
       }
       Rosters {
         nextToken
@@ -202,6 +205,7 @@ export const createLeague = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      userLeaguesId
     }
   }
 `;
@@ -217,6 +221,7 @@ export const updateLeague = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      userLeaguesId
     }
   }
 `;
@@ -232,6 +237,7 @@ export const deleteLeague = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      userLeaguesId
     }
   }
 `;
@@ -251,6 +257,7 @@ export const createRoster = /* GraphQL */ `
         id
         createdAt
         updatedAt
+        userLeaguesId
       }
       createdAt
       updatedAt
@@ -274,6 +281,7 @@ export const updateRoster = /* GraphQL */ `
         id
         createdAt
         updatedAt
+        userLeaguesId
       }
       createdAt
       updatedAt
@@ -297,6 +305,7 @@ export const deleteRoster = /* GraphQL */ `
         id
         createdAt
         updatedAt
+        userLeaguesId
       }
       createdAt
       updatedAt
