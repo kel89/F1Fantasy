@@ -2,12 +2,10 @@
 import { useEffect } from 'react';
 import { Authenticator } from "@aws-amplify/ui-react";
 import { Hub, API , graphqlOperation } from 'aws-amplify';
-import { Protected } from "./ProtectedComponentExample";
+import { UserHome } from "./UserHome";
 import { RequireAuth } from "./RequireAuth";
 import { Login } from "./Login";
-// import { ProtectedSecond } from '.ProtectSecond';
-import { Home } from "./Home";
-import { Layout } from "./Layout";
+
 
 import { createUser } from './graphql/mutations';
 
@@ -26,18 +24,10 @@ function MyRoutes() {
 						index
 						element={
 							<RequireAuth>
-								<Protected />
+								<UserHome />
 							</RequireAuth>
 						}
 					/>
-					{/* <Route
-            path="/protected2"
-            element={
-              <RequireAuth>
-                <ProtectedSecond />
-              </RequireAuth>
-            }
-          /> */}
 					<Route path="/login" element={<Login />} />
 				</Route>
 			</Routes>
@@ -46,23 +36,25 @@ function MyRoutes() {
 }
 
 function App() {
-    useEffect(() => {
-        Hub.listen('auth', async (data) => {
-            const { payload } = data;
-            console.log(payload);
-            if (payload.event == 'signUp'){
-                // Get the username (identifier) and make DB entry
-                // console.log("User ID", payload.data.userSub);
-                // console.log(payload);
-                await API.graphql(graphqlOperation(createUser, {
-                    input: {
-                        'id': payload.data.userSub, 
-                        'email': payload.data.user.username 
-                    }
-                }))
-            }
-        })
-    }, [])
+    // Listen for auth event and create User data
+    // No longer do it this way
+    // useEffect(() => {
+    //     Hub.listen('auth', async (data) => {
+    //         const { payload } = data;
+    //         console.log(payload);
+    //         if (payload.event == 'signUp'){
+    //             // Get the username (identifier) and make DB entry
+    //             // console.log("User ID", payload.data.userSub);
+    //             // console.log(payload);
+    //             await API.graphql(graphqlOperation(createUser, {
+    //                 input: {
+    //                     'id': payload.data.userSub, 
+    //                     'email': payload.data.user.username 
+    //                 }
+    //             }))
+    //         }
+    //     })
+    // }, [])
 	return (
 		<Authenticator.Provider>
 			<MyRoutes />
