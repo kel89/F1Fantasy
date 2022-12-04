@@ -12,10 +12,11 @@
  *  */           
 import { Amplify, API, graphqlOperation } from 'aws-amplify';
 import awsExports from './aws-exports.mjs'; // NOTE, make manually, and may change
-
+import driverData from './drivers.json' assert {type: 'json'};
 
 Amplify.configure(awsExports);
 
+// Test Querry ------------------------------------------
 // const qs = `
 // query MQ {
 //     listUsers {
@@ -30,13 +31,40 @@ Amplify.configure(awsExports);
 // let resp = await API.graphql({query: qs});
 // console.log(JSON.stringify(resp));
 
-// Make a league 
-const ms = `
-mutation CreateLeague {
-    createLeage {
-        id
-    }
+// Make a league ----------------------------------------
+// const ms = `
+// mutation CreateLeague {
+//     createLeage {
+//         id
+//     }
+// }
+// `
+// let resp = await API.graphql({mutation: ms});
+// console.log(JSON.stringify(resp));
+
+// Add all drivers --------------------------------------
+const addDrivers = () => {
+    driverData.forEach(async driver => {
+        let addDriverQ = `
+    mutation CreateDriver {
+        createDriver(input: {
+            first_name: "${driver.first_name}",
+            last_name: "${driver.last_name}",
+            abbreviation: "${driver.abbreviation}",
+            number: "${driver.number}",
+            Team: "${driver.Team}"
+        }){
+            id
+        }
+    }`;
+        let s = String(addDriverQ); // this step is CRITICAL--for some reason
+        let resp = await API.graphql({query: s});
+        console.log(resp);
+    });
 }
-`
-let resp = await API.graphql({mutation: ms});
-console.log(JSON.stringify(resp));
+
+
+
+
+// MAIN ------------------------------------
+// nothing bitch

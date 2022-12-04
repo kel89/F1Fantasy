@@ -28,6 +28,8 @@ type Driver @model {
     abbreviation: String!
     number: String!
     Team: String!
+    Rosters: [Roster] @manyToMany(relationName: "RosterDrivers")
+    Races: [Race] @manyToMany(relationName: "RaceDrivers")
 }
 
 type Race @model {
@@ -35,9 +37,10 @@ type Race @model {
     date: AWSDateTime!
     location: String!
     name: String!
-    Drivers: [Driver] @hasMany
-    Results: [Driver] @hasMany
+    Drivers: [Driver] @manyToMany(relationName: "RaceDrivers")
+    result: [String]
 }
+
 
 type User @model {
     id: ID!
@@ -45,19 +48,21 @@ type User @model {
     given_name: String
     family_name: String
     nickname: String
-    Leagues: [League] @hasMany
+    Leagues: [League] @manyToMany(relationName: "UserLeagues")
     Rosters: [Roster] @hasMany
 }
 
 type League @model {
     id: ID!
-    users: [User] @hasMany
+    owner: User @hasOne
+    name: String!
+    users: [User] @manyToMany(relationName: "UserLeagues")
 }
 
 type Roster @model {
     id: ID!
-    drivers: [Driver] @hasMany
+    drivers: [Driver] @manyToMany(relationName: "RosterDrivers")
     total_points: Int
     breakdown: [Int]
-    leauge: League
+    leauge: League @hasOne
 }

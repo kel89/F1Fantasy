@@ -10,11 +10,14 @@ export const getDriver = /* GraphQL */ `
       abbreviation
       number
       Team
+      Rosters {
+        nextToken
+      }
+      Races {
+        nextToken
+      }
       createdAt
       updatedAt
-      raceDriversId
-      raceResultsId
-      rosterDriversId
     }
   }
 `;
@@ -34,9 +37,6 @@ export const listDrivers = /* GraphQL */ `
         Team
         createdAt
         updatedAt
-        raceDriversId
-        raceResultsId
-        rosterDriversId
       }
       nextToken
     }
@@ -52,9 +52,7 @@ export const getRace = /* GraphQL */ `
       Drivers {
         nextToken
       }
-      Results {
-        nextToken
-      }
+      result
       createdAt
       updatedAt
     }
@@ -72,6 +70,7 @@ export const listRaces = /* GraphQL */ `
         date
         location
         name
+        result
         createdAt
         updatedAt
       }
@@ -95,7 +94,6 @@ export const getUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      leagueUsersId
     }
   }
 `;
@@ -114,7 +112,6 @@ export const listUsers = /* GraphQL */ `
         nickname
         createdAt
         updatedAt
-        leagueUsersId
       }
       nextToken
     }
@@ -124,12 +121,21 @@ export const getLeague = /* GraphQL */ `
   query GetLeague($id: ID!) {
     getLeague(id: $id) {
       id
+      owner {
+        id
+        email
+        given_name
+        family_name
+        nickname
+        createdAt
+        updatedAt
+      }
       users {
         nextToken
       }
       createdAt
       updatedAt
-      userLeaguesId
+      leagueOwnerId
     }
   }
 `;
@@ -144,7 +150,7 @@ export const listLeagues = /* GraphQL */ `
         id
         createdAt
         updatedAt
-        userLeaguesId
+        leagueOwnerId
       }
       nextToken
     }
@@ -163,11 +169,12 @@ export const getRoster = /* GraphQL */ `
         id
         createdAt
         updatedAt
-        userLeaguesId
+        leagueOwnerId
       }
       createdAt
       updatedAt
       userRostersId
+      rosterLeaugeId
     }
   }
 `;
@@ -185,6 +192,303 @@ export const listRosters = /* GraphQL */ `
         createdAt
         updatedAt
         userRostersId
+        rosterLeaugeId
+      }
+      nextToken
+    }
+  }
+`;
+export const getRosterDrivers = /* GraphQL */ `
+  query GetRosterDrivers($id: ID!) {
+    getRosterDrivers(id: $id) {
+      id
+      driverId
+      rosterId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        Team
+        createdAt
+        updatedAt
+      }
+      roster {
+        id
+        total_points
+        breakdown
+        createdAt
+        updatedAt
+        userRostersId
+        rosterLeaugeId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listRosterDrivers = /* GraphQL */ `
+  query ListRosterDrivers(
+    $filter: ModelRosterDriversFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listRosterDrivers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        driverId
+        rosterId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getRaceDrivers = /* GraphQL */ `
+  query GetRaceDrivers($id: ID!) {
+    getRaceDrivers(id: $id) {
+      id
+      driverId
+      raceId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        Team
+        createdAt
+        updatedAt
+      }
+      race {
+        id
+        date
+        location
+        name
+        result
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listRaceDrivers = /* GraphQL */ `
+  query ListRaceDrivers(
+    $filter: ModelRaceDriversFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listRaceDrivers(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        driverId
+        raceId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getUserLeagues = /* GraphQL */ `
+  query GetUserLeagues($id: ID!) {
+    getUserLeagues(id: $id) {
+      id
+      userId
+      leagueId
+      user {
+        id
+        email
+        given_name
+        family_name
+        nickname
+        createdAt
+        updatedAt
+      }
+      league {
+        id
+        createdAt
+        updatedAt
+        leagueOwnerId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listUserLeagues = /* GraphQL */ `
+  query ListUserLeagues(
+    $filter: ModelUserLeaguesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listUserLeagues(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userId
+        leagueId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const rosterDriversByDriverId = /* GraphQL */ `
+  query RosterDriversByDriverId(
+    $driverId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelRosterDriversFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    rosterDriversByDriverId(
+      driverId: $driverId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        driverId
+        rosterId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const rosterDriversByRosterId = /* GraphQL */ `
+  query RosterDriversByRosterId(
+    $rosterId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelRosterDriversFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    rosterDriversByRosterId(
+      rosterId: $rosterId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        driverId
+        rosterId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const raceDriversByDriverId = /* GraphQL */ `
+  query RaceDriversByDriverId(
+    $driverId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelRaceDriversFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    raceDriversByDriverId(
+      driverId: $driverId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        driverId
+        raceId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const raceDriversByRaceId = /* GraphQL */ `
+  query RaceDriversByRaceId(
+    $raceId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelRaceDriversFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    raceDriversByRaceId(
+      raceId: $raceId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        driverId
+        raceId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const userLeaguesByUserId = /* GraphQL */ `
+  query UserLeaguesByUserId(
+    $userId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserLeaguesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    userLeaguesByUserId(
+      userId: $userId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userId
+        leagueId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const userLeaguesByLeagueId = /* GraphQL */ `
+  query UserLeaguesByLeagueId(
+    $leagueId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserLeaguesFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    userLeaguesByLeagueId(
+      leagueId: $leagueId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userId
+        leagueId
+        createdAt
+        updatedAt
       }
       nextToken
     }

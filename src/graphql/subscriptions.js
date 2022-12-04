@@ -10,11 +10,14 @@ export const onCreateDriver = /* GraphQL */ `
       abbreviation
       number
       Team
+      Rosters {
+        nextToken
+      }
+      Races {
+        nextToken
+      }
       createdAt
       updatedAt
-      raceDriversId
-      raceResultsId
-      rosterDriversId
     }
   }
 `;
@@ -27,11 +30,14 @@ export const onUpdateDriver = /* GraphQL */ `
       abbreviation
       number
       Team
+      Rosters {
+        nextToken
+      }
+      Races {
+        nextToken
+      }
       createdAt
       updatedAt
-      raceDriversId
-      raceResultsId
-      rosterDriversId
     }
   }
 `;
@@ -44,11 +50,14 @@ export const onDeleteDriver = /* GraphQL */ `
       abbreviation
       number
       Team
+      Rosters {
+        nextToken
+      }
+      Races {
+        nextToken
+      }
       createdAt
       updatedAt
-      raceDriversId
-      raceResultsId
-      rosterDriversId
     }
   }
 `;
@@ -62,9 +71,7 @@ export const onCreateRace = /* GraphQL */ `
       Drivers {
         nextToken
       }
-      Results {
-        nextToken
-      }
+      result
       createdAt
       updatedAt
     }
@@ -80,9 +87,7 @@ export const onUpdateRace = /* GraphQL */ `
       Drivers {
         nextToken
       }
-      Results {
-        nextToken
-      }
+      result
       createdAt
       updatedAt
     }
@@ -98,9 +103,7 @@ export const onDeleteRace = /* GraphQL */ `
       Drivers {
         nextToken
       }
-      Results {
-        nextToken
-      }
+      result
       createdAt
       updatedAt
     }
@@ -122,7 +125,6 @@ export const onCreateUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      leagueUsersId
     }
   }
 `;
@@ -142,7 +144,6 @@ export const onUpdateUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      leagueUsersId
     }
   }
 `;
@@ -162,7 +163,6 @@ export const onDeleteUser = /* GraphQL */ `
       }
       createdAt
       updatedAt
-      leagueUsersId
     }
   }
 `;
@@ -170,12 +170,21 @@ export const onCreateLeague = /* GraphQL */ `
   subscription OnCreateLeague($filter: ModelSubscriptionLeagueFilterInput) {
     onCreateLeague(filter: $filter) {
       id
+      owner {
+        id
+        email
+        given_name
+        family_name
+        nickname
+        createdAt
+        updatedAt
+      }
       users {
         nextToken
       }
       createdAt
       updatedAt
-      userLeaguesId
+      leagueOwnerId
     }
   }
 `;
@@ -183,12 +192,21 @@ export const onUpdateLeague = /* GraphQL */ `
   subscription OnUpdateLeague($filter: ModelSubscriptionLeagueFilterInput) {
     onUpdateLeague(filter: $filter) {
       id
+      owner {
+        id
+        email
+        given_name
+        family_name
+        nickname
+        createdAt
+        updatedAt
+      }
       users {
         nextToken
       }
       createdAt
       updatedAt
-      userLeaguesId
+      leagueOwnerId
     }
   }
 `;
@@ -196,12 +214,21 @@ export const onDeleteLeague = /* GraphQL */ `
   subscription OnDeleteLeague($filter: ModelSubscriptionLeagueFilterInput) {
     onDeleteLeague(filter: $filter) {
       id
+      owner {
+        id
+        email
+        given_name
+        family_name
+        nickname
+        createdAt
+        updatedAt
+      }
       users {
         nextToken
       }
       createdAt
       updatedAt
-      userLeaguesId
+      leagueOwnerId
     }
   }
 `;
@@ -218,11 +245,12 @@ export const onCreateRoster = /* GraphQL */ `
         id
         createdAt
         updatedAt
-        userLeaguesId
+        leagueOwnerId
       }
       createdAt
       updatedAt
       userRostersId
+      rosterLeaugeId
     }
   }
 `;
@@ -239,11 +267,12 @@ export const onUpdateRoster = /* GraphQL */ `
         id
         createdAt
         updatedAt
-        userLeaguesId
+        leagueOwnerId
       }
       createdAt
       updatedAt
       userRostersId
+      rosterLeaugeId
     }
   }
 `;
@@ -260,11 +289,288 @@ export const onDeleteRoster = /* GraphQL */ `
         id
         createdAt
         updatedAt
-        userLeaguesId
+        leagueOwnerId
       }
       createdAt
       updatedAt
       userRostersId
+      rosterLeaugeId
+    }
+  }
+`;
+export const onCreateRosterDrivers = /* GraphQL */ `
+  subscription OnCreateRosterDrivers(
+    $filter: ModelSubscriptionRosterDriversFilterInput
+  ) {
+    onCreateRosterDrivers(filter: $filter) {
+      id
+      driverId
+      rosterId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        Team
+        createdAt
+        updatedAt
+      }
+      roster {
+        id
+        total_points
+        breakdown
+        createdAt
+        updatedAt
+        userRostersId
+        rosterLeaugeId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateRosterDrivers = /* GraphQL */ `
+  subscription OnUpdateRosterDrivers(
+    $filter: ModelSubscriptionRosterDriversFilterInput
+  ) {
+    onUpdateRosterDrivers(filter: $filter) {
+      id
+      driverId
+      rosterId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        Team
+        createdAt
+        updatedAt
+      }
+      roster {
+        id
+        total_points
+        breakdown
+        createdAt
+        updatedAt
+        userRostersId
+        rosterLeaugeId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteRosterDrivers = /* GraphQL */ `
+  subscription OnDeleteRosterDrivers(
+    $filter: ModelSubscriptionRosterDriversFilterInput
+  ) {
+    onDeleteRosterDrivers(filter: $filter) {
+      id
+      driverId
+      rosterId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        Team
+        createdAt
+        updatedAt
+      }
+      roster {
+        id
+        total_points
+        breakdown
+        createdAt
+        updatedAt
+        userRostersId
+        rosterLeaugeId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateRaceDrivers = /* GraphQL */ `
+  subscription OnCreateRaceDrivers(
+    $filter: ModelSubscriptionRaceDriversFilterInput
+  ) {
+    onCreateRaceDrivers(filter: $filter) {
+      id
+      driverId
+      raceId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        Team
+        createdAt
+        updatedAt
+      }
+      race {
+        id
+        date
+        location
+        name
+        result
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateRaceDrivers = /* GraphQL */ `
+  subscription OnUpdateRaceDrivers(
+    $filter: ModelSubscriptionRaceDriversFilterInput
+  ) {
+    onUpdateRaceDrivers(filter: $filter) {
+      id
+      driverId
+      raceId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        Team
+        createdAt
+        updatedAt
+      }
+      race {
+        id
+        date
+        location
+        name
+        result
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteRaceDrivers = /* GraphQL */ `
+  subscription OnDeleteRaceDrivers(
+    $filter: ModelSubscriptionRaceDriversFilterInput
+  ) {
+    onDeleteRaceDrivers(filter: $filter) {
+      id
+      driverId
+      raceId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        Team
+        createdAt
+        updatedAt
+      }
+      race {
+        id
+        date
+        location
+        name
+        result
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateUserLeagues = /* GraphQL */ `
+  subscription OnCreateUserLeagues(
+    $filter: ModelSubscriptionUserLeaguesFilterInput
+  ) {
+    onCreateUserLeagues(filter: $filter) {
+      id
+      userId
+      leagueId
+      user {
+        id
+        email
+        given_name
+        family_name
+        nickname
+        createdAt
+        updatedAt
+      }
+      league {
+        id
+        createdAt
+        updatedAt
+        leagueOwnerId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateUserLeagues = /* GraphQL */ `
+  subscription OnUpdateUserLeagues(
+    $filter: ModelSubscriptionUserLeaguesFilterInput
+  ) {
+    onUpdateUserLeagues(filter: $filter) {
+      id
+      userId
+      leagueId
+      user {
+        id
+        email
+        given_name
+        family_name
+        nickname
+        createdAt
+        updatedAt
+      }
+      league {
+        id
+        createdAt
+        updatedAt
+        leagueOwnerId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteUserLeagues = /* GraphQL */ `
+  subscription OnDeleteUserLeagues(
+    $filter: ModelSubscriptionUserLeaguesFilterInput
+  ) {
+    onDeleteUserLeagues(filter: $filter) {
+      id
+      userId
+      leagueId
+      user {
+        id
+        email
+        given_name
+        family_name
+        nickname
+        createdAt
+        updatedAt
+      }
+      league {
+        id
+        createdAt
+        updatedAt
+        leagueOwnerId
+      }
+      createdAt
+      updatedAt
     }
   }
 `;
