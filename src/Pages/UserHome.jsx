@@ -1,17 +1,16 @@
 // components/Protected.js
 import { useEffect, useState } from 'react';
-import { useAuthenticator, Heading } from "@aws-amplify/ui-react";
-import { Hub, API , graphqlOperation } from 'aws-amplify';
+import { useAuthenticator } from "@aws-amplify/ui-react";
+import { API, graphqlOperation } from 'aws-amplify';
 import { createUser } from '../graphql/mutations';
-import { getUser } from '../graphql/queries'
+import { getUser, listUsers } from '../graphql/queries'
 // import MainDrawer from '../Utils/MainDrawer';
 import Layout from '../Utils/Layout';
 import LeagueList from '../Partials/Home/LeagueList';
 
 
 export function UserHome() {
-	const { route, user, signOut } = useAuthenticator((context) => [context.route, context.user, context.signOut]);
-    const [menuOpen, setMenuOpen] = useState(false);
+	const { user} = useAuthenticator((context) => [context.route, context.user, context.signOut]);
 
     const [userData, setUserData] = useState();
     // signOut();
@@ -59,10 +58,24 @@ export function UserHome() {
     }
 
     console.log(userData);
-    // console.log(userData.Leagues ? 'yes': 'no')
-    // if (Object.keys(userData).includes("Leagues")){
-    //     console.log(userData.Leagues);
-    // }
+    
+    // Okay, so do do more precise querries, you need to write them 
+    // By hand... the amplify generated functions don't...?
+    const tq = async () => {
+        const query = `
+        query MyQuery {
+            listUsers {
+              items {
+                id
+                email
+              }
+            }
+          }      
+        `;
+        let resp = await API.graphql({query: query});
+        console.log(resp);
+    }
+
     return (
         <>
             <Layout pageName='Home'>
@@ -71,6 +84,9 @@ export function UserHome() {
                         Your Leagues
                     </h1>
                     <LeagueList leagues={[]} />
+                    <button onClick={tq}>
+                        Querry
+                    </button>
                 </div>
             </Layout>
         </>

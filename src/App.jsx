@@ -6,22 +6,12 @@ import { UserHome } from "./Pages/UserHome";
 import { RequireAuth } from "./Utils/RequireAuth";
 import { Login } from "./Pages/Login";
 
-import { red } from '@mui/material/colors';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-
-
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
 
-const theme = createTheme({
-    palatte: {
-        primary: {
-            main: red[500]
-        }
-    }
-})
+
 
 function MyRoutes() {
 	return (
@@ -67,9 +57,7 @@ function App() {
     // }, [])
 	return (
 		<Authenticator.Provider>
-			<ThemeProvider theme={theme}>
-                <MyRoutes />
-            </ThemeProvider>
+            <MyRoutes />
 		</Authenticator.Provider>
 	);
 }
