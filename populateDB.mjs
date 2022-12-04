@@ -10,21 +10,33 @@
  * with the list of Drivers and races, and will probably have
  * something similar to do the scoring
  *  */           
-import { Amplify, API } from 'aws-amplify';
+import { Amplify, API, graphqlOperation } from 'aws-amplify';
 import awsExports from './aws-exports.mjs'; // NOTE, make manually, and may change
+
 
 Amplify.configure(awsExports);
 
-const qs = `
-query MQ {
-    listUsers {
-        items {
-            id
-            email
-            nickname
-        }
+// const qs = `
+// query MQ {
+//     listUsers {
+//         items {
+//             id
+//             email
+//             nickname
+//         }
+//     }
+// }
+// `;
+// let resp = await API.graphql({query: qs});
+// console.log(JSON.stringify(resp));
+
+// Make a league 
+const ms = `
+mutation CreateLeague {
+    createLeage {
+        id
     }
 }
-`;
-let resp = await API.graphql({query: qs});
+`
+let resp = await API.graphql({mutation: ms});
 console.log(JSON.stringify(resp));
