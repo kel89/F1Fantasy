@@ -82,6 +82,7 @@ export function UserHome() {
         }
         return <LeagueList 
             leagues={userData.Leagues.items}
+            refreshUser={checkUser}
             />
     }
 
