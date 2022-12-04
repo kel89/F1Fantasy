@@ -54,7 +54,7 @@ type User @model {
 
 type League @model {
     id: ID!
-    owner: User @hasOne
+    owner: User! @hasOne
     name: String!
     users: [User] @manyToMany(relationName: "UserLeagues")
 }

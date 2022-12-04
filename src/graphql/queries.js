@@ -130,6 +130,7 @@ export const getLeague = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      name
       users {
         nextToken
       }
@@ -148,6 +149,7 @@ export const listLeagues = /* GraphQL */ `
     listLeagues(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        name
         createdAt
         updatedAt
         leagueOwnerId
@@ -167,6 +169,7 @@ export const getRoster = /* GraphQL */ `
       breakdown
       leauge {
         id
+        name
         createdAt
         updatedAt
         leagueOwnerId
@@ -311,6 +314,7 @@ export const getUserLeagues = /* GraphQL */ `
       }
       league {
         id
+        name
         createdAt
         updatedAt
         leagueOwnerId

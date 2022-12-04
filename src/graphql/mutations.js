@@ -209,6 +209,7 @@ export const createLeague = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      name
       users {
         nextToken
       }
@@ -234,6 +235,7 @@ export const updateLeague = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      name
       users {
         nextToken
       }
@@ -259,6 +261,7 @@ export const deleteLeague = /* GraphQL */ `
         createdAt
         updatedAt
       }
+      name
       users {
         nextToken
       }
@@ -282,6 +285,7 @@ export const createRoster = /* GraphQL */ `
       breakdown
       leauge {
         id
+        name
         createdAt
         updatedAt
         leagueOwnerId
@@ -307,6 +311,7 @@ export const updateRoster = /* GraphQL */ `
       breakdown
       leauge {
         id
+        name
         createdAt
         updatedAt
         leagueOwnerId
@@ -332,6 +337,7 @@ export const deleteRoster = /* GraphQL */ `
       breakdown
       leauge {
         id
+        name
         createdAt
         updatedAt
         leagueOwnerId
@@ -561,6 +567,7 @@ export const createUserLeagues = /* GraphQL */ `
       }
       league {
         id
+        name
         createdAt
         updatedAt
         leagueOwnerId
@@ -590,6 +597,7 @@ export const updateUserLeagues = /* GraphQL */ `
       }
       league {
         id
+        name
         createdAt
         updatedAt
         leagueOwnerId
@@ -619,6 +627,7 @@ export const deleteUserLeagues = /* GraphQL */ `
       }
       league {
         id
+        name
         createdAt
         updatedAt
         leagueOwnerId
