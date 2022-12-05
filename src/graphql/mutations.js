@@ -16,6 +16,9 @@ export const createDriver = /* GraphQL */ `
       rosters {
         nextToken
       }
+      races {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -34,6 +37,9 @@ export const updateDriver = /* GraphQL */ `
       number
       team
       rosters {
+        nextToken
+      }
+      races {
         nextToken
       }
       createdAt
@@ -56,6 +62,9 @@ export const deleteDriver = /* GraphQL */ `
       rosters {
         nextToken
       }
+      races {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -73,14 +82,7 @@ export const createRace = /* GraphQL */ `
       city
       name
       drivers {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
+        nextToken
       }
       result {
         nextToken
@@ -105,14 +107,7 @@ export const updateRace = /* GraphQL */ `
       city
       name
       drivers {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
+        nextToken
       }
       result {
         nextToken
@@ -137,14 +132,7 @@ export const deleteRace = /* GraphQL */ `
       city
       name
       drivers {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
+        nextToken
       }
       result {
         nextToken
@@ -267,6 +255,7 @@ export const createUser = /* GraphQL */ `
       given_name
       family_name
       nickname
+      total_points
       rosters {
         nextToken
       }
@@ -286,6 +275,7 @@ export const updateUser = /* GraphQL */ `
       given_name
       family_name
       nickname
+      total_points
       rosters {
         nextToken
       }
@@ -305,6 +295,7 @@ export const deleteUser = /* GraphQL */ `
       given_name
       family_name
       nickname
+      total_points
       rosters {
         nextToken
       }
@@ -331,6 +322,7 @@ export const createRoster = /* GraphQL */ `
         given_name
         family_name
         nickname
+        total_points
         createdAt
         updatedAt
       }
@@ -368,6 +360,7 @@ export const updateRoster = /* GraphQL */ `
         given_name
         family_name
         nickname
+        total_points
         createdAt
         updatedAt
       }
@@ -405,6 +398,7 @@ export const deleteRoster = /* GraphQL */ `
         given_name
         family_name
         nickname
+        total_points
         createdAt
         updatedAt
       }
@@ -556,6 +550,105 @@ export const deleteRosterDrivers = /* GraphQL */ `
         updatedAt
         raceRostersId
         userRostersId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const createRaceDrivers = /* GraphQL */ `
+  mutation CreateRaceDrivers(
+    $input: CreateRaceDriversInput!
+    $condition: ModelRaceDriversConditionInput
+  ) {
+    createRaceDrivers(input: $input, condition: $condition) {
+      id
+      driverId
+      raceId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        team
+        createdAt
+        updatedAt
+      }
+      race {
+        id
+        date
+        country
+        city
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateRaceDrivers = /* GraphQL */ `
+  mutation UpdateRaceDrivers(
+    $input: UpdateRaceDriversInput!
+    $condition: ModelRaceDriversConditionInput
+  ) {
+    updateRaceDrivers(input: $input, condition: $condition) {
+      id
+      driverId
+      raceId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        team
+        createdAt
+        updatedAt
+      }
+      race {
+        id
+        date
+        country
+        city
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteRaceDrivers = /* GraphQL */ `
+  mutation DeleteRaceDrivers(
+    $input: DeleteRaceDriversInput!
+    $condition: ModelRaceDriversConditionInput
+  ) {
+    deleteRaceDrivers(input: $input, condition: $condition) {
+      id
+      driverId
+      raceId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        team
+        createdAt
+        updatedAt
+      }
+      race {
+        id
+        date
+        country
+        city
+        name
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt

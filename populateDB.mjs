@@ -84,7 +84,49 @@ const addRaces = () => {
     })
 }
 
+const addAllDriversToAllRaces = async () => {
+    // Get all of the drivers...
+    let getDrivers = String(`
+    query GetDrivers {
+        listDrivers {
+            items {
+                id
+            }
+        }
+    }
+    `);
+    let driversResp = await API.graphql({query:getDrivers});
+    let allDrivers = driversResp.data.listDrivers.items;
+    console.log(allDrivers);
+    // Get all of the races...
+    let getRaces = String(`
+    query GetRaces {
+        listRaces {
+            items {
+                id
+            }
+        }
+    }
+    `)
+    let racesResp = await API.graphql({query: getRaces});
+    let allRaces = racesResp.data.listRaces.items;
+    console.log(allRaces);
+    // Add all of the drivers to all of the races
+    allRaces.forEach(async race => {
+        allDrivers.forEach(async driver => {
+            let qs = String(`
+            mutation AddLink {
+                createRaceDrivers(input: {driverId: "${driver.id}", raceId: "${race.id}"}){
+                    id
+                }
+            }
+            `);
+            let resp = await API.graphql({query: qs});
+            console.log(resp);
+        })
+    })
+}
+
 
 // MAIN ------------------------------------
 // nothing bitch
-addRaces();

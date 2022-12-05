@@ -29,7 +29,7 @@ type Driver @model {
     number: String!
     team: String!
     rosters: [Roster] @manyToMany(relationName: "RosterDrivers")
-    # Races: [Race] @manyToMany(relationName: "RaceDrivers")
+    races: [Race] @manyToMany(relationName: "RaceDrivers")
 }
 
 type Race @model {
@@ -38,8 +38,8 @@ type Race @model {
     country: String!
     city: String!
     name: String!
-    # Drivers: [Driver] @manyToMany(relationName: "RaceDrivers")
-    drivers: [Driver]
+    drivers: [Driver] @manyToMany(relationName: "RaceDrivers")
+    # drivers: [Driver]
     result: [Result] @hasMany
     rosters: [Roster] @hasMany
 }

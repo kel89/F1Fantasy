@@ -13,6 +13,9 @@ export const onCreateDriver = /* GraphQL */ `
       rosters {
         nextToken
       }
+      races {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -28,6 +31,9 @@ export const onUpdateDriver = /* GraphQL */ `
       number
       team
       rosters {
+        nextToken
+      }
+      races {
         nextToken
       }
       createdAt
@@ -47,6 +53,9 @@ export const onDeleteDriver = /* GraphQL */ `
       rosters {
         nextToken
       }
+      races {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -61,14 +70,7 @@ export const onCreateRace = /* GraphQL */ `
       city
       name
       drivers {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
+        nextToken
       }
       result {
         nextToken
@@ -90,14 +92,7 @@ export const onUpdateRace = /* GraphQL */ `
       city
       name
       drivers {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
+        nextToken
       }
       result {
         nextToken
@@ -119,14 +114,7 @@ export const onDeleteRace = /* GraphQL */ `
       city
       name
       drivers {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
+        nextToken
       }
       result {
         nextToken
@@ -237,6 +225,7 @@ export const onCreateUser = /* GraphQL */ `
       given_name
       family_name
       nickname
+      total_points
       rosters {
         nextToken
       }
@@ -253,6 +242,7 @@ export const onUpdateUser = /* GraphQL */ `
       given_name
       family_name
       nickname
+      total_points
       rosters {
         nextToken
       }
@@ -269,6 +259,7 @@ export const onDeleteUser = /* GraphQL */ `
       given_name
       family_name
       nickname
+      total_points
       rosters {
         nextToken
       }
@@ -292,6 +283,7 @@ export const onCreateRoster = /* GraphQL */ `
         given_name
         family_name
         nickname
+        total_points
         createdAt
         updatedAt
       }
@@ -326,6 +318,7 @@ export const onUpdateRoster = /* GraphQL */ `
         given_name
         family_name
         nickname
+        total_points
         createdAt
         updatedAt
       }
@@ -360,6 +353,7 @@ export const onDeleteRoster = /* GraphQL */ `
         given_name
         family_name
         nickname
+        total_points
         createdAt
         updatedAt
       }
@@ -505,6 +499,102 @@ export const onDeleteRosterDrivers = /* GraphQL */ `
         updatedAt
         raceRostersId
         userRostersId
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateRaceDrivers = /* GraphQL */ `
+  subscription OnCreateRaceDrivers(
+    $filter: ModelSubscriptionRaceDriversFilterInput
+  ) {
+    onCreateRaceDrivers(filter: $filter) {
+      id
+      driverId
+      raceId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        team
+        createdAt
+        updatedAt
+      }
+      race {
+        id
+        date
+        country
+        city
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateRaceDrivers = /* GraphQL */ `
+  subscription OnUpdateRaceDrivers(
+    $filter: ModelSubscriptionRaceDriversFilterInput
+  ) {
+    onUpdateRaceDrivers(filter: $filter) {
+      id
+      driverId
+      raceId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        team
+        createdAt
+        updatedAt
+      }
+      race {
+        id
+        date
+        country
+        city
+        name
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteRaceDrivers = /* GraphQL */ `
+  subscription OnDeleteRaceDrivers(
+    $filter: ModelSubscriptionRaceDriversFilterInput
+  ) {
+    onDeleteRaceDrivers(filter: $filter) {
+      id
+      driverId
+      raceId
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        team
+        createdAt
+        updatedAt
+      }
+      race {
+        id
+        date
+        country
+        city
+        name
+        createdAt
+        updatedAt
       }
       createdAt
       updatedAt

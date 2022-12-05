@@ -5,6 +5,7 @@ import { API } from 'aws-amplify';
 import Layout from "../Utils/Layout";
 import ReactLoading from 'react-loading';
 import SetRosterDialog from '../Partials/Home/SetRosterDialog';
+import RosterPreview from '../Partials/Home/RosterPreview';
 
 
 export default function Race({}){
@@ -32,6 +33,7 @@ export default function Race({}){
                   id
                   total_points
                   user {
+                    id
                     nickname
                     given_name
                   }
@@ -41,7 +43,7 @@ export default function Race({}){
           }
         `);
         let resp = await API.graphql({query:qs});
-        console.log(resp);
+        // console.log(resp);
         setRaceData(resp.data.getRace);
     }
 
@@ -63,9 +65,20 @@ export default function Race({}){
         }
 
         // Rosters, but not one for this user, show button
-
+        let userRoster = raceData.rosters.items.find(x => x.user.id == user.username);
+        if (userRoster == undefined){
+            return setButton
+        }
 
         // This use has a roster, so show the preview
+        return (
+            <div className='p-4 bg-white border rounded-lg'>
+                <button className='btn w-full py-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white'>
+                    Edit Roster
+                </button>
+                <RosterPreview id={userRoster.id} />
+            </div>
+        )
     }
 
     return (
