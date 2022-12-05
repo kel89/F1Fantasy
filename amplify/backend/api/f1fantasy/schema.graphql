@@ -27,19 +27,29 @@ type Driver @model {
     last_name: String!
     abbreviation: String!
     number: String!
-    Team: String!
-    # Rosters: [Roster] @manyToMany(relationName: "RosterDrivers")
+    team: String!
+    rosters: [Roster] @manyToMany(relationName: "RosterDrivers")
     # Races: [Race] @manyToMany(relationName: "RaceDrivers")
 }
 
 type Race @model {
     id: ID!
     date: AWSDateTime!
-    location: String!
+    country: String!
+    city: String!
     name: String!
     # Drivers: [Driver] @manyToMany(relationName: "RaceDrivers")
-    Drivers: [Driver]
-    result: [String]
+    drivers: [Driver]
+    result: [Result] @hasMany
+    rosters: [Roster] @hasMany
+}
+
+# Each driver in each race gets an entry here
+# Just to help keep track of scoring
+type Result @model {
+    race: Race @belongsTo
+    driver: Driver
+    points: Int
 }
 
 
@@ -49,6 +59,8 @@ type User @model {
     given_name: String
     family_name: String
     nickname: String
+    total_points: Int!
+    rosters: [Roster] @hasMany
 }
 
 # type League @model {
@@ -60,9 +72,16 @@ type User @model {
 
 type Roster @model {
     id: ID!
-    # drivers: [Driver] @manyToMany(relationName: "RosterDrivers")
-    drivers: [Driver] @hasMany
+    drivers: [Driver] @manyToMany(relationName: "RosterDrivers")
+    # drivers: [Driver] @hasMany
     total_points: Int
     breakdown: [Int]
-    user: User @hasOne
+    user: User @belongsTo
+    race: Race @belongsTo
+}
+
+# Should only have one entry, and either 1 or 0 if changes are allowed
+# to be made, and I toggle this race day
+type ChangeAllowed @model {
+    allowed: Int!
 }

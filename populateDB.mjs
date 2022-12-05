@@ -13,6 +13,7 @@
 import { Amplify, API, graphqlOperation } from 'aws-amplify';
 import awsExports from './aws-exports.mjs'; // NOTE, make manually, and may change
 import driverData from './drivers.json' assert {type: 'json'};
+import raceData from './races.json' assert {type: 'json'}
 
 Amplify.configure(awsExports);
 
@@ -52,7 +53,7 @@ const addDrivers = () => {
             last_name: "${driver.last_name}",
             abbreviation: "${driver.abbreviation}",
             number: "${driver.number}",
-            Team: "${driver.Team}"
+            team: "${driver.team}"
         }){
             id
         }
@@ -63,8 +64,27 @@ const addDrivers = () => {
     });
 }
 
-
+const addRaces = () => {
+    raceData.forEach(async race => {
+        let qs = String(`
+        mutation CreateRace {
+            createRace( input: {
+                date: "${race.date}",
+                country: "${race.country}",
+                city: "${race.city}",
+                name: "${race.name}"
+            }){
+                id
+            }
+        }
+        `);
+        // console.log(qs);
+        let resp = await API.graphql({query:qs});
+        console.log(resp);
+    })
+}
 
 
 // MAIN ------------------------------------
 // nothing bitch
+addRaces();

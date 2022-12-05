@@ -9,11 +9,8 @@ export const getDriver = /* GraphQL */ `
       last_name
       abbreviation
       number
-      Team
-      Rosters {
-        nextToken
-      }
-      Races {
+      team
+      rosters {
         nextToken
       }
       createdAt
@@ -34,7 +31,7 @@ export const listDrivers = /* GraphQL */ `
         last_name
         abbreviation
         number
-        Team
+        team
         createdAt
         updatedAt
       }
@@ -47,12 +44,25 @@ export const getRace = /* GraphQL */ `
     getRace(id: $id) {
       id
       date
-      location
+      country
+      city
       name
-      Drivers {
+      drivers {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        team
+        createdAt
+        updatedAt
+      }
+      result {
         nextToken
       }
-      result
+      rosters {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -68,11 +78,59 @@ export const listRaces = /* GraphQL */ `
       items {
         id
         date
-        location
+        country
+        city
         name
-        result
         createdAt
         updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const getResult = /* GraphQL */ `
+  query GetResult($id: ID!) {
+    getResult(id: $id) {
+      race {
+        id
+        date
+        country
+        city
+        name
+        createdAt
+        updatedAt
+      }
+      driver {
+        id
+        first_name
+        last_name
+        abbreviation
+        number
+        team
+        createdAt
+        updatedAt
+      }
+      points
+      id
+      createdAt
+      updatedAt
+      raceResultId
+    }
+  }
+`;
+export const listResults = /* GraphQL */ `
+  query ListResults(
+    $filter: ModelResultFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listResults(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        points
+        id
+        createdAt
+        updatedAt
+        raceResultId
       }
       nextToken
     }
@@ -86,10 +144,7 @@ export const getUser = /* GraphQL */ `
       given_name
       family_name
       nickname
-      Leagues {
-        nextToken
-      }
-      Rosters {
+      rosters {
         nextToken
       }
       createdAt
@@ -117,47 +172,6 @@ export const listUsers = /* GraphQL */ `
     }
   }
 `;
-export const getLeague = /* GraphQL */ `
-  query GetLeague($id: ID!) {
-    getLeague(id: $id) {
-      id
-      owner {
-        id
-        email
-        given_name
-        family_name
-        nickname
-        createdAt
-        updatedAt
-      }
-      name
-      users {
-        nextToken
-      }
-      createdAt
-      updatedAt
-      leagueOwnerId
-    }
-  }
-`;
-export const listLeagues = /* GraphQL */ `
-  query ListLeagues(
-    $filter: ModelLeagueFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listLeagues(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        createdAt
-        updatedAt
-        leagueOwnerId
-      }
-      nextToken
-    }
-  }
-`;
 export const getRoster = /* GraphQL */ `
   query GetRoster($id: ID!) {
     getRoster(id: $id) {
@@ -167,17 +181,28 @@ export const getRoster = /* GraphQL */ `
       }
       total_points
       breakdown
-      leauge {
+      user {
         id
+        email
+        given_name
+        family_name
+        nickname
+        createdAt
+        updatedAt
+      }
+      race {
+        id
+        date
+        country
+        city
         name
         createdAt
         updatedAt
-        leagueOwnerId
       }
       createdAt
       updatedAt
+      raceRostersId
       userRostersId
-      rosterLeaugeId
     }
   }
 `;
@@ -194,8 +219,35 @@ export const listRosters = /* GraphQL */ `
         breakdown
         createdAt
         updatedAt
+        raceRostersId
         userRostersId
-        rosterLeaugeId
+      }
+      nextToken
+    }
+  }
+`;
+export const getChangeAllowed = /* GraphQL */ `
+  query GetChangeAllowed($id: ID!) {
+    getChangeAllowed(id: $id) {
+      allowed
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listChangeAlloweds = /* GraphQL */ `
+  query ListChangeAlloweds(
+    $filter: ModelChangeAllowedFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listChangeAlloweds(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        allowed
+        id
+        createdAt
+        updatedAt
       }
       nextToken
     }
@@ -213,7 +265,7 @@ export const getRosterDrivers = /* GraphQL */ `
         last_name
         abbreviation
         number
-        Team
+        team
         createdAt
         updatedAt
       }
@@ -223,8 +275,8 @@ export const getRosterDrivers = /* GraphQL */ `
         breakdown
         createdAt
         updatedAt
+        raceRostersId
         userRostersId
-        rosterLeaugeId
       }
       createdAt
       updatedAt
@@ -242,99 +294,6 @@ export const listRosterDrivers = /* GraphQL */ `
         id
         driverId
         rosterId
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getRaceDrivers = /* GraphQL */ `
-  query GetRaceDrivers($id: ID!) {
-    getRaceDrivers(id: $id) {
-      id
-      driverId
-      raceId
-      driver {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        Team
-        createdAt
-        updatedAt
-      }
-      race {
-        id
-        date
-        location
-        name
-        result
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listRaceDrivers = /* GraphQL */ `
-  query ListRaceDrivers(
-    $filter: ModelRaceDriversFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listRaceDrivers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        driverId
-        raceId
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getUserLeagues = /* GraphQL */ `
-  query GetUserLeagues($id: ID!) {
-    getUserLeagues(id: $id) {
-      id
-      userId
-      leagueId
-      user {
-        id
-        email
-        given_name
-        family_name
-        nickname
-        createdAt
-        updatedAt
-      }
-      league {
-        id
-        name
-        createdAt
-        updatedAt
-        leagueOwnerId
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listUserLeagues = /* GraphQL */ `
-  query ListUserLeagues(
-    $filter: ModelUserLeaguesFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUserLeagues(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        userId
-        leagueId
         createdAt
         updatedAt
       }
@@ -387,110 +346,6 @@ export const rosterDriversByRosterId = /* GraphQL */ `
         id
         driverId
         rosterId
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const raceDriversByDriverId = /* GraphQL */ `
-  query RaceDriversByDriverId(
-    $driverId: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelRaceDriversFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    raceDriversByDriverId(
-      driverId: $driverId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        driverId
-        raceId
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const raceDriversByRaceId = /* GraphQL */ `
-  query RaceDriversByRaceId(
-    $raceId: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelRaceDriversFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    raceDriversByRaceId(
-      raceId: $raceId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        driverId
-        raceId
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const userLeaguesByUserId = /* GraphQL */ `
-  query UserLeaguesByUserId(
-    $userId: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelUserLeaguesFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    userLeaguesByUserId(
-      userId: $userId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        userId
-        leagueId
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const userLeaguesByLeagueId = /* GraphQL */ `
-  query UserLeaguesByLeagueId(
-    $leagueId: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelUserLeaguesFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    userLeaguesByLeagueId(
-      leagueId: $leagueId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        userId
-        leagueId
         createdAt
         updatedAt
       }

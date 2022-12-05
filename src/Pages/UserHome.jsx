@@ -8,6 +8,8 @@ import { getUser, listUsers } from '../graphql/queries'
 import Layout from '../Utils/Layout';
 import ReactLoading from "react-loading";
 import LeagueList from '../Partials/Home/LeagueList';
+import RaceList from '../Partials/Home/RaceList';
+import LeaderBoard from '../Partials/Home/LeaderBoard';
 
 
 export function UserHome() {
@@ -31,20 +33,6 @@ export function UserHome() {
               given_name
               id
               nickname
-              Leagues {
-                items {
-                  league {
-                    name
-                    id
-                    leagueOwnerId
-                    users {
-                      items {
-                        id
-                      }
-                    }
-                  }
-                }
-              }
             }
           }
         `);
@@ -89,11 +77,13 @@ export function UserHome() {
     return (
         <>
             <Layout pageName='Home'>
-                <div className='p-6'>
-                    <h1 className='text-3xl text-gray-500 mb-4'>
+                <div className='p-6 grid sm:grid-cols-2 grid-cols-1 gap-8 bg-gray-100'>
+                    <RaceList />
+                    <LeaderBoard />
+                    {/* <h1 className='text-3xl text-gray-500 mb-4'>
                         Your Leagues
                     </h1>
-                    {renderLeagueList()}
+                    {renderLeagueList()} */}
                 </div>
             </Layout>
         </>
