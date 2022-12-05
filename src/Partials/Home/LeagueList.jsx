@@ -27,7 +27,7 @@ export default function LeagueList({leagues, refreshUser}){
 
     return (
         <>
-            <div className='flex gap-4'>
+            <div className='flex flex-wrap gap-4'>
                 {
                     leagues.map((league, i) => {
                         return <LeagueCard data={league} key={i}/>

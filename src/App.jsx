@@ -10,6 +10,7 @@ import { Login } from "./Pages/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
+import League from './Pages/League';
 
 
 
@@ -28,6 +29,14 @@ function MyRoutes() {
 							</RequireAuth>
 						}
 					/>
+                    <Route
+                        path="/league/:id"
+                        element={
+                            <RequireAuth>
+                                <League />
+                            </RequireAuth>
+                        }
+                    />
 					<Route path="/login" element={<Login />} />
 				</Route>
 			</Routes>
