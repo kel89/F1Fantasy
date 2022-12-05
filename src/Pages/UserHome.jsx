@@ -46,7 +46,8 @@ export function UserHome() {
                 'email': user.attributes.email,
                 'given_name': user.attributes.given_name,
                 'family_name': user.attributes.family_name,
-                'nickname': user.attributes.nickname
+                'nickname': user.attributes.nickname,
+                'total_points': 0
             }}));
             console.log(resp);
             setUserData(resp.data);

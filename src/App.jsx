@@ -11,6 +11,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
 import League from './Pages/League';
+import Race from './Pages/Race';
 
 
 
@@ -34,6 +35,14 @@ function MyRoutes() {
                         element={
                             <RequireAuth>
                                 <League />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path="/race/:id"
+                        element={
+                            <RequireAuth>
+                                <Race />
                             </RequireAuth>
                         }
                     />

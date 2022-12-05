@@ -1,14 +1,19 @@
 import LockClockIcon from '@mui/icons-material/LockClock';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { useNavigate } from 'react-router-dom';
 
 export default function RaceCard({data}){
 
+    const navigate = useNavigate();
+
     // Determine if this race is LOCKED
     let now = new Date();
-    let locked = now > data.date;
+    let locked = now < (new Date(data.date));
 
     return (
-        <div className='w-full border border-gray-200 rounded-lg shadow-sm p-3 flex justify-between hover:border-red-500'>
+        <div
+            onClick={() => navigate(`/race/${data.id}`)} 
+            className='w-full border border-gray-200 rounded-lg shadow-sm p-3 flex justify-between cursor-pointer hover:border-red-500'>
             <div>
                 <div className='text-lg'>
                     {data.name}

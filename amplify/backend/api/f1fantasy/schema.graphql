@@ -73,6 +73,7 @@ type User @model {
 type Roster @model {
     id: ID!
     drivers: [Driver] @manyToMany(relationName: "RosterDrivers")
+    # driver_order: [String]
     # drivers: [Driver] @hasMany
     total_points: Int
     breakdown: [Int]
