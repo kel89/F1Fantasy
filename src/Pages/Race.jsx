@@ -11,6 +11,7 @@ import RosterPreview from '../Partials/Home/RosterPreview';
 export default function Race({}){
     const [raceData, setRaceData] = useState();
     const [openSetRoster, setOpenSetRoster] = useState(false);
+    const [rosterId, setRosterId] = useState();
     const { user } = useAuthenticator(context => [context.user]);
     const {id} = useParams();
 
@@ -71,9 +72,15 @@ export default function Race({}){
         }
 
         // This use has a roster, so show the preview
+        const click = () => {
+            setRosterId(userRoster.id);
+            setOpenSetRoster(true);
+        }
         return (
             <div className='p-4 bg-white border rounded-lg'>
-                <button className='btn w-full py-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white'>
+                <button
+                    onClick={click}
+                    className='btn w-full py-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white'>
                     Edit Roster
                 </button>
                 <RosterPreview id={userRoster.id} />
@@ -110,10 +117,17 @@ export default function Race({}){
                     )}
                 </div>
             </Layout>
-            <SetRosterDialog 
-                open={openSetRoster} 
-                setOpen={setOpenSetRoster}
-                />
+            {
+                openSetRoster ? (
+                    <SetRosterDialog 
+                        open={openSetRoster} 
+                        setOpen={setOpenSetRoster}
+                        rosterId={rosterId}
+                        raceId={id}
+                        refreshRaceData={getRaceData}
+                        />
+                ) : null
+            }
         </>
     )
 }

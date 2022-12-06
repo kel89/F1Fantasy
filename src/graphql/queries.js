@@ -10,9 +10,6 @@ export const getDriver = /* GraphQL */ `
       abbreviation
       number
       team
-      rosters {
-        nextToken
-      }
       races {
         nextToken
       }
@@ -174,9 +171,7 @@ export const getRoster = /* GraphQL */ `
   query GetRoster($id: ID!) {
     getRoster(id: $id) {
       id
-      drivers {
-        nextToken
-      }
+      driver_order
       total_points
       breakdown
       user {
@@ -214,6 +209,7 @@ export const listRosters = /* GraphQL */ `
     listRosters(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        driver_order
         total_points
         breakdown
         createdAt
@@ -245,54 +241,6 @@ export const listChangeAlloweds = /* GraphQL */ `
       items {
         allowed
         id
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const getRosterDrivers = /* GraphQL */ `
-  query GetRosterDrivers($id: ID!) {
-    getRosterDrivers(id: $id) {
-      id
-      driverId
-      rosterId
-      driver {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
-      }
-      roster {
-        id
-        total_points
-        breakdown
-        createdAt
-        updatedAt
-        raceRostersId
-        userRostersId
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listRosterDrivers = /* GraphQL */ `
-  query ListRosterDrivers(
-    $filter: ModelRosterDriversFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listRosterDrivers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        driverId
-        rosterId
         createdAt
         updatedAt
       }
@@ -341,58 +289,6 @@ export const listRaceDrivers = /* GraphQL */ `
         id
         driverId
         raceId
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const rosterDriversByDriverId = /* GraphQL */ `
-  query RosterDriversByDriverId(
-    $driverId: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelRosterDriversFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    rosterDriversByDriverId(
-      driverId: $driverId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        driverId
-        rosterId
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const rosterDriversByRosterId = /* GraphQL */ `
-  query RosterDriversByRosterId(
-    $rosterId: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelRosterDriversFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    rosterDriversByRosterId(
-      rosterId: $rosterId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        driverId
-        rosterId
         createdAt
         updatedAt
       }

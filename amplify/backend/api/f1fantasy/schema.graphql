@@ -2,24 +2,6 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-# type Blog @model {
-#   id: ID!
-#   name: String!
-#   posts: [Post] @hasMany
-# }
-
-# type Post @model {
-#   id: ID!
-#   title: String!
-#   blog: Blog @belongsTo
-#   comments: [Comment] @hasMany
-# }
-
-# type Comment @model {
-#   id: ID!
-#   post: Post @belongsTo
-#   content: String!
-# }
 
 type Driver @model {
     id: ID!
@@ -28,7 +10,7 @@ type Driver @model {
     abbreviation: String!
     number: String!
     team: String!
-    rosters: [Roster] @manyToMany(relationName: "RosterDrivers")
+    # rosters: [Roster] @manyToMany(relationName: "RosterDrivers")
     races: [Race] @manyToMany(relationName: "RaceDrivers")
 }
 
@@ -72,8 +54,8 @@ type User @model {
 
 type Roster @model {
     id: ID!
-    drivers: [Driver] @manyToMany(relationName: "RosterDrivers")
-    # driver_order: [String]
+    # drivers: [Driver] @manyToMany(relationName: "RosterDrivers")
+    driver_order: [String]
     # drivers: [Driver] @hasMany
     total_points: Int
     breakdown: [Int]

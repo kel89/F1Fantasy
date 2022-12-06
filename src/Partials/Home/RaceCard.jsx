@@ -8,7 +8,7 @@ export default function RaceCard({data}){
 
     // Determine if this race is LOCKED
     let now = new Date();
-    let locked = now < (new Date(data.date));
+    let locked = now > (new Date(data.date));
 
     return (
         <div

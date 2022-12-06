@@ -13,9 +13,6 @@ export const createDriver = /* GraphQL */ `
       abbreviation
       number
       team
-      rosters {
-        nextToken
-      }
       races {
         nextToken
       }
@@ -36,9 +33,6 @@ export const updateDriver = /* GraphQL */ `
       abbreviation
       number
       team
-      rosters {
-        nextToken
-      }
       races {
         nextToken
       }
@@ -59,9 +53,6 @@ export const deleteDriver = /* GraphQL */ `
       abbreviation
       number
       team
-      rosters {
-        nextToken
-      }
       races {
         nextToken
       }
@@ -311,9 +302,7 @@ export const createRoster = /* GraphQL */ `
   ) {
     createRoster(input: $input, condition: $condition) {
       id
-      drivers {
-        nextToken
-      }
+      driver_order
       total_points
       breakdown
       user {
@@ -349,9 +338,7 @@ export const updateRoster = /* GraphQL */ `
   ) {
     updateRoster(input: $input, condition: $condition) {
       id
-      drivers {
-        nextToken
-      }
+      driver_order
       total_points
       breakdown
       user {
@@ -387,9 +374,7 @@ export const deleteRoster = /* GraphQL */ `
   ) {
     deleteRoster(input: $input, condition: $condition) {
       id
-      drivers {
-        nextToken
-      }
+      driver_order
       total_points
       breakdown
       user {
@@ -452,105 +437,6 @@ export const deleteChangeAllowed = /* GraphQL */ `
     deleteChangeAllowed(input: $input, condition: $condition) {
       allowed
       id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const createRosterDrivers = /* GraphQL */ `
-  mutation CreateRosterDrivers(
-    $input: CreateRosterDriversInput!
-    $condition: ModelRosterDriversConditionInput
-  ) {
-    createRosterDrivers(input: $input, condition: $condition) {
-      id
-      driverId
-      rosterId
-      driver {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
-      }
-      roster {
-        id
-        total_points
-        breakdown
-        createdAt
-        updatedAt
-        raceRostersId
-        userRostersId
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateRosterDrivers = /* GraphQL */ `
-  mutation UpdateRosterDrivers(
-    $input: UpdateRosterDriversInput!
-    $condition: ModelRosterDriversConditionInput
-  ) {
-    updateRosterDrivers(input: $input, condition: $condition) {
-      id
-      driverId
-      rosterId
-      driver {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
-      }
-      roster {
-        id
-        total_points
-        breakdown
-        createdAt
-        updatedAt
-        raceRostersId
-        userRostersId
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteRosterDrivers = /* GraphQL */ `
-  mutation DeleteRosterDrivers(
-    $input: DeleteRosterDriversInput!
-    $condition: ModelRosterDriversConditionInput
-  ) {
-    deleteRosterDrivers(input: $input, condition: $condition) {
-      id
-      driverId
-      rosterId
-      driver {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
-      }
-      roster {
-        id
-        total_points
-        breakdown
-        createdAt
-        updatedAt
-        raceRostersId
-        userRostersId
-      }
       createdAt
       updatedAt
     }
