@@ -11,6 +11,7 @@ import RosterPreview from '../Partials/Home/RosterPreview';
 export default function Race({}){
     const [raceData, setRaceData] = useState();
     const [openSetRoster, setOpenSetRoster] = useState(false);
+    const [refreshState, setRefreshState] = useState(0);
     const [rosterId, setRosterId] = useState();
     const { user } = useAuthenticator(context => [context.user]);
     const {id} = useParams();
@@ -19,6 +20,10 @@ export default function Race({}){
     useEffect(() => {
         getRaceData();
     }, [])
+
+    useEffect(() => {
+        setRefreshState(refreshState+1);
+    }, [openSetRoster])
 
     const getRaceData = async () => {
         let qs = String(`
@@ -80,10 +85,10 @@ export default function Race({}){
             <div className='p-4 bg-white border rounded-lg'>
                 <button
                     onClick={click}
-                    className='btn w-full py-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white'>
+                    className='btn w-full py-2 mb-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white'>
                     Edit Roster
                 </button>
-                <RosterPreview id={userRoster.id} />
+                <RosterPreview id={userRoster.id} toggler={refreshState}/>
             </div>
         )
     }
