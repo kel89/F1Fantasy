@@ -4,9 +4,9 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 import { API } from 'aws-amplify';
 import Layout from "../Utils/Layout";
 import ReactLoading from 'react-loading';
-import SetRosterDialog from '../Partials/Home/SetRosterDialog';
-import RosterPreview from '../Partials/Home/RosterPreview';
-import RosterList from '../Partials/Home/RosterList';
+import SetRosterDialog from '../Partials/Race/SetRosterDialog';
+import RosterPreview from '../Partials/Race/RosterPreview';
+import RosterList from '../Partials/Race/RosterList';
 
 
 export default function Race({}){
