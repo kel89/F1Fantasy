@@ -79,8 +79,13 @@ export function UserHome() {
         <>
             <Layout pageName='Home'>
                 <div className='p-6 grid sm:grid-cols-2 grid-cols-1 gap-8 bg-gray-100'>
-                    <RaceList />
-                    <LeaderBoard />
+                {/* <div className='p-6'> */}
+                    <div>
+                        <RaceList />
+                    </div>
+                    <div>
+                        <LeaderBoard />
+                    </div>
                     {/* <h1 className='text-3xl text-gray-500 mb-4'>
                         Your Leagues
                     </h1>
