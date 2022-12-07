@@ -1,3 +1,20 @@
+# Ken's F1 Fantasy Application
+This is a full stack F1 Fantasy game. Each week players set a driver line up
+that they hope will match the real race results. Points are awarded for correct
+driver-place pairings. Points are awarded for all 20 places, with place 1-10 being 
+as in F1, and 11-20 geting 1 point if correct. 
+
+## Tech
+This is build with AWS Amplify. We have a React SPA Front End, a GraphQL API
+tied to some DynamoDB NoSQL tables on the back. We also use Congito for authentication.
+
+
+
+
+
+
+
+---
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

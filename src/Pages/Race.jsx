@@ -6,6 +6,7 @@ import Layout from "../Utils/Layout";
 import ReactLoading from 'react-loading';
 import SetRosterDialog from '../Partials/Home/SetRosterDialog';
 import RosterPreview from '../Partials/Home/RosterPreview';
+import RosterList from '../Partials/Home/RosterList';
 
 
 export default function Race({}){
@@ -115,14 +116,14 @@ export default function Race({}){
                                     {renderYourRoster()}
                                 </div>
                                 <div>
-                                    Everyone Else with a Roster
+                                    <RosterList rosters={raceData == undefined ? [] : raceData.rosters.items} />
                                 </div>
                             </div>
                         </>
                     )}
                 </div>
             </Layout>
-            {
+            {/* {
                 openSetRoster ? (
                     <SetRosterDialog 
                         open={openSetRoster} 
@@ -132,7 +133,14 @@ export default function Race({}){
                         refreshRaceData={getRaceData}
                         />
                 ) : null
-            }
+            } */}
+            <SetRosterDialog 
+                open={openSetRoster} 
+                setOpen={setOpenSetRoster}
+                rosterId={rosterId}
+                raceId={id}
+                refreshRaceData={getRaceData}
+                />
         </>
     )
 }
