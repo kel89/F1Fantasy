@@ -25,13 +25,13 @@ export default function SetRosterDialog({ open, setOpen, rosterId, raceId, refre
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [rosterId]);
 
     const getData = async () => {
         // Querry for roster and driver data
         let qs = String(`
             query RosterData {
-                getRoster(id: "${rosterId}"){
+                ${rosterId != undefined ? `getRoster(id: "${rosterId}"){
                     id
                     breakdown
                     driver_order
@@ -40,7 +40,7 @@ export default function SetRosterDialog({ open, setOpen, rosterId, raceId, refre
                     total_points
                     raceRostersId
                     userRostersId
-                }
+                }` : ''}
                 
                 getRace(id: "${raceId}"){
                     drivers {
@@ -62,11 +62,31 @@ export default function SetRosterDialog({ open, setOpen, rosterId, raceId, refre
 
         // extract order from roster data 
         let _drivers = resp.data.getRace.drivers.items;
-        let _roster = resp.data.getRoster;
+        // let _roster = resp.data.getRoster;
+        let _roster;
+        if (rosterId == undefined){
+            _roster = null;
+        } else {
+            _roster = resp.data.getRoster;
+        }
 
         setDriverData(_drivers);
         setRosterData(_roster);
-        let _order = _drivers.map((dat, i) => {return {id: dat.driver.abbreviation}});
+
+        // Defined a default driver order (semi random based on teams)
+        console.log(_drivers);
+        let TEAM_ORDER = ["Mercedes", "Red Bull", "Ferrari", "McLaren", "Alpine", "Aston Martin", "Haas", "Alpha Tauri", "Williams", "Alpha Romeo"]
+        let _order = _drivers.sort((a,b) => {
+            let t1 = TEAM_ORDER.indexOf(a.driver.team);
+            let t2 = TEAM_ORDER.indexOf(b.driver.team);
+            t1 = t1 == -1 ? 100 : t1;
+            t2 = t2 == -1 ? 100 : t2;
+            console.log(t1, t2);
+            return t1 - t2;
+        }).map((dat, i) => {return {id: dat.driver.abbreviation}});
+
+
+        // let _order = _drivers.map((dat, i) => {return {id: dat.driver.abbreviation}});
         // console.log(_roster);
         if (_roster == null || !Object.keys(_roster).includes("driver_order")){
             // No driver order
