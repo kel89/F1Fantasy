@@ -74,14 +74,12 @@ export default function SetRosterDialog({ open, setOpen, rosterId, raceId, refre
         setRosterData(_roster);
 
         // Defined a default driver order (semi random based on teams)
-        console.log(_drivers);
         let TEAM_ORDER = ["Mercedes", "Red Bull", "Ferrari", "McLaren", "Alpine", "Aston Martin", "Haas", "Alpha Tauri", "Williams", "Alpha Romeo"]
         let _order = _drivers.sort((a,b) => {
             let t1 = TEAM_ORDER.indexOf(a.driver.team);
             let t2 = TEAM_ORDER.indexOf(b.driver.team);
             t1 = t1 == -1 ? 100 : t1;
             t2 = t2 == -1 ? 100 : t2;
-            console.log(t1, t2);
             return t1 - t2;
         }).map((dat, i) => {return {id: dat.driver.abbreviation}});
 

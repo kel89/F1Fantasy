@@ -25,7 +25,7 @@ export default function LeaderBoard({}){
                     nickname
                     id
                     given_name
-                    # total_points when available
+                    total_points
                 }
             }
         }
@@ -71,7 +71,7 @@ export default function LeaderBoard({}){
                         <ReactLoading type='balls' color='red' />
                     ) : (
                     <div className='flex flex-col gap-2'>
-                        {usersData.map((u, i) => {
+                        {usersData.sort((a,b) => b.total_points - a.total_points).map((u, i) => {
                             return <LeaderboardCard data={u} key={i} />
                         })}
                     </div>

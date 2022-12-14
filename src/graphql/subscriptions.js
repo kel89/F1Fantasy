@@ -13,6 +13,9 @@ export const onCreateDriver = /* GraphQL */ `
       races {
         nextToken
       }
+      results {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -30,6 +33,9 @@ export const onUpdateDriver = /* GraphQL */ `
       races {
         nextToken
       }
+      results {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -45,6 +51,9 @@ export const onDeleteDriver = /* GraphQL */ `
       number
       team
       races {
+        nextToken
+      }
+      results {
         nextToken
       }
       createdAt
@@ -144,6 +153,7 @@ export const onCreateResult = /* GraphQL */ `
       id
       createdAt
       updatedAt
+      driverResultsId
       raceResultId
     }
   }
@@ -174,6 +184,7 @@ export const onUpdateResult = /* GraphQL */ `
       id
       createdAt
       updatedAt
+      driverResultsId
       raceResultId
     }
   }
@@ -204,6 +215,7 @@ export const onDeleteResult = /* GraphQL */ `
       id
       createdAt
       updatedAt
+      driverResultsId
       raceResultId
     }
   }

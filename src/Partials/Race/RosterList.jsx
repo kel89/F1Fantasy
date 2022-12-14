@@ -23,7 +23,7 @@ export default function RosterList({rosters}){
             </h2>
             <div>
                 {
-                    rosters.map((ros, i) => {
+                    rosters.sort((a,b) => b.total_points - a.total_points).map((ros, i) => {
                         return (
                             <div
                                 className='w-full border-b border-gray-100 flex justify-between cursor-pointer' 

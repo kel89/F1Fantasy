@@ -11,7 +11,7 @@ export default function LeaderboardCard({data}){
             </div>
         </div>
         <div>
-            Total Points Here
+            {data.total_points}
         </div>
     </div>
     )

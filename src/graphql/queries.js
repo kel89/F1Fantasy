@@ -13,6 +13,9 @@ export const getDriver = /* GraphQL */ `
       races {
         nextToken
       }
+      results {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -107,6 +110,7 @@ export const getResult = /* GraphQL */ `
       id
       createdAt
       updatedAt
+      driverResultsId
       raceResultId
     }
   }
@@ -123,6 +127,7 @@ export const listResults = /* GraphQL */ `
         id
         createdAt
         updatedAt
+        driverResultsId
         raceResultId
       }
       nextToken

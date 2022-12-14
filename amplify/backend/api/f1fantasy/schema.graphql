@@ -12,6 +12,7 @@ type Driver @model {
     team: String!
     # rosters: [Roster] @manyToMany(relationName: "RosterDrivers")
     races: [Race] @manyToMany(relationName: "RaceDrivers")
+    results: [Result] @hasMany
 }
 
 type Race @model {
@@ -30,7 +31,7 @@ type Race @model {
 # Just to help keep track of scoring
 type Result @model {
     race: Race @belongsTo
-    driver: Driver
+    driver: Driver @belongsTo
     points: Int
 }
 
