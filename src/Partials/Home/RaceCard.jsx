@@ -10,10 +10,11 @@ export default function RaceCard({data}){
     let now = new Date();
     let locked = now > (new Date(data.date));
 
+
     return (
         <div
             onClick={() => navigate(`/race/${data.id}`)} 
-            className='w-full border border-gray-200 rounded-lg shadow-sm p-3 flex justify-between cursor-pointer hover:border-red-500'>
+            className='w-full border border-gray-200  shadow-lg p-3 flex justify-between cursor-pointer hover:border-red-500'>
             <div>
                 <div className='text-lg'>
                     {data.name}

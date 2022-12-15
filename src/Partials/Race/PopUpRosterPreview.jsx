@@ -28,12 +28,12 @@ export default function PopUpRosterPreview({rosterId, rosterOwner, open, setOpen
                 {rosterOwner}
             </DialogTitle>
             <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
+            {/* <DialogContentText id="alert-dialog-slide-description"> */}
                 <RosterPreview 
                     id={rosterId}
                     toggler={rosterId}
                     />
-            </DialogContentText>
+            {/* </DialogContentText> */}
             </DialogContent>
         </Dialog>
     )

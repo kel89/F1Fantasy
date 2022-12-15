@@ -7,6 +7,7 @@ import ReactLoading from 'react-loading';
 import SetRosterDialog from '../Partials/Race/SetRosterDialog';
 import RosterPreview from '../Partials/Race/RosterPreview';
 import RosterList from '../Partials/Race/RosterList';
+import YourRoster from '../Partials/Race/YourRoster';
 
 
 export default function Race({}){
@@ -16,6 +17,9 @@ export default function Race({}){
     const [rosterId, setRosterId] = useState();
     const { user } = useAuthenticator(context => [context.user]);
     const {id} = useParams();
+
+    // let now = new Date();
+    let now = new Date(2023, 4, 15);
 
 
     useEffect(() => {
@@ -66,6 +70,8 @@ export default function Race({}){
                 Set Your Roster!
             </button>
         );
+
+
         // No rosters at all, so show button
         if (raceData.rosters.items.length == 0){
             return setButton;
@@ -113,7 +119,13 @@ export default function Race({}){
                             </div>
                             <div className='grid sm:grid-cols-2 grid-cols-1 gap-4'>
                                 <div>
-                                    {renderYourRoster()}
+                                    {/* {renderYourRoster()} */}
+                                    <YourRoster
+                                        raceData={raceData}
+                                        setOpenSetRoster={setOpenSetRoster}
+                                        setRosterId={setRosterId}
+                                        refreshState={refreshState}
+                                        />
                                 </div>
                                 <div>
                                     <RosterList rosters={raceData == undefined ? [] : raceData.rosters.items} />

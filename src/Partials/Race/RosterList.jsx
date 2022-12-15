@@ -17,7 +17,7 @@ export default function RosterList({rosters}){
 
     return (
         <>
-        <div className='p-4 bg-white border rounded-lg'>
+        <div className='p-4 bg-white border shadow-lg'>
             <h2 className='text-lg'>
                 Other Rosters
             </h2>

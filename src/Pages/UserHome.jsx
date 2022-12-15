@@ -14,7 +14,7 @@ import LeaderBoard from '../Partials/Home/LeaderBoard';
 
 export function UserHome() {
 	const { user} = useAuthenticator((context) => [context.route, context.user, context.signOut]);
-
+    // console.log(user.signInUserSession.idToken.payload['cognito:groups']); // how to get the user group!
     const [userData, setUserData] = useState();
     // signOut();
     

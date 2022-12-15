@@ -34,12 +34,12 @@ export default function Layout({children, pageName}){
                         <Typography variage='h6' component='div' sx={{flexGrow: 1}}>
                             {pageName}
                         </Typography>
-                        <Button 
+                        {/* <Button 
                             onClick={signOut}
                             color='inherit'
                             edge='right'>
                             Sign Out
-                        </Button>
+                        </Button> */}
                     </Toolbar>
                 </AppBar>
             </Box>
