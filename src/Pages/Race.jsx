@@ -8,6 +8,7 @@ import SetRosterDialog from '../Partials/Race/SetRosterDialog';
 import RosterPreview from '../Partials/Race/RosterPreview';
 import RosterList from '../Partials/Race/RosterList';
 import YourRoster from '../Partials/Race/YourRoster';
+import ResultsPreview from '../Partials/Race/ResultsPreview';
 
 
 export default function Race({}){
@@ -18,8 +19,8 @@ export default function Race({}){
     const { user } = useAuthenticator(context => [context.user]);
     const {id} = useParams();
 
-    // let now = new Date();
-    let now = new Date(2023, 4, 15);
+    let now = new Date();
+    // let now = new Date(2023, 4, 15);
 
 
     useEffect(() => {
@@ -50,12 +51,24 @@ export default function Race({}){
                   }
                 }
               }
+              result {
+                items {
+                    points
+                    driver{
+                        first_name
+                        abbreviation
+                        last_name
+                        team
+                    }
+                }
+              }
             }
           }
         `);
         let resp = await API.graphql({query:qs});
         // console.log(resp);
         setRaceData(resp.data.getRace);
+        // console.log(resp.data.getRace);
     }
 
     /**
@@ -127,8 +140,13 @@ export default function Race({}){
                                         refreshState={refreshState}
                                         />
                                 </div>
-                                <div>
+                                <div className='flex flex-col gap-4'>
                                     <RosterList rosters={raceData == undefined ? [] : raceData.rosters.items} />
+                                    {
+                                    raceData.result.items.length > 0 ? (
+                                        <ResultsPreview results={raceData.result.items}/>
+                                        ) : null
+                                    }
                                 </div>
                             </div>
                         </>

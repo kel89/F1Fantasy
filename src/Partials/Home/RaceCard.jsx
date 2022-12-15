@@ -14,7 +14,7 @@ export default function RaceCard({data}){
     return (
         <div
             onClick={() => navigate(`/race/${data.id}`)} 
-            className='w-full border border-gray-200  shadow-lg p-3 flex justify-between cursor-pointer hover:border-red-500'>
+            className='w-full border border-gray-200  shadow-lg p-3 flex justify-between cursor-pointer transition ease-in-out duration-300 hover:border-2 hover:border-red-500'>
             <div>
                 <div className='text-lg'>
                     {data.name}

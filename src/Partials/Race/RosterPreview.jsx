@@ -73,7 +73,7 @@ export default function RosterPreview({id, toggler}){
                         //             secondary={driver.team}
                         //             />
                         //    </ListItem>
-                        <div key={i} className='flex border-t border-gray-200'>
+                        <div key={i} className='flex border-t border-gray-200 transition duration-300 ease-in-out hover:bg-red-100'>
                             <div className='font-bold text-gray-800 text-xl inline-block align-middle'>
                                 {i+1}
                             </div>

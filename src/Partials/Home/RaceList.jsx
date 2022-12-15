@@ -69,15 +69,33 @@ export default function RaceList({}){
                     Race List
                 </Typography>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails
+                sx={{maxHeight:'700px', overflowY:"auto"}}>
                 {
                     raceData == undefined ? (
                         <ReactLoading type='balls' color='red' />
                     ) : (
-                    <div className='flex flex-col gap-2'>
-                        {raceData.sort( (a,b) => (new Date(a.date) - new Date(b.date))).map((race, i) => {
-                            return <RaceCard data={race} key={i}/>
-                        })}
+                    <div>
+                        {
+                            raceData
+                                .sort( (a,b) => (new Date(a.date) - new Date(b.date)))
+                                .filter(x => (new Date(x.date) > (new Date())))
+                                .filter((d,i) => i == 0).map(race => {
+                                return (
+                                    <div className='mb-2 border-2 p-4 border-yellow-500 rounded-lg shadow-lg'>
+                                        <h2 className='font-bold text-gray-500'>
+                                            Next Race
+                                        </h2>
+                                        <RaceCard data={race} key={0} />
+                                    </div>
+                                )
+                            })
+                        }
+                        <div className='flex flex-col gap-2'>
+                            {raceData.sort( (a,b) => (new Date(a.date) - new Date(b.date))).map((race, i) => {
+                                return <RaceCard data={race} key={i}/>
+                            })}
+                        </div>
                     </div>
                     )
                 }
