@@ -57,6 +57,19 @@ export default function RosterPreview({id, toggler}){
         return <ReactLoading type='bars' color='red' />
     }
 
+    const getDriverImage = (abbreviation) => {
+        try {
+            return (
+                <img 
+                    className='inline-block h-16 w-16'
+                    src={require(`../../assets/drivers/${abbreviation.toLowerCase()}.png`)} 
+                    alt={''} />
+            )
+        } catch {
+            return null
+        }
+    }
+
     return (
         <div className='flex flex-col w-full gap-1'>
                 {
@@ -94,10 +107,11 @@ export default function RosterPreview({id, toggler}){
                             <div className='font-bold text-gray-800 text-xl'>
                                 {i+1}
                             </div>
-                            <img 
+                            {/* <img 
                                 className='h-16 w-16'
                                 src={require(`../../assets/drivers/${driver.abbreviation.toLowerCase()}.png`)} 
-                                alt={''} />
+                                alt={''} /> */}
+                                {getDriverImage(driver.abbreviation)}
                             <div className='ml-4 flex flex-col'>
                                 <div className='text-lg text-gray-800'>
                                     {driver.first_name} {driver.last_name}

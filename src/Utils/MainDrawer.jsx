@@ -12,6 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 // import MailIcon from '@mui/icons-material/Mail';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import HomeIcon from '@mui/icons-material/Home';
+import HelpIcon from '@mui/icons-material/Help';
 
 import { useNavigate } from 'react-router-dom';
 import { useAuthenticator } from "@aws-amplify/ui-react";
@@ -43,6 +44,15 @@ export default function MainDrawer({open, setOpen}) {
 					<HomeIcon />
 				</ListItemIcon>
 				<ListItemText primary={'Home'} />
+			</ListItemButton>
+		</ListItem>
+
+        <ListItem disablePadding>
+			<ListItemButton onClick={() => navigate('/about')}>
+				<ListItemIcon>
+					<HelpIcon />
+				</ListItemIcon>
+				<ListItemText primary={'How To Play'} />
 			</ListItemButton>
 		</ListItem>
 		{/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (

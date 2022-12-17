@@ -5,6 +5,7 @@ import { Hub, API , graphqlOperation } from 'aws-amplify';
 import { UserHome } from "./Pages/UserHome";
 import { RequireAuth } from "./Utils/RequireAuth";
 import { Login } from "./Pages/Login";
+import About from './Pages/About';
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -43,6 +44,14 @@ function MyRoutes() {
                         element={
                             <RequireAuth>
                                 <Race />
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path="/about"
+                        element={
+                            <RequireAuth>
+                                <About />
                             </RequireAuth>
                         }
                     />
