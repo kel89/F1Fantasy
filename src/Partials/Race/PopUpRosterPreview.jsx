@@ -25,7 +25,9 @@ export default function PopUpRosterPreview({rosterId, rosterOwner, open, setOpen
             aria-describedby="alert-dialog-slide-description"
         >
             <DialogTitle>
-                {rosterOwner}
+                <span className='font-racing'>
+                    {rosterOwner}
+                </span>
             </DialogTitle>
             <DialogContent>
             {/* <DialogContentText id="alert-dialog-slide-description"> */}
