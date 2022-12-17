@@ -73,35 +73,11 @@ export default function RosterPreview({id, toggler}){
     return (
         <div className='flex flex-col w-full gap-1'>
                 {
-                    rosterData.driver_order.map((d, i) => {
+                    rosterData.driver_order.slice(0, 10).map((d, i) => {
                         let abbrev = d.split("-")[0];
                         let driver = driverData.find(x => x.driver.abbreviation == abbrev);
                         driver = driver.driver;
                         return (
-                        //    <ListItem>
-                        //         <ListItemText
-                        //             primary={i+1} />
-                        //         <ListItemText
-                        //             primary={`${driver.first_name} ${driver.last_name}`}
-                        //             secondary={driver.team}
-                        //             />
-                        //    </ListItem>
-
-
-                        // <div key={i} className='flex border-t border-gray-200 transition duration-300 ease-in-out hover:bg-red-100'>
-                        //     <div className='font-bold text-gray-800 text-xl inline-block align-middle'>
-                        //         {i+1}
-                        //     </div>
-                        //     <div className='ml-4 flex flex-col'>
-                        //         <img src={require(`../../assets/drivers/${driver.abbreviation.toLowerCase()}.png`)} alt={null} />
-                        //         <div className='text-lg text-gray-800'>
-                        //             {driver.first_name} {driver.last_name}
-                        //         </div>
-                        //         <div className='text-gray-500'>
-                        //             {driver.team}
-                        //         </div>
-                        //     </div>
-                        // </div>
 
                         <div key={i} className='flex gap-8 items-center border-t border-gray-200 transition duration-300 ease-in-out hover:bg-red-100'>
                             <div className='font-bold text-gray-800 text-xl'>

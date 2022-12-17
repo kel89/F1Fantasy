@@ -120,7 +120,7 @@ export default function Race({}){
                     { raceData == undefined ? <ReactLoading type='balls' color='red' /> : (
                         <>
                             <div className='mb-2'>
-                                <div className='text-2xl font-bold'>
+                                <div className='text-3xl font-racing'>
                                     {raceData.name}
                                 </div>
                                 <div>

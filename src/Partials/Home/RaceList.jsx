@@ -65,9 +65,12 @@ export default function RaceList({}){
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon/>}
                 id="raceListAccordion">
-                <Typography>
+                {/* <Typography>
                     Race List
-                </Typography>
+                </Typography> */}
+                <h1 className='font-racing text-2xl text-gray-700'>
+                    Race List
+                </h1>
             </AccordionSummary>
             <AccordionDetails
                 sx={{maxHeight:'700px', overflowY:"auto"}}>

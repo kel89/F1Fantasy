@@ -39,7 +39,7 @@ export function Login() {
     // </View>
     <div className='h-screen w-screen bg-red-600 flex items-center justify-center'>
         <div>
-            <h1 className='text-white text-3xl font-semibold text-center mb-2'>
+            <h1 className='text-white font-racing text-3xl font-semibold text-center mb-2'>
                 Ken's Fantasy Formula 1
             </h1>
             <Authenticator formFields={formFields}> </Authenticator>

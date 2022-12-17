@@ -49,7 +49,7 @@ export function UserHome() {
                 'nickname': user.attributes.nickname,
                 'total_points': 0
             }}));
-            console.log(resp);
+            // console.log(resp);
             setUserData(resp.data);
         }
         else{
@@ -63,17 +63,8 @@ export function UserHome() {
         checkUser();
     }, []);
 
-    console.log(userData);
+    // console.log(userData);
 
-    const renderLeagueList = () => {
-        if (userData == undefined || userData.Leagues == undefined){
-            return <ReactLoading color='red' type='balls'/>
-        }
-        return <LeagueList 
-            leagues={userData.Leagues.items}
-            refreshUser={checkUser}
-            />
-    }
 
     return (
         <>

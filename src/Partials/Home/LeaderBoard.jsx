@@ -61,9 +61,12 @@ export default function LeaderBoard({}){
             <AccordionSummary
                 expandIcon={<ExpandMoreIcon/>}
                 id="raceListAccordion">
-                <Typography>
+                {/* <Typography>
                     Leaderboard
-                </Typography>
+                </Typography> */}
+                <h1 className='font-racing text-2xl text-gray-700'>
+                    Leaderboard
+                </h1>
             </AccordionSummary>
             <AccordionDetails>
                 {

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuthenticator } from "@aws-amplify/ui-react";
 import MainDrawer from './MainDrawer';
+import { useNavigate } from 'react-router-dom';
 
 import { AppBar, Box, Toolbar, Button, IconButton, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -12,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
  */
 export default function Layout({children, pageName}){
     const { signOut } = useAuthenticator((context) => [context.signOut]);
+    const naviage = useNavigate();
     const [open, setOpen] = useState(false);
 
 
@@ -40,6 +42,12 @@ export default function Layout({children, pageName}){
                             edge='right'>
                             Sign Out
                         </Button> */}
+                        <Button 
+                            onClick={() => naviage(-1)}
+                            color='inherit'
+                            edge='right'>
+                            Back
+                        </Button>
                     </Toolbar>
                 </AppBar>
             </Box>
