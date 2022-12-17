@@ -91,6 +91,9 @@ export default function RaceList({}){
                                 )
                             })
                         }
+                        <h2 className='font-bold text-gray-500'>
+                            All Races
+                        </h2>
                         <div className='flex flex-col gap-2'>
                             {raceData.sort( (a,b) => (new Date(a.date) - new Date(b.date))).map((race, i) => {
                                 return <RaceCard data={race} key={i}/>

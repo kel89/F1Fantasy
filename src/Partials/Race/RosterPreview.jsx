@@ -73,10 +73,31 @@ export default function RosterPreview({id, toggler}){
                         //             secondary={driver.team}
                         //             />
                         //    </ListItem>
-                        <div key={i} className='flex border-t border-gray-200 transition duration-300 ease-in-out hover:bg-red-100'>
-                            <div className='font-bold text-gray-800 text-xl inline-block align-middle'>
+
+
+                        // <div key={i} className='flex border-t border-gray-200 transition duration-300 ease-in-out hover:bg-red-100'>
+                        //     <div className='font-bold text-gray-800 text-xl inline-block align-middle'>
+                        //         {i+1}
+                        //     </div>
+                        //     <div className='ml-4 flex flex-col'>
+                        //         <img src={require(`../../assets/drivers/${driver.abbreviation.toLowerCase()}.png`)} alt={null} />
+                        //         <div className='text-lg text-gray-800'>
+                        //             {driver.first_name} {driver.last_name}
+                        //         </div>
+                        //         <div className='text-gray-500'>
+                        //             {driver.team}
+                        //         </div>
+                        //     </div>
+                        // </div>
+
+                        <div key={i} className='flex gap-8 items-center border-t border-gray-200 transition duration-300 ease-in-out hover:bg-red-100'>
+                            <div className='font-bold text-gray-800 text-xl'>
                                 {i+1}
                             </div>
+                            <img 
+                                className='h-16 w-16'
+                                src={require(`../../assets/drivers/${driver.abbreviation.toLowerCase()}.png`)} 
+                                alt={''} />
                             <div className='ml-4 flex flex-col'>
                                 <div className='text-lg text-gray-800'>
                                     {driver.first_name} {driver.last_name}

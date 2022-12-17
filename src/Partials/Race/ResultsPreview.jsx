@@ -18,7 +18,13 @@ export default function ResultsPreview({results}){
                         return (
                             <tr key={i} className='border-b even:bg-gray-50 transition duration-150 hover:bg-red-100'>
                                 <td className="px-3 py-2 text-gray-900">{i+1}</td>
-                                <td className="px-3 py-2 text-gray-900">{result.driver.first_name} {result.driver.last_name}</td>
+                                <td className="sm:px-3 text-xs sm:text-base px-0 py-2 text-gray-900">
+                                    <img 
+                                        className='inline-block h-8 w-8'
+                                        src={require(`../../assets/drivers/${result.driver.abbreviation.toLowerCase()}.png`)} 
+                                        alt={''} />
+                                    {result.driver.first_name} {result.driver.last_name}
+                                </td>
                                 <td className="px-3 py-2 text-gray-900">{result.points}</td>
                             </tr>
                         )
