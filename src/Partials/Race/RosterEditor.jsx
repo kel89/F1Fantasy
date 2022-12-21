@@ -17,10 +17,12 @@ export default function RosterEditor({
      * and save that order in setDriverOrder, then a re-render should be automatic
      */
 	return (
-        <div className="flex justify-center bg-gray-100">
+        <div className="flex justify-center">
             <div>
-                <div className='text-xl font-bold'>
-                    Drag and Drop to reorder
+                <div className='text-xl font-bold my-1 text-center'>
+                    Drag and Drop to reorder 
+                    <br/>
+                    (only top 10 count)
                 </div>
                 <ReactSortable 
                     list={driverOrder} 

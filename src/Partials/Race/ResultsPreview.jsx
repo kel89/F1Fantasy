@@ -16,7 +16,7 @@ export default function ResultsPreview({results}){
 
     return (
         <div className='bg-white p-4 border shadow-lg'>
-            <h1 className='text-xl text-gray-500 font-bold'>
+            <h1 className='text-xl text-gray-500 font-racing'>
                 Race Results
             </h1>
             <table className='table-auto w-full'>
