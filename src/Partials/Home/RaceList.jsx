@@ -6,7 +6,6 @@ import RaceCard from './RaceCard';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function RaceList({}){
@@ -35,26 +34,6 @@ export default function RaceList({}){
         setRaceData(resp.data.listRaces.items);
     }
 
-    // return (
-    //     <>
-    //         <div className='w-full p-4 border border-gray-300 rounded-lg shadow-lg bg-white'>
-    //             <h1 className='text-xl text-gray-600 mb-2'>
-    //                 Races
-    //             </h1>
-    //             {
-    //                 raceData == undefined ? (
-    //                     <ReactLoading type='balls' color='red' />
-    //                 ) : (
-    //                 <div className='flex flex-col gap-2'>
-    //                     {raceData.sort( (a,b) => (new Date(a.date) - new Date(b.date))).map((race, i) => {
-    //                         return <RaceCard data={race} key={i}/>
-    //                     })}
-    //                 </div>
-    //                 )
-    //             }
-    //         </div>
-    //     </>
-    // )
 
     return (
 

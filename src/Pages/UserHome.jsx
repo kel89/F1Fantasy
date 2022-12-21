@@ -10,6 +10,7 @@ import ReactLoading from "react-loading";
 import LeagueList from '../Partials/Home/LeagueList';
 import RaceList from '../Partials/Home/RaceList';
 import LeaderBoard from '../Partials/Home/LeaderBoard';
+import CommisionersCorner from '../Partials/Home/CommisionersCorner';
 
 
 export function UserHome() {
@@ -74,8 +75,13 @@ export function UserHome() {
                     <div>
                         <RaceList />
                     </div>
-                    <div>
-                        <LeaderBoard />
+                    <div className='flex flex-col gap-8 '>
+                        <div>
+                            <LeaderBoard />
+                        </div>
+                        <div>
+                            <CommisionersCorner />
+                        </div>
                     </div>
                     {/* <h1 className='text-3xl text-gray-500 mb-4'>
                         Your Leagues
