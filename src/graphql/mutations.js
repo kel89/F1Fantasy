@@ -454,39 +454,42 @@ export const deleteChangeAllowed = /* GraphQL */ `
     }
   }
 `;
-export const createCommisionerMessage = /* GraphQL */ `
-  mutation CreateCommisionerMessage(
-    $input: CreateCommisionerMessageInput!
-    $condition: ModelCommisionerMessageConditionInput
+export const createCommissionerMessage = /* GraphQL */ `
+  mutation CreateCommissionerMessage(
+    $input: CreateCommissionerMessageInput!
+    $condition: ModelCommissionerMessageConditionInput
   ) {
-    createCommisionerMessage(input: $input, condition: $condition) {
+    createCommissionerMessage(input: $input, condition: $condition) {
       message
+      last_edit_by
       id
       createdAt
       updatedAt
     }
   }
 `;
-export const updateCommisionerMessage = /* GraphQL */ `
-  mutation UpdateCommisionerMessage(
-    $input: UpdateCommisionerMessageInput!
-    $condition: ModelCommisionerMessageConditionInput
+export const updateCommissionerMessage = /* GraphQL */ `
+  mutation UpdateCommissionerMessage(
+    $input: UpdateCommissionerMessageInput!
+    $condition: ModelCommissionerMessageConditionInput
   ) {
-    updateCommisionerMessage(input: $input, condition: $condition) {
+    updateCommissionerMessage(input: $input, condition: $condition) {
       message
+      last_edit_by
       id
       createdAt
       updatedAt
     }
   }
 `;
-export const deleteCommisionerMessage = /* GraphQL */ `
-  mutation DeleteCommisionerMessage(
-    $input: DeleteCommisionerMessageInput!
-    $condition: ModelCommisionerMessageConditionInput
+export const deleteCommissionerMessage = /* GraphQL */ `
+  mutation DeleteCommissionerMessage(
+    $input: DeleteCommissionerMessageInput!
+    $condition: ModelCommissionerMessageConditionInput
   ) {
-    deleteCommisionerMessage(input: $input, condition: $condition) {
+    deleteCommissionerMessage(input: $input, condition: $condition) {
       message
+      last_edit_by
       id
       createdAt
       updatedAt

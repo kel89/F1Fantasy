@@ -62,9 +62,9 @@ export default function RaceList({}){
                             raceData
                                 .sort( (a,b) => (new Date(a.date) - new Date(b.date)))
                                 .filter(x => (new Date(x.date) > (new Date())))
-                                .filter((d,i) => i == 0).map(race => {
+                                .filter((d,i) => i == 0).map((race, i) => {
                                 return (
-                                    <div className='mb-2 border-2 p-4 border-yellow-500 rounded-lg shadow-lg'>
+                                    <div key={i} className='mb-2 border-2 p-4 border-yellow-500 rounded-lg shadow-lg'>
                                         <h2 className='font-bold text-gray-500'>
                                             Next Race
                                         </h2>

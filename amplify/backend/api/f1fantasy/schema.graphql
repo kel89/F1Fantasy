@@ -72,4 +72,5 @@ type ChangeAllowed @model {
 
 type CommissionerMessage @model{
     message: String!
+    last_edit_by: String!
 }

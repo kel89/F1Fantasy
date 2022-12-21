@@ -253,29 +253,31 @@ export const listChangeAlloweds = /* GraphQL */ `
     }
   }
 `;
-export const getCommisionerMessage = /* GraphQL */ `
-  query GetCommisionerMessage($id: ID!) {
-    getCommisionerMessage(id: $id) {
+export const getCommissionerMessage = /* GraphQL */ `
+  query GetCommissionerMessage($id: ID!) {
+    getCommissionerMessage(id: $id) {
       message
+      last_edit_by
       id
       createdAt
       updatedAt
     }
   }
 `;
-export const listCommisionerMessages = /* GraphQL */ `
-  query ListCommisionerMessages(
-    $filter: ModelCommisionerMessageFilterInput
+export const listCommissionerMessages = /* GraphQL */ `
+  query ListCommissionerMessages(
+    $filter: ModelCommissionerMessageFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listCommisionerMessages(
+    listCommissionerMessages(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
     ) {
       items {
         message
+        last_edit_by
         id
         createdAt
         updatedAt

@@ -406,36 +406,39 @@ export const onDeleteChangeAllowed = /* GraphQL */ `
     }
   }
 `;
-export const onCreateCommisionerMessage = /* GraphQL */ `
-  subscription OnCreateCommisionerMessage(
-    $filter: ModelSubscriptionCommisionerMessageFilterInput
+export const onCreateCommissionerMessage = /* GraphQL */ `
+  subscription OnCreateCommissionerMessage(
+    $filter: ModelSubscriptionCommissionerMessageFilterInput
   ) {
-    onCreateCommisionerMessage(filter: $filter) {
+    onCreateCommissionerMessage(filter: $filter) {
       message
+      last_edit_by
       id
       createdAt
       updatedAt
     }
   }
 `;
-export const onUpdateCommisionerMessage = /* GraphQL */ `
-  subscription OnUpdateCommisionerMessage(
-    $filter: ModelSubscriptionCommisionerMessageFilterInput
+export const onUpdateCommissionerMessage = /* GraphQL */ `
+  subscription OnUpdateCommissionerMessage(
+    $filter: ModelSubscriptionCommissionerMessageFilterInput
   ) {
-    onUpdateCommisionerMessage(filter: $filter) {
+    onUpdateCommissionerMessage(filter: $filter) {
       message
+      last_edit_by
       id
       createdAt
       updatedAt
     }
   }
 `;
-export const onDeleteCommisionerMessage = /* GraphQL */ `
-  subscription OnDeleteCommisionerMessage(
-    $filter: ModelSubscriptionCommisionerMessageFilterInput
+export const onDeleteCommissionerMessage = /* GraphQL */ `
+  subscription OnDeleteCommissionerMessage(
+    $filter: ModelSubscriptionCommissionerMessageFilterInput
   ) {
-    onDeleteCommisionerMessage(filter: $filter) {
+    onDeleteCommissionerMessage(filter: $filter) {
       message
+      last_edit_by
       id
       createdAt
       updatedAt
