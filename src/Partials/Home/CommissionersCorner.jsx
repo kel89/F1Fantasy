@@ -3,7 +3,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
-export default function CommisionersCorner({}){
+export default function CommissionersCorner({}){
     const [expanded, setExpanded] = useState(true);
 
 
@@ -15,7 +15,7 @@ export default function CommisionersCorner({}){
                 expandIcon={<ExpandMoreIcon/>}
                 id="commisionersCornerAccordion">
                 <h1 className='font-racing text-2xl text-gray-700'>
-                    Commisioner's Corner
+                    Commissioner's Corner
                 </h1>
             </AccordionSummary>
             <AccordionDetails>

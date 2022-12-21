@@ -253,6 +253,37 @@ export const listChangeAlloweds = /* GraphQL */ `
     }
   }
 `;
+export const getCommisionerMessage = /* GraphQL */ `
+  query GetCommisionerMessage($id: ID!) {
+    getCommisionerMessage(id: $id) {
+      message
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listCommisionerMessages = /* GraphQL */ `
+  query ListCommisionerMessages(
+    $filter: ModelCommisionerMessageFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCommisionerMessages(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        message
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const getRaceDrivers = /* GraphQL */ `
   query GetRaceDrivers($id: ID!) {
     getRaceDrivers(id: $id) {

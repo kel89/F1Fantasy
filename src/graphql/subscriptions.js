@@ -406,6 +406,42 @@ export const onDeleteChangeAllowed = /* GraphQL */ `
     }
   }
 `;
+export const onCreateCommisionerMessage = /* GraphQL */ `
+  subscription OnCreateCommisionerMessage(
+    $filter: ModelSubscriptionCommisionerMessageFilterInput
+  ) {
+    onCreateCommisionerMessage(filter: $filter) {
+      message
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateCommisionerMessage = /* GraphQL */ `
+  subscription OnUpdateCommisionerMessage(
+    $filter: ModelSubscriptionCommisionerMessageFilterInput
+  ) {
+    onUpdateCommisionerMessage(filter: $filter) {
+      message
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteCommisionerMessage = /* GraphQL */ `
+  subscription OnDeleteCommisionerMessage(
+    $filter: ModelSubscriptionCommisionerMessageFilterInput
+  ) {
+    onDeleteCommisionerMessage(filter: $filter) {
+      message
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const onCreateRaceDrivers = /* GraphQL */ `
   subscription OnCreateRaceDrivers(
     $filter: ModelSubscriptionRaceDriversFilterInput

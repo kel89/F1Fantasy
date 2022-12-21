@@ -10,7 +10,7 @@ import ReactLoading from "react-loading";
 import LeagueList from '../Partials/Home/LeagueList';
 import RaceList from '../Partials/Home/RaceList';
 import LeaderBoard from '../Partials/Home/LeaderBoard';
-import CommisionersCorner from '../Partials/Home/CommisionersCorner';
+import CommissionersCorner from '../Partials/Home/CommissionersCorner';
 
 
 export function UserHome() {
@@ -80,7 +80,7 @@ export function UserHome() {
                             <LeaderBoard />
                         </div>
                         <div>
-                            <CommisionersCorner />
+                            <CommissionersCorner />
                         </div>
                     </div>
                     {/* <h1 className='text-3xl text-gray-500 mb-4'>

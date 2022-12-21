@@ -13,6 +13,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import League from './Pages/League';
 import Race from './Pages/Race';
+import { RequireAdmin } from './Utils/RequireAdmin';
+import AdminPage from './Pages/AdminPage';
 
 
 
@@ -53,6 +55,14 @@ function MyRoutes() {
                             <RequireAuth>
                                 <About />
                             </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path="/admin"
+                        element={
+                            <RequireAdmin>
+                                <AdminPage />
+                            </RequireAdmin>
                         }
                     />
 					<Route path="/login" element={<Login />} />

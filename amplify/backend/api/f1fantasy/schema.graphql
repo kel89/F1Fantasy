@@ -69,3 +69,7 @@ type Roster @model {
 type ChangeAllowed @model {
     allowed: Int!
 }
+
+type CommissionerMessage @model{
+    message: String!
+}

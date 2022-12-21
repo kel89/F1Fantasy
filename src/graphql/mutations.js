@@ -454,6 +454,45 @@ export const deleteChangeAllowed = /* GraphQL */ `
     }
   }
 `;
+export const createCommisionerMessage = /* GraphQL */ `
+  mutation CreateCommisionerMessage(
+    $input: CreateCommisionerMessageInput!
+    $condition: ModelCommisionerMessageConditionInput
+  ) {
+    createCommisionerMessage(input: $input, condition: $condition) {
+      message
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateCommisionerMessage = /* GraphQL */ `
+  mutation UpdateCommisionerMessage(
+    $input: UpdateCommisionerMessageInput!
+    $condition: ModelCommisionerMessageConditionInput
+  ) {
+    updateCommisionerMessage(input: $input, condition: $condition) {
+      message
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteCommisionerMessage = /* GraphQL */ `
+  mutation DeleteCommisionerMessage(
+    $input: DeleteCommisionerMessageInput!
+    $condition: ModelCommisionerMessageConditionInput
+  ) {
+    deleteCommisionerMessage(input: $input, condition: $condition) {
+      message
+      id
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export const createRaceDrivers = /* GraphQL */ `
   mutation CreateRaceDrivers(
     $input: CreateRaceDriversInput!
