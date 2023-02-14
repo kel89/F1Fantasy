@@ -8,7 +8,7 @@ import { Login } from "./Pages/Login";
 import About from './Pages/About';
 
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
 import League from './Pages/League';
@@ -20,55 +20,57 @@ import AdminPage from './Pages/AdminPage';
 
 function MyRoutes() {
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route path="/">
-					{/* <Route index element={<Home />} /> */}
-					<Route
-						// path="/protected"
-						index
-						element={
-							<RequireAuth>
-								<UserHome />
-							</RequireAuth>
-						}
-					/>
-                    <Route
-                        path="/league/:id"
-                        element={
-                            <RequireAuth>
-                                <League />
-                            </RequireAuth>
-                        }
-                    />
-                    <Route
-                        path="/race/:id"
-                        element={
-                            <RequireAuth>
-                                <Race />
-                            </RequireAuth>
-                        }
-                    />
-                    <Route
-                        path="/about"
-                        element={
-                            <RequireAuth>
-                                <About />
-                            </RequireAuth>
-                        }
-                    />
-                    <Route
-                        path="/admin"
-                        element={
-                            <RequireAdmin>
-                                <AdminPage />
-                            </RequireAdmin>
-                        }
-                    />
-					<Route path="/login" element={<Login />} />
-				</Route>
-			</Routes>
-		</BrowserRouter>
+		// <BrowserRouter>
+			<HashRouter>
+                <Routes>
+                    <Route path="/">
+                        {/* <Route index element={<Home />} /> */}
+                        <Route
+                            // path="/protected"
+                            index
+                            element={
+                                <RequireAuth>
+                                    <UserHome />
+                                </RequireAuth>
+                            }
+                        />
+                                    <Route
+                                        path="/league/:id"
+                                        element={
+                                            <RequireAuth>
+                                                <League />
+                                            </RequireAuth>
+                                        }
+                                    />
+                                    <Route
+                                        path="/race/:id"
+                                        element={
+                                            <RequireAuth>
+                                                <Race />
+                                            </RequireAuth>
+                                        }
+                                    />
+                                    <Route
+                                        path="/about"
+                                        element={
+                                            <RequireAuth>
+                                                <About />
+                                            </RequireAuth>
+                                        }
+                                    />
+                                    <Route
+                                        path="/admin"
+                                        element={
+                                            <RequireAdmin>
+                                                <AdminPage />
+                                            </RequireAdmin>
+                                        }
+                                    />
+                        <Route path="/login" element={<Login />} />
+                    </Route>
+                </Routes>
+            </HashRouter>
+		// </BrowserRouter>
 	);
 }
 
