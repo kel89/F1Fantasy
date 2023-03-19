@@ -89,7 +89,7 @@ export default function About({}){
                             Issues?
                         </h1>
                         <p>
-                            Deal with it
+                            Deal with it--or call me
                         </p>
                     </div>
                 </div>

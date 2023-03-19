@@ -34,6 +34,11 @@ export default function RaceList({}){
         setRaceData(resp.data.listRaces.items);
     }
 
+    
+    // Comparison date of today, but at midnight so we show
+    // the correct next race
+    let refDate = new Date();
+    refDate.setHours(0); refDate.setMinutes(0);
 
     return (
 
@@ -61,7 +66,8 @@ export default function RaceList({}){
                         {
                             raceData
                                 .sort( (a,b) => (new Date(a.date) - new Date(b.date)))
-                                .filter(x => (new Date(x.date) > (new Date())))
+                                // .filter(x => (new Date(x.date) >= (new Date())))
+                                .filter(x => (new Date(x.date) >= refDate))
                                 .filter((d,i) => i == 0).map((race, i) => {
                                 return (
                                     <div key={i} className='mb-2 border-2 p-4 border-yellow-500 rounded-lg shadow-lg'>

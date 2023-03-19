@@ -4,12 +4,13 @@
 //  ___) | (_| (_) | | |  __/ |  _ < (_| | (_|  __/
 // |____/ \___\___/|_|  \___| |_| \_\__,_|\___\___|
                                                 
+import { Note } from '@mui/icons-material';
 import { Amplify, API, graphqlOperation } from 'aws-amplify';
 import awsExports from './aws-exports.mjs'; // NOTE, make manually, and may change
 
 Amplify.configure(awsExports);
 
-const scoreRace = (raceId, results) => {
+const scoreRace = async (raceId, results) => {
     console.log("Creating Results...");
     createResults(raceId, results);
 
@@ -188,7 +189,6 @@ const updateRosterPoints = async (rosterId, points) => {
 const updateUserTotalScores = async (raceId) => {
     // get all rosters for a race
     let allRosters = await getRaceRosters(raceId);
-
     // For each roster, get the user and update their points
     allRosters.forEach(async roster => {
         // Update the points
@@ -218,27 +218,27 @@ const updateUserPoints = async (userId, points) => {
 let raceResults = [
     {
         place: 1,
-        driver: "HAM",
+        driver: "PER",
         points: 25
     },
     {
         place: 2,
-        driver: "RUS",
+        driver: "VER",
         points: 18
     },
     {
         place: 3,
-        driver: "VER",
+        driver: "ALO",
         points: 15
     },
     {
         place: 4,
-        driver: "PER",
+        driver: "RUS",
         points: 12
     },
     {
         place: 5,
-        driver: "LEC",
+        driver: "HAM",
         points: 10
     },
     {
@@ -248,17 +248,17 @@ let raceResults = [
     },
     {
         place: 7,
-        driver: "GAS",
+        driver: "LEC",
         points: 6
     },
     {
         place: 8,
-        driver: "ALO",
+        driver: "OCO",
         points: 4
     },
     {
         place: 9,
-        driver: "STR",
+        driver: "GAS",
         points: 2
     },
     {
@@ -269,6 +269,10 @@ let raceResults = [
 ];
 
 // Get the Race ID Mannually from the DB or wherever
-let raceId = "be8663b1-3552-4e2a-bf8f-12314546f014";
+let raceId = "c30e2604-2316-4c88-a73c-152694483246";
 
-scoreRace(raceId, raceResults);
+await scoreRace(raceId, raceResults);
+updateUserTotalScores(raceId);
+
+// Note, need scoreRace to finish before starting updateUserTotalScores
+// otherwise it will be adding 0 point rosters
