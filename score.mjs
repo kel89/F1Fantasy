@@ -212,6 +212,75 @@ const updateUserPoints = async (userId, points) => {
     }
 }
 
+/**
+ * Gets all the rosters for the given race and SUBTRACTS the roster
+ * points from the users' total scores. This is to be used
+ * when there has been an error (like a late penalty being applied)
+ * neccesitating that the scores be re-done
+ * @param {String} raceId 
+ */
+const subtractRaceResultFromUsers = async (raceId) => {
+    // get all rosters for a race
+    let allRosters = await getRaceRosters(raceId);
+    // For each roster, get the user and update their points
+    allRosters.forEach(async roster => {
+        // Update the points
+        let newPoints = roster.user.total_points - roster.total_points;
+        await updateUserPoints(roster.user.id, newPoints);
+    })
+}
+
+
+/**
+ * Deletes the results for a given race (does not adjust roster or scoring)
+ * @param {String} raceId 
+ */
+const deleteRaceResults = async (raceId) => {
+    // Get all the results for the given race
+    let results = await getRaceResults(raceId);
+    console.log(results);
+
+    // Delete all of the results
+    results.forEach(result => deleteResult(result.id));
+}
+
+const getRaceResults = async (raceId) => {
+    let qs = String(`
+    query MyQuery {
+        listResults(filter: {raceResultId: {eq: "${raceId}"}}) {
+          items {
+            id
+          }
+        }
+      }      
+    `);
+
+    try {
+        let res = await API.graphql({query:qs});
+        return res.data.listResults.items;
+    } catch (error) {
+        console.warn(error);
+        return []
+    }
+}
+
+const deleteResult = async (resultId) => {
+    let qs = String(`
+    mutation MyMutation {
+        deleteResult(input: {id: "${resultId}"}) {
+          id
+        }
+      }
+    `);
+
+    try {
+        let res = await API.graphql({query:qs});
+    } catch (error) {
+        console.warn(error);
+        console.log("Result not deleted for id:", resultId)
+    }
+}
+
 
 
 // -----------------------------------------------------------------------------
@@ -276,3 +345,10 @@ updateUserTotalScores(raceId);
 
 // Note, need scoreRace to finish before starting updateUserTotalScores
 // otherwise it will be adding 0 point rosters
+
+// Use this function to take roster scores for a race
+// and remove them from all users' total scores
+// subtractRaceResultFromUsers(raceId);
+
+// Clears results for given races
+// deleteRaceResults(raceId);
