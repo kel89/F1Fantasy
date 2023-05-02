@@ -297,50 +297,50 @@ let raceResults = [
     },
     {
         place: 3,
-        driver: "ALO",
+        driver: "LEC",
         points: 15
     },
     {
         place: 4,
-        driver: "RUS",
+        driver: "ALO",
         points: 12
     },
     {
         place: 5,
-        driver: "HAM",
+        driver: "SAI",
         points: 10
     },
     {
         place: 6,
-        driver: "SAI",
+        driver: "HAM",
         points: 8
     },
     {
         place: 7,
-        driver: "LEC",
+        driver: "STR",
         points: 6
     },
     {
         place: 8,
-        driver: "OCO",
+        driver: "RUS",
         points: 4
     },
     {
         place: 9,
-        driver: "GAS",
+        driver: "NOR",
         points: 2
     },
     {
         place: 10,
-        driver: "MAG",
+        driver: "TSU",
         points: 1
     }
 ];
 
 // Get the Race ID Mannually from the DB or wherever
-let raceId = "c30e2604-2316-4c88-a73c-152694483246";
+let raceId = "2cef2205-2ca3-44ee-8630-15c08c5e1ea0";
 
-await scoreRace(raceId, raceResults);
+// await scoreRace(raceId, raceResults); // this await is still not working!
 updateUserTotalScores(raceId);
 
 // Note, need scoreRace to finish before starting updateUserTotalScores
