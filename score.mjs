@@ -287,22 +287,22 @@ const deleteResult = async (resultId) => {
 let raceResults = [
     {
         place: 1,
-        driver: "PER",
+        driver: "VER",
         points: 25
     },
     {
         place: 2,
-        driver: "VER",
+        driver: "PER",
         points: 18
     },
     {
         place: 3,
-        driver: "LEC",
+        driver: "ALO",
         points: 15
     },
     {
         place: 4,
-        driver: "ALO",
+        driver: "RUS",
         points: 12
     },
     {
@@ -317,28 +317,28 @@ let raceResults = [
     },
     {
         place: 7,
-        driver: "STR",
+        driver: "LEC",
         points: 6
     },
     {
         place: 8,
-        driver: "RUS",
+        driver: "GAS",
         points: 4
     },
     {
         place: 9,
-        driver: "NOR",
+        driver: "OCO",
         points: 2
     },
     {
         place: 10,
-        driver: "TSU",
+        driver: "MAG",
         points: 1
     }
 ];
 
 // Get the Race ID Mannually from the DB or wherever
-let raceId = "2cef2205-2ca3-44ee-8630-15c08c5e1ea0";
+let raceId = "9a76c55d-f865-4efb-8eec-8adadcb81544";
 
 // await scoreRace(raceId, raceResults); // this await is still not working!
 updateUserTotalScores(raceId);
