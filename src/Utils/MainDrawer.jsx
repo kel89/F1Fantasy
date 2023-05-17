@@ -14,6 +14,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import HomeIcon from '@mui/icons-material/Home';
 import HelpIcon from '@mui/icons-material/Help';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 import { useNavigate } from 'react-router-dom';
 import { useAuthenticator } from "@aws-amplify/ui-react";
@@ -58,6 +59,15 @@ export default function MainDrawer({open, setOpen}) {
 					<HelpIcon />
 				</ListItemIcon>
 				<ListItemText primary={'How To Play'} />
+			</ListItemButton>
+		</ListItem>
+
+        <ListItem disablePadding>
+			<ListItemButton onClick={() => navigate('/settings')}>
+				<ListItemIcon>
+					<SettingsIcon />
+				</ListItemIcon>
+				<ListItemText primary={'Settings'} />
 			</ListItemButton>
 		</ListItem>
 		{/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (

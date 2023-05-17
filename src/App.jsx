@@ -15,6 +15,7 @@ import League from './Pages/League';
 import Race from './Pages/Race';
 import { RequireAdmin } from './Utils/RequireAdmin';
 import AdminPage from './Pages/AdminPage';
+import Settings from './Pages/Settings';
 
 
 
@@ -64,6 +65,14 @@ function MyRoutes() {
                                             <RequireAdmin>
                                                 <AdminPage />
                                             </RequireAdmin>
+                                        }
+                                    />
+                                    <Route
+                                        path='/settings'
+                                        element={
+                                            <RequireAuth>
+                                                <Settings />
+                                            </RequireAuth>
                                         }
                                     />
                         <Route path="/login" element={<Login />} />
