@@ -292,27 +292,27 @@ let raceResults = [
     },
     {
         place: 2,
-        driver: "PER",
+        driver: "NOR",
         points: 18
     },
     {
         place: 3,
-        driver: "ALO",
+        driver: "PER",
         points: 15
     },
     {
         place: 4,
-        driver: "RUS",
+        driver: "HAM",
         points: 12
     },
     {
         place: 5,
-        driver: "SAI",
+        driver: "PIA",
         points: 10
     },
     {
         place: 6,
-        driver: "HAM",
+        driver: "RUS",
         points: 8
     },
     {
@@ -322,23 +322,23 @@ let raceResults = [
     },
     {
         place: 8,
-        driver: "GAS",
+        driver: "SAI",
         points: 4
     },
     {
         place: 9,
-        driver: "OCO",
+        driver: "ALO",
         points: 2
     },
     {
         place: 10,
-        driver: "MAG",
+        driver: "STR",
         points: 1
     }
 ];
 
 // Get the Race ID Mannually from the DB or wherever
-let raceId = "9a76c55d-f865-4efb-8eec-8adadcb81544";
+let raceId = "d2caf58c-3d9d-4a1b-b703-2a3761965631";
 
 // await scoreRace(raceId, raceResults); // this await is still not working!
 updateUserTotalScores(raceId);

@@ -127,6 +127,43 @@ const addAllDriversToAllRaces = async () => {
     })
 }
 
+/**
+ * Adds a new driver to the races
+ * @param {String} driverId 
+ */
+const addNewDriverToRaces = async (driverId, startDate) => {
+    // Get the races to add the driver to
+    let getRaces = String(`
+    query MyQuery {
+        listRaces(filter: {date: {ge: "${startDate}"}}) {
+            items {
+            id
+            name
+            }
+        }
+    }
+    `)
+    let racesResp = await API.graphql({query: getRaces});
+    let allRaces = racesResp.data.listRaces.items;
+    console.log(allRaces);
+
+    // Add the driver to those races
+    allRaces.forEach(async race => {
+        let qs = String(`
+        mutation AddLink {
+            createRaceDrivers(input: {driverId: "${driverId}", raceId: "${race.id}"}){
+                id
+            }
+        }
+        `);
+        let resp = await API.graphql({query: qs});
+        console.log(resp);
+    })
+}
+
 
 // MAIN ------------------------------------
 // nothing bitch
+
+// Add danny ric to remaining races
+// addNewDriverToRaces("e0cb048e-5f35-4ba8-8b68-a8e9ab8ce1fa", "2023-07-24");
