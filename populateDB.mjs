@@ -163,7 +163,9 @@ const addNewDriverToRaces = async (driverId, startDate) => {
 
 
 // MAIN ------------------------------------
-// nothing bitch
+addDrivers();
+addRaces();
+addAllDriversToAllRaces();
 
 // Add danny ric to remaining races
 // addNewDriverToRaces("e0cb048e-5f35-4ba8-8b68-a8e9ab8ce1fa", "2023-07-24");
