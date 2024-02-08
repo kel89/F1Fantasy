@@ -10,14 +10,13 @@ export const onCreateDriver = /* GraphQL */ `
       abbreviation
       number
       team
-      races {
-        nextToken
-      }
       results {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -30,14 +29,13 @@ export const onUpdateDriver = /* GraphQL */ `
       abbreviation
       number
       team
-      races {
-        nextToken
-      }
       results {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -50,14 +48,13 @@ export const onDeleteDriver = /* GraphQL */ `
       abbreviation
       number
       team
-      races {
-        nextToken
-      }
       results {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -69,17 +66,17 @@ export const onCreateRace = /* GraphQL */ `
       country
       city
       name
-      drivers {
-        nextToken
-      }
       result {
         nextToken
+        __typename
       }
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -91,17 +88,17 @@ export const onUpdateRace = /* GraphQL */ `
       country
       city
       name
-      drivers {
-        nextToken
-      }
       result {
         nextToken
+        __typename
       }
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -113,17 +110,17 @@ export const onDeleteRace = /* GraphQL */ `
       country
       city
       name
-      drivers {
-        nextToken
-      }
       result {
         nextToken
+        __typename
       }
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -138,6 +135,7 @@ export const onCreateResult = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       driver {
         id
@@ -148,6 +146,7 @@ export const onCreateResult = /* GraphQL */ `
         team
         createdAt
         updatedAt
+        __typename
       }
       points
       id
@@ -155,6 +154,7 @@ export const onCreateResult = /* GraphQL */ `
       updatedAt
       driverResultsId
       raceResultId
+      __typename
     }
   }
 `;
@@ -169,6 +169,7 @@ export const onUpdateResult = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       driver {
         id
@@ -179,6 +180,7 @@ export const onUpdateResult = /* GraphQL */ `
         team
         createdAt
         updatedAt
+        __typename
       }
       points
       id
@@ -186,6 +188,7 @@ export const onUpdateResult = /* GraphQL */ `
       updatedAt
       driverResultsId
       raceResultId
+      __typename
     }
   }
 `;
@@ -200,6 +203,7 @@ export const onDeleteResult = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       driver {
         id
@@ -210,6 +214,7 @@ export const onDeleteResult = /* GraphQL */ `
         team
         createdAt
         updatedAt
+        __typename
       }
       points
       id
@@ -217,6 +222,7 @@ export const onDeleteResult = /* GraphQL */ `
       updatedAt
       driverResultsId
       raceResultId
+      __typename
     }
   }
 `;
@@ -231,9 +237,11 @@ export const onCreateUser = /* GraphQL */ `
       total_points
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -248,9 +256,11 @@ export const onUpdateUser = /* GraphQL */ `
       total_points
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -265,9 +275,11 @@ export const onDeleteUser = /* GraphQL */ `
       total_points
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -287,6 +299,7 @@ export const onCreateRoster = /* GraphQL */ `
         total_points
         createdAt
         updatedAt
+        __typename
       }
       race {
         id
@@ -296,11 +309,13 @@ export const onCreateRoster = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
       raceRostersId
       userRostersId
+      __typename
     }
   }
 `;
@@ -320,6 +335,7 @@ export const onUpdateRoster = /* GraphQL */ `
         total_points
         createdAt
         updatedAt
+        __typename
       }
       race {
         id
@@ -329,11 +345,13 @@ export const onUpdateRoster = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
       raceRostersId
       userRostersId
+      __typename
     }
   }
 `;
@@ -353,6 +371,7 @@ export const onDeleteRoster = /* GraphQL */ `
         total_points
         createdAt
         updatedAt
+        __typename
       }
       race {
         id
@@ -362,47 +381,13 @@ export const onDeleteRoster = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
       raceRostersId
       userRostersId
-    }
-  }
-`;
-export const onCreateChangeAllowed = /* GraphQL */ `
-  subscription OnCreateChangeAllowed(
-    $filter: ModelSubscriptionChangeAllowedFilterInput
-  ) {
-    onCreateChangeAllowed(filter: $filter) {
-      allowed
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateChangeAllowed = /* GraphQL */ `
-  subscription OnUpdateChangeAllowed(
-    $filter: ModelSubscriptionChangeAllowedFilterInput
-  ) {
-    onUpdateChangeAllowed(filter: $filter) {
-      allowed
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteChangeAllowed = /* GraphQL */ `
-  subscription OnDeleteChangeAllowed(
-    $filter: ModelSubscriptionChangeAllowedFilterInput
-  ) {
-    onDeleteChangeAllowed(filter: $filter) {
-      allowed
-      id
-      createdAt
-      updatedAt
+      __typename
     }
   }
 `;
@@ -416,6 +401,7 @@ export const onCreateCommissionerMessage = /* GraphQL */ `
       id
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -429,6 +415,7 @@ export const onUpdateCommissionerMessage = /* GraphQL */ `
       id
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -442,102 +429,7 @@ export const onDeleteCommissionerMessage = /* GraphQL */ `
       id
       createdAt
       updatedAt
-    }
-  }
-`;
-export const onCreateRaceDrivers = /* GraphQL */ `
-  subscription OnCreateRaceDrivers(
-    $filter: ModelSubscriptionRaceDriversFilterInput
-  ) {
-    onCreateRaceDrivers(filter: $filter) {
-      id
-      driverId
-      raceId
-      driver {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
-      }
-      race {
-        id
-        date
-        country
-        city
-        name
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateRaceDrivers = /* GraphQL */ `
-  subscription OnUpdateRaceDrivers(
-    $filter: ModelSubscriptionRaceDriversFilterInput
-  ) {
-    onUpdateRaceDrivers(filter: $filter) {
-      id
-      driverId
-      raceId
-      driver {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
-      }
-      race {
-        id
-        date
-        country
-        city
-        name
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteRaceDrivers = /* GraphQL */ `
-  subscription OnDeleteRaceDrivers(
-    $filter: ModelSubscriptionRaceDriversFilterInput
-  ) {
-    onDeleteRaceDrivers(filter: $filter) {
-      id
-      driverId
-      raceId
-      driver {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
-      }
-      race {
-        id
-        date
-        country
-        city
-        name
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
+      __typename
     }
   }
 `;

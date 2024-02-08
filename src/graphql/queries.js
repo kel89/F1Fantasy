@@ -10,14 +10,13 @@ export const getDriver = /* GraphQL */ `
       abbreviation
       number
       team
-      races {
-        nextToken
-      }
       results {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -37,8 +36,10 @@ export const listDrivers = /* GraphQL */ `
         team
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -50,17 +51,17 @@ export const getRace = /* GraphQL */ `
       country
       city
       name
-      drivers {
-        nextToken
-      }
       result {
         nextToken
+        __typename
       }
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -79,8 +80,10 @@ export const listRaces = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -95,6 +98,7 @@ export const getResult = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       driver {
         id
@@ -105,6 +109,7 @@ export const getResult = /* GraphQL */ `
         team
         createdAt
         updatedAt
+        __typename
       }
       points
       id
@@ -112,6 +117,7 @@ export const getResult = /* GraphQL */ `
       updatedAt
       driverResultsId
       raceResultId
+      __typename
     }
   }
 `;
@@ -129,8 +135,10 @@ export const listResults = /* GraphQL */ `
         updatedAt
         driverResultsId
         raceResultId
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -145,9 +153,11 @@ export const getUser = /* GraphQL */ `
       total_points
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -167,8 +177,10 @@ export const listUsers = /* GraphQL */ `
         total_points
         createdAt
         updatedAt
+        __typename
       }
       nextToken
+      __typename
     }
   }
 `;
@@ -188,6 +200,7 @@ export const getRoster = /* GraphQL */ `
         total_points
         createdAt
         updatedAt
+        __typename
       }
       race {
         id
@@ -197,11 +210,13 @@ export const getRoster = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
       raceRostersId
       userRostersId
+      __typename
     }
   }
 `;
@@ -221,35 +236,10 @@ export const listRosters = /* GraphQL */ `
         updatedAt
         raceRostersId
         userRostersId
+        __typename
       }
       nextToken
-    }
-  }
-`;
-export const getChangeAllowed = /* GraphQL */ `
-  query GetChangeAllowed($id: ID!) {
-    getChangeAllowed(id: $id) {
-      allowed
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listChangeAlloweds = /* GraphQL */ `
-  query ListChangeAlloweds(
-    $filter: ModelChangeAllowedFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listChangeAlloweds(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        allowed
-        id
-        createdAt
-        updatedAt
-      }
-      nextToken
+      __typename
     }
   }
 `;
@@ -261,6 +251,7 @@ export const getCommissionerMessage = /* GraphQL */ `
       id
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -281,108 +272,10 @@ export const listCommissionerMessages = /* GraphQL */ `
         id
         createdAt
         updatedAt
+        __typename
       }
       nextToken
-    }
-  }
-`;
-export const getRaceDrivers = /* GraphQL */ `
-  query GetRaceDrivers($id: ID!) {
-    getRaceDrivers(id: $id) {
-      id
-      driverId
-      raceId
-      driver {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
-      }
-      race {
-        id
-        date
-        country
-        city
-        name
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listRaceDrivers = /* GraphQL */ `
-  query ListRaceDrivers(
-    $filter: ModelRaceDriversFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listRaceDrivers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        driverId
-        raceId
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const raceDriversByDriverId = /* GraphQL */ `
-  query RaceDriversByDriverId(
-    $driverId: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelRaceDriversFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    raceDriversByDriverId(
-      driverId: $driverId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        driverId
-        raceId
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
-export const raceDriversByRaceId = /* GraphQL */ `
-  query RaceDriversByRaceId(
-    $raceId: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelRaceDriversFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    raceDriversByRaceId(
-      raceId: $raceId
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        driverId
-        raceId
-        createdAt
-        updatedAt
-      }
-      nextToken
+      __typename
     }
   }
 `;

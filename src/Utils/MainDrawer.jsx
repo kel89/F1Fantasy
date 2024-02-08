@@ -25,7 +25,8 @@ export default function MainDrawer({open, setOpen}) {
 	const navigate = useNavigate();
 
     // Determine user groups
-    let userGroups = user.signInUserSession.idToken.payload['cognito:groups'];
+    // let userGroups = user.signInUserSession.idToken.payload['cognito:groups'];
+	let userGroups = []; // TODO find a way to track this??
     let isAdmin = (userGroups != undefined) && userGroups.includes("admin");
   
 	const toggleDrawer = (open) => (event) => {

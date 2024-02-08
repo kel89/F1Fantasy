@@ -2,7 +2,7 @@ import Layout from "../Utils/Layout";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { API } from "aws-amplify";
+import { API } from "@aws-amplify/api";
 
 export default function League({}){
 

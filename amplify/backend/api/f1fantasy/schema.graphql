@@ -1,76 +1,61 @@
 # This "input" configures a global authorization rule to enable public access to
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
-input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
-
-
+input AMPLIFY {
+  globalAuthRule: AuthRule = { allow: public }
+} # FOR TESTING ONLY!
 type Driver @model {
-    id: ID!
-    first_name: String!
-    last_name: String!
-    abbreviation: String!
-    number: String!
-    team: String!
-    # rosters: [Roster] @manyToMany(relationName: "RosterDrivers")
-    races: [Race] @manyToMany(relationName: "RaceDrivers")
-    results: [Result] @hasMany
+  id: ID!
+  first_name: String!
+  last_name: String!
+  abbreviation: String!
+  number: String!
+  team: String!
+  # races: [Race] @manyToMany(relationName: "RaceDrivers")
+  results: [Result] @hasMany
 }
 
 type Race @model {
-    id: ID!
-    date: AWSDateTime!
-    country: String!
-    city: String!
-    name: String!
-    drivers: [Driver] @manyToMany(relationName: "RaceDrivers")
-    # drivers: [Driver]
-    result: [Result] @hasMany
-    rosters: [Roster] @hasMany
+  id: ID!
+  date: AWSDateTime!
+  country: String!
+  city: String!
+  name: String!
+  # drivers: [Driver] @manyToMany(relationName: "RaceDrivers")
+  # drivers: [Driver]
+  result: [Result] @hasMany
+  rosters: [Roster] @hasMany
 }
 
 # Each driver in each race gets an entry here
 # Just to help keep track of scoring
 type Result @model {
-    race: Race @belongsTo
-    driver: Driver @belongsTo
-    points: Int
+  race: Race @belongsTo
+  driver: Driver @belongsTo
+  points: Int
 }
-
 
 type User @model {
-    id: ID!
-    email: String
-    given_name: String
-    family_name: String
-    nickname: String
-    total_points: Int!
-    rosters: [Roster] @hasMany
+  id: ID!
+  email: String
+  given_name: String
+  family_name: String
+  nickname: String
+  total_points: Int!
+  rosters: [Roster] @hasMany
 }
-
-# type League @model {
-#     id: ID!
-#     owner: User! @hasOne
-#     name: String!
-#     users: [User] @manyToMany(relationName: "UserLeagues")
-# }
 
 type Roster @model {
-    id: ID!
-    # drivers: [Driver] @manyToMany(relationName: "RosterDrivers")
-    driver_order: [String]
-    # drivers: [Driver] @hasMany
-    total_points: Int
-    breakdown: [Int]
-    user: User @belongsTo
-    race: Race @belongsTo
+  id: ID!
+  # drivers: [Driver] @manyToMany(relationName: "RosterDrivers")
+  driver_order: [String]
+  # drivers: [Driver] @hasMany
+  total_points: Int
+  breakdown: [Int]
+  user: User @belongsTo
+  race: Race @belongsTo
 }
 
-# Should only have one entry, and either 1 or 0 if changes are allowed
-# to be made, and I toggle this race day
-type ChangeAllowed @model {
-    allowed: Int!
-}
-
-type CommissionerMessage @model{
-    message: String!
-    last_edit_by: String!
+type CommissionerMessage @model {
+  message: String!
+  last_edit_by: String!
 }

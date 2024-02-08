@@ -13,7 +13,7 @@
 import { Amplify, API, graphqlOperation } from 'aws-amplify';
 import awsExports from './aws-exports.mjs'; // NOTE, make manually, and may change
 import driverData from './drivers.json' assert {type: 'json'};
-import raceData from './races.json' assert {type: 'json'}
+import raceData from './races_2024.json' assert {type: 'json'}
 
 Amplify.configure(awsExports);
 
@@ -165,7 +165,7 @@ const addNewDriverToRaces = async (driverId, startDate) => {
 // MAIN ------------------------------------
 addDrivers();
 addRaces();
-addAllDriversToAllRaces();
+// addAllDriversToAllRaces();
 
 // Add danny ric to remaining races
 // addNewDriverToRaces("e0cb048e-5f35-4ba8-8b68-a8e9ab8ce1fa", "2023-07-24");

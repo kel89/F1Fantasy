@@ -9,6 +9,8 @@ import RosterPreview from '../Partials/Race/RosterPreview';
 import RosterList from '../Partials/Race/RosterList';
 import YourRoster from '../Partials/Race/YourRoster';
 import ResultsPreview from '../Partials/Race/ResultsPreview';
+import { generateClient } from '@aws-amplify/api';
+import { listDrivers } from '../graphql/queries';
 
 
 export default function Race({}){
@@ -19,17 +21,35 @@ export default function Race({}){
     const { user } = useAuthenticator(context => [context.user]);
     const {id} = useParams();
 
+    const apiClient = generateClient();
+
+
     let now = new Date();
     // let now = new Date(2023, 4, 15);
 
 
     useEffect(() => {
         getRaceData();
+        getRaceData2();
+        getDriverData();
     }, [])
 
     useEffect(() => {
         setRefreshState(refreshState+1);
     }, [openSetRoster])
+
+    const getRaceData2 = () => {
+        return;
+    }
+
+    const getDriverData = async () => {
+        console.log('getting driver data');
+        console.log(apiClient);
+        const result = await apiClient.graphql({
+            query: listDrivers
+        });
+        console.log(result);
+    }
 
     const getRaceData = async () => {
         let qs = String(`

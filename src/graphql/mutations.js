@@ -13,14 +13,13 @@ export const createDriver = /* GraphQL */ `
       abbreviation
       number
       team
-      races {
-        nextToken
-      }
       results {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -36,14 +35,13 @@ export const updateDriver = /* GraphQL */ `
       abbreviation
       number
       team
-      races {
-        nextToken
-      }
       results {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -59,14 +57,13 @@ export const deleteDriver = /* GraphQL */ `
       abbreviation
       number
       team
-      races {
-        nextToken
-      }
       results {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -81,17 +78,17 @@ export const createRace = /* GraphQL */ `
       country
       city
       name
-      drivers {
-        nextToken
-      }
       result {
         nextToken
+        __typename
       }
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -106,17 +103,17 @@ export const updateRace = /* GraphQL */ `
       country
       city
       name
-      drivers {
-        nextToken
-      }
       result {
         nextToken
+        __typename
       }
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -131,17 +128,17 @@ export const deleteRace = /* GraphQL */ `
       country
       city
       name
-      drivers {
-        nextToken
-      }
       result {
         nextToken
+        __typename
       }
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -159,6 +156,7 @@ export const createResult = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       driver {
         id
@@ -169,6 +167,7 @@ export const createResult = /* GraphQL */ `
         team
         createdAt
         updatedAt
+        __typename
       }
       points
       id
@@ -176,6 +175,7 @@ export const createResult = /* GraphQL */ `
       updatedAt
       driverResultsId
       raceResultId
+      __typename
     }
   }
 `;
@@ -193,6 +193,7 @@ export const updateResult = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       driver {
         id
@@ -203,6 +204,7 @@ export const updateResult = /* GraphQL */ `
         team
         createdAt
         updatedAt
+        __typename
       }
       points
       id
@@ -210,6 +212,7 @@ export const updateResult = /* GraphQL */ `
       updatedAt
       driverResultsId
       raceResultId
+      __typename
     }
   }
 `;
@@ -227,6 +230,7 @@ export const deleteResult = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       driver {
         id
@@ -237,6 +241,7 @@ export const deleteResult = /* GraphQL */ `
         team
         createdAt
         updatedAt
+        __typename
       }
       points
       id
@@ -244,6 +249,7 @@ export const deleteResult = /* GraphQL */ `
       updatedAt
       driverResultsId
       raceResultId
+      __typename
     }
   }
 `;
@@ -261,9 +267,11 @@ export const createUser = /* GraphQL */ `
       total_points
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -281,9 +289,11 @@ export const updateUser = /* GraphQL */ `
       total_points
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -301,9 +311,11 @@ export const deleteUser = /* GraphQL */ `
       total_points
       rosters {
         nextToken
+        __typename
       }
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -326,6 +338,7 @@ export const createRoster = /* GraphQL */ `
         total_points
         createdAt
         updatedAt
+        __typename
       }
       race {
         id
@@ -335,11 +348,13 @@ export const createRoster = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
       raceRostersId
       userRostersId
+      __typename
     }
   }
 `;
@@ -362,6 +377,7 @@ export const updateRoster = /* GraphQL */ `
         total_points
         createdAt
         updatedAt
+        __typename
       }
       race {
         id
@@ -371,11 +387,13 @@ export const updateRoster = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
       raceRostersId
       userRostersId
+      __typename
     }
   }
 `;
@@ -398,6 +416,7 @@ export const deleteRoster = /* GraphQL */ `
         total_points
         createdAt
         updatedAt
+        __typename
       }
       race {
         id
@@ -407,50 +426,13 @@ export const deleteRoster = /* GraphQL */ `
         name
         createdAt
         updatedAt
+        __typename
       }
       createdAt
       updatedAt
       raceRostersId
       userRostersId
-    }
-  }
-`;
-export const createChangeAllowed = /* GraphQL */ `
-  mutation CreateChangeAllowed(
-    $input: CreateChangeAllowedInput!
-    $condition: ModelChangeAllowedConditionInput
-  ) {
-    createChangeAllowed(input: $input, condition: $condition) {
-      allowed
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateChangeAllowed = /* GraphQL */ `
-  mutation UpdateChangeAllowed(
-    $input: UpdateChangeAllowedInput!
-    $condition: ModelChangeAllowedConditionInput
-  ) {
-    updateChangeAllowed(input: $input, condition: $condition) {
-      allowed
-      id
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteChangeAllowed = /* GraphQL */ `
-  mutation DeleteChangeAllowed(
-    $input: DeleteChangeAllowedInput!
-    $condition: ModelChangeAllowedConditionInput
-  ) {
-    deleteChangeAllowed(input: $input, condition: $condition) {
-      allowed
-      id
-      createdAt
-      updatedAt
+      __typename
     }
   }
 `;
@@ -465,6 +447,7 @@ export const createCommissionerMessage = /* GraphQL */ `
       id
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -479,6 +462,7 @@ export const updateCommissionerMessage = /* GraphQL */ `
       id
       createdAt
       updatedAt
+      __typename
     }
   }
 `;
@@ -493,105 +477,7 @@ export const deleteCommissionerMessage = /* GraphQL */ `
       id
       createdAt
       updatedAt
-    }
-  }
-`;
-export const createRaceDrivers = /* GraphQL */ `
-  mutation CreateRaceDrivers(
-    $input: CreateRaceDriversInput!
-    $condition: ModelRaceDriversConditionInput
-  ) {
-    createRaceDrivers(input: $input, condition: $condition) {
-      id
-      driverId
-      raceId
-      driver {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
-      }
-      race {
-        id
-        date
-        country
-        city
-        name
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const updateRaceDrivers = /* GraphQL */ `
-  mutation UpdateRaceDrivers(
-    $input: UpdateRaceDriversInput!
-    $condition: ModelRaceDriversConditionInput
-  ) {
-    updateRaceDrivers(input: $input, condition: $condition) {
-      id
-      driverId
-      raceId
-      driver {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
-      }
-      race {
-        id
-        date
-        country
-        city
-        name
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const deleteRaceDrivers = /* GraphQL */ `
-  mutation DeleteRaceDrivers(
-    $input: DeleteRaceDriversInput!
-    $condition: ModelRaceDriversConditionInput
-  ) {
-    deleteRaceDrivers(input: $input, condition: $condition) {
-      id
-      driverId
-      raceId
-      driver {
-        id
-        first_name
-        last_name
-        abbreviation
-        number
-        team
-        createdAt
-        updatedAt
-      }
-      race {
-        id
-        date
-        country
-        city
-        name
-        createdAt
-        updatedAt
-      }
-      createdAt
-      updatedAt
+      __typename
     }
   }
 `;
