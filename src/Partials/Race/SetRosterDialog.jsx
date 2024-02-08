@@ -9,7 +9,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import RosterEditor from "./RosterEditor";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { API } from "aws-amplify";
+// import { API } from "aws-amplify";
+import { generateClient } from "@aws-amplify/api";
 
 const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
@@ -22,6 +23,7 @@ export default function SetRosterDialog({ open, setOpen, rosterId, raceId, refre
     const [rosterData, setRosterData] = useState();
     const [driverData, setDriverData] = useState();
     const [driverOrder, setDriverOrder] = useState();
+    const apiClient = generateClient();
 
     useEffect(() => {
         getData();
@@ -58,7 +60,8 @@ export default function SetRosterDialog({ open, setOpen, rosterId, raceId, refre
                 }
             }
         `);
-        let resp = await API.graphql({query: qs});
+        // let resp = await API.graphql({query: qs});
+        const resp = {};
 
         // extract order from roster data 
         let _drivers = resp.data.getRace.drivers.items;
@@ -127,7 +130,7 @@ export default function SetRosterDialog({ open, setOpen, rosterId, raceId, refre
             }
         }
         `);
-        let resp = await API.graphql({query:qs});
+        // let resp = await API.graphql({query:qs});
 
     }
 
@@ -145,7 +148,7 @@ export default function SetRosterDialog({ open, setOpen, rosterId, raceId, refre
             }
         }
         `);
-        let resp = await API.graphql({query:qs});
+        // let resp = await API.graphql({query:qs});
     }
 
     const save = () => {

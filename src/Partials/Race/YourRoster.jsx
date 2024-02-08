@@ -23,16 +23,15 @@ export default function YourRoster({raceData, rosterData, setOpenSetRoster, setR
     const { user } = useAuthenticator(c => [c.user]);
 
     let now = new Date();
-    // let now = new Date(2023, 4, 15);
     let raceDate = new Date(raceData.date);
 
     // List of all rosters for the race
-    let rosters = raceData.rosters.items;
+    let rosters = raceData.rosters?.items;
 
     // Before Race --------------------------------
     if (now < raceDate){
         // No rosters, or this user does not have one
-        if (rosters.length == 0 || rosters.find(x => x.user.id == user.username) == undefined){
+        if (!rosters || rosters.find(x => x.user.id === user.username) === undefined){
             // Show button to set roster
             return (
                 <div className='p-4 bg-white border shadow-lg'>

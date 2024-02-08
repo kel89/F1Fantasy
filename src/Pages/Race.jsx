@@ -1,20 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import { API } from 'aws-amplify';
+// import { API } from 'aws-amplify';
 import Layout from "../Utils/Layout";
 import ReactLoading from 'react-loading';
-import SetRosterDialog from '../Partials/Race/SetRosterDialog';
+// import SetRosterDialog from '../Partials/Race/SetRosterDialog';
 import RosterPreview from '../Partials/Race/RosterPreview';
 import RosterList from '../Partials/Race/RosterList';
 import YourRoster from '../Partials/Race/YourRoster';
 import ResultsPreview from '../Partials/Race/ResultsPreview';
 import { generateClient } from '@aws-amplify/api';
-import { listDrivers } from '../graphql/queries';
+import { getRace, listDrivers } from '../graphql/queries';
 
 
 export default function Race({}){
     const [raceData, setRaceData] = useState();
+    const [drivers, setDrivers] = useState();
     const [openSetRoster, setOpenSetRoster] = useState(false);
     const [refreshState, setRefreshState] = useState(0);
     const [rosterId, setRosterId] = useState();
@@ -30,7 +31,6 @@ export default function Race({}){
 
     useEffect(() => {
         getRaceData();
-        getRaceData2();
         getDriverData();
     }, [])
 
@@ -38,57 +38,53 @@ export default function Race({}){
         setRefreshState(refreshState+1);
     }, [openSetRoster])
 
-    const getRaceData2 = () => {
-        return;
-    }
 
     const getDriverData = async () => {
-        console.log('getting driver data');
-        console.log(apiClient);
         const result = await apiClient.graphql({
             query: listDrivers
         });
-        console.log(result);
+        setDrivers(result.data.listDrivers.items);
     }
 
     const getRaceData = async () => {
-        let qs = String(`
-        query MyQuery {
-            getRace(id: "${id}") {
-              city
-              country
-              date
-              id
-              name
-              rosters {
-                items {
-                  id
-                  total_points
-                  user {
-                    id
-                    nickname
-                    given_name
-                  }
-                }
-              }
-              result {
-                items {
-                    points
-                    driver{
-                        first_name
-                        abbreviation
-                        last_name
-                        team
-                    }
-                }
-              }
-            }
-          }
-        `);
-        let resp = await API.graphql({query:qs});
-        // console.log(resp);
-        setRaceData(resp.data.getRace);
-        // console.log(resp.data.getRace);
+        const result = await apiClient.graphql({query: getRace, variables: {id: id}});
+        setRaceData(result.data.getRace);
+        console.log(result);
+        // let qs = String(`
+        // query MyQuery {
+        //     getRace(id: "${id}") {
+        //       city
+        //       country
+        //       date
+        //       id
+        //       name
+        //       rosters {
+        //         items {
+        //           id
+        //           total_points
+        //           user {
+        //             id
+        //             nickname
+        //             given_name
+        //           }
+        //         }
+        //       }
+        //       result {
+        //         items {
+        //             points
+        //             driver{
+        //                 first_name
+        //                 abbreviation
+        //                 last_name
+        //                 team
+        //             }
+        //         }
+        //       }
+        //     }
+        //   }
+        // `);
+        // let resp = await API.graphql({query:qs});
+        // setRaceData(resp.data.getRace);
     }
 
     /**
@@ -152,7 +148,6 @@ export default function Race({}){
                             </div>
                             <div className='grid sm:grid-cols-2 grid-cols-1 gap-4'>
                                 <div>
-                                    {/* {renderYourRoster()} */}
                                     <YourRoster
                                         raceData={raceData}
                                         setOpenSetRoster={setOpenSetRoster}
@@ -161,10 +156,10 @@ export default function Race({}){
                                         />
                                 </div>
                                 <div className='flex flex-col gap-4'>
-                                    <RosterList rosters={raceData == undefined ? [] : raceData.rosters.items} />
+                                    <RosterList rosters={!raceData ? [] : raceData.rosters?.items} />
                                     {
-                                    raceData.result.items.length > 0 ? (
-                                        <ResultsPreview results={raceData.result.items}/>
+                                    raceData.result?.items ? (
+                                        <ResultsPreview results={raceData.result?.items}/>
                                         ) : null
                                     }
                                 </div>
@@ -173,24 +168,13 @@ export default function Race({}){
                     )}
                 </div>
             </Layout>
-            {/* {
-                openSetRoster ? (
-                    <SetRosterDialog 
-                        open={openSetRoster} 
-                        setOpen={setOpenSetRoster}
-                        rosterId={rosterId}
-                        raceId={id}
-                        refreshRaceData={getRaceData}
-                        />
-                ) : null
-            } */}
-            <SetRosterDialog 
+            {/* <SetRosterDialog 
                 open={openSetRoster} 
                 setOpen={setOpenSetRoster}
                 rosterId={rosterId}
                 raceId={id}
                 refreshRaceData={getRaceData}
-                />
+                /> */}
         </>
     )
 }

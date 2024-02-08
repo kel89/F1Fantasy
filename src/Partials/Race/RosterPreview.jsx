@@ -2,11 +2,14 @@ import { List, ListItem, ListItemText } from '@mui/material';
 import { API } from 'aws-amplify';
 import { useEffect, useState } from 'react';
 import ReactLoading from 'react-loading';
+import { generateClient } from '@aws-amplify/api';
+import { getRoster } from '../../graphql/queries';
 
 export default function RosterPreview({id, toggler}){
     const [rosterData, setRosterData] = useState();
     const [driverData, setDriverData] = useState();
     const [raceResults, setRaceResults] = useState([]);
+    const apiClient = generateClient();
 
     useEffect(() => {
         getData();
@@ -17,59 +20,61 @@ export default function RosterPreview({id, toggler}){
     }, [toggler])
 
     const getData = async () => {
-        let qs = String(`
-        query GetRoster {
-            getRoster(id: "${id}"){
-                breakdown
-                driver_order
-                total_points
-                updatedAt
-                user {
-                    nickname
-                    given_name
-                    family_name
-                }
-                race {
-                    name
-                    city
-                    country
-                    drivers {
-                        items {
-                            driver {
-                                first_name
-                                last_name
-                                abbreviation
-                                team
-                                number
-                            }
-                        }
-                    }
-                    result {
-                        items {
-                            points 
-                            driver {
-                                first_name
-                                last_name
-                                abbreviation
-                                team
-                                number
-                                id
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        `);
-        let resp = await API.graphql({query: qs});
-        setRosterData(resp.data.getRoster);
-        setDriverData(resp.data.getRoster.race.drivers.items);
+        // let qs = String(`
+        // query GetRoster {
+        //     getRoster(id: "${id}"){
+        //         breakdown
+        //         driver_order
+        //         total_points
+        //         updatedAt
+        //         user {
+        //             nickname
+        //             given_name
+        //             family_name
+        //         }
+        //         race {
+        //             name
+        //             city
+        //             country
+        //             drivers {
+        //                 items {
+        //                     driver {
+        //                         first_name
+        //                         last_name
+        //                         abbreviation
+        //                         team
+        //                         number
+        //                     }
+        //                 }
+        //             }
+        //             result {
+        //                 items {
+        //                     points 
+        //                     driver {
+        //                         first_name
+        //                         last_name
+        //                         abbreviation
+        //                         team
+        //                         number
+        //                         id
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // `);
+        // let resp = await API.graphql({query: qs});
+        // setRosterData(resp.data.getRoster);
+        // setDriverData(resp.data.getRoster.race.drivers.items);
 
-        // Sorts results (if exist, and give a place)
-        let resultData = resp.data.getRoster.race.result.items;
-        resultData.sort((a,b) => b.points - a.points)
-            .forEach((d,i) => d['place'] = i+1);
-        setRaceResults(resultData);
+        // // Sorts results (if exist, and give a place)
+        // let resultData = resp.data.getRoster.race.result.items;
+        // resultData.sort((a,b) => b.points - a.points)
+        //     .forEach((d,i) => d['place'] = i+1);
+        // setRaceResults(resultData);
+        const result = await apiClient.graphql({query: getRoster, variables: {id: id}});
+        console.log(result);
     }
 
     if (rosterData == undefined || driverData == undefined){
