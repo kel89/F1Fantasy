@@ -7,7 +7,7 @@ import { fetchUserAttributes } from 'aws-amplify/auth';
 import Layout from '../Utils/Layout';
 import { createUser } from '../graphql/mutations';
 // import RaceList from '../Partials/Home/RaceList';
-// import LeaderBoard from '../Partials/Home/LeaderBoard';
+import LeaderBoard from '../Partials/Home/LeaderBoard';
 import CommissionersCorner from '../Partials/Home/CommissionersCorner';
 
 
@@ -74,7 +74,7 @@ export function UserHome() {
                     </div>
                     <div className='flex flex-col gap-8 '>
                         <div>
-                            {/* <LeaderBoard /> */}
+                            <LeaderBoard />
                         </div>
                         <div>
                             <CommissionersCorner />
