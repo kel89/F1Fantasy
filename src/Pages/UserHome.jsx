@@ -6,7 +6,7 @@ import { getUser } from '../graphql/queries'
 import { fetchUserAttributes } from 'aws-amplify/auth';
 import Layout from '../Utils/Layout';
 import { createUser } from '../graphql/mutations';
-// import RaceList from '../Partials/Home/RaceList';
+import RaceList from '../Partials/Home/RaceList';
 import LeaderBoard from '../Partials/Home/LeaderBoard';
 import CommissionersCorner from '../Partials/Home/CommissionersCorner';
 
@@ -70,7 +70,7 @@ export function UserHome() {
             <Layout pageName='Home'>
                 <div className='p-6 grid sm:grid-cols-2 grid-cols-1 gap-8 bg-gray-100'>
                     <div>
-                        {/* <RaceList /> */}
+                        <RaceList />
                     </div>
                     <div className='flex flex-col gap-8 '>
                         <div>

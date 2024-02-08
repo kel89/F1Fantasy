@@ -5,14 +5,26 @@ import Layout from "../Utils/Layout";
 import TextField from '@mui/material/TextField';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { updateUser } from '../graphql/mutations';
+import { fetchUserAttributes, updateUserAttributes } from 'aws-amplify/auth';
+import { generateClient } from '@aws-amplify/api';
 
 
 
-export default function Settings({}){
+export default function Settings(){
 
 	const { user} = useAuthenticator((context) => [context.route, context.user, context.signOut]);
-	const [newName, setNewName] = useState(user.attributes.nickname);
+	// const [newName, setNewName] = useState(user.attributes.nickname);
+	const [newName, setNewName] = useState('');
 	const [loading, setLoading] = useState(false);
+	const apiClient = generateClient();
+
+	useEffect(() => {
+		const loadUserData = async () => {
+			const userAttributes = await fetchUserAttributes();
+			setNewName(userAttributes.nickname);
+		}
+		loadUserData();
+	}, [])
 
 
 	const updateTextBox = (val) => {
@@ -22,17 +34,12 @@ export default function Settings({}){
 	const changeName = async() => {
 		setLoading(true);
 
-		// Change in Cognito
-		await Auth.updateUserAttributes(user, {
-			'nickname': newName
-		  });
+		// Update AUTH
+		const userAttributes = await fetchUserAttributes();
+		await updateUserAttributes({userAttributes: {"nickname": newName}});
 
-		// Change in DynamoDB
-		let messageDetails = {
-			id: user.username,
-			nickname: newName
-		};
-		let resp = await API.graphql(graphqlOperation(updateUser, {input:messageDetails}));
+		// Update DB
+		const result = await apiClient.graphql({query: updateUser, variables: {input: {id: user.username, nickname: newName}}});
 
 		setLoading(false);
 	}

@@ -1,37 +1,26 @@
-import { API } from 'aws-amplify';
+// import { API } from 'aws-amplify';
 import { useState, useEffect } from 'react';
 import ReactLoading from 'react-loading';
 import RaceCard from './RaceCard';
-
+import { generateClient } from '@aws-amplify/api';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { listRaces } from '../../graphql/queries';
 
 export default function RaceList({}){
     const [expanded, setExpanded] = useState(true);
     const [raceData, setRaceData] = useState();
+    const apiClient = generateClient();
 
     useEffect(() => {
         getRaceData();
     }, []);
 
     const getRaceData = async () => {
-        let qs = String(`
-        query ListRaces {
-            listRaces {
-                items {
-                    city
-                    country
-                    date
-                    id
-                    name
-                }
-            }
-        }
-        `);
-        let resp = await API.graphql({query:qs});
-        setRaceData(resp.data.listRaces.items);
+        const result = await apiClient.graphql({query: listRaces});
+        setRaceData(result.data.listRaces.items);
     }
 
     

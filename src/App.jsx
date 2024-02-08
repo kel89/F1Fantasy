@@ -12,12 +12,12 @@ import { BrowserRouter, HashRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import { UserHome } from "./Pages/UserHome";
 import { Login } from "./Pages/Login";
-// import About from './Pages/About';
+import About from './Pages/About';
 // import League from './Pages/League';
-// import Race from './Pages/Race';
+import Race from './Pages/Race';
 // import { RequireAdmin } from './Utils/RequireAdmin';
 // import AdminPage from './Pages/AdminPage';
-// import Settings from './Pages/Settings';
+import Settings from './Pages/Settings';
 
 // console.log(config);
 // Amplify.configure(config);
@@ -39,14 +39,6 @@ function MyRoutes() {
                                 </RequireAuth>
                             }
                         />
-                                    {/* <Route
-                                        path="/league/:id"
-                                        element={
-                                            <RequireAuth>
-                                                <League />
-                                            </RequireAuth>
-                                        }
-                                    />
                                     <Route
                                         path="/race/:id"
                                         element={
@@ -63,14 +55,14 @@ function MyRoutes() {
                                             </RequireAuth>
                                         }
                                     />
-                                    <Route
+                                    {/* <Route
                                         path="/admin"
                                         element={
                                             <RequireAdmin>
                                                 <AdminPage />
                                             </RequireAdmin>
                                         }
-                                    />
+                                    /> */}
                                     <Route
                                         path='/settings'
                                         element={
@@ -78,7 +70,7 @@ function MyRoutes() {
                                                 <Settings />
                                             </RequireAuth>
                                         }
-                                    /> */}
+                                    />
                         <Route path="/login" element={<Login />} />
                     </Route>
                 </Routes>
