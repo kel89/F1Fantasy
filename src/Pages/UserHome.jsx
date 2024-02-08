@@ -1,17 +1,14 @@
 // components/Protected.js
 import { useEffect, useState } from 'react';
 import { useAuthenticator } from "@aws-amplify/ui-react";
-// import { API, graphqlOperation } from 'aws-amplify';
 import { generateClient } from '@aws-amplify/api';
-import { getUser, listUsers } from '../graphql/queries'
+import { getUser } from '../graphql/queries'
 import { fetchUserAttributes } from 'aws-amplify/auth';
-// import MainDrawer from '../Utils/MainDrawer';
 import Layout from '../Utils/Layout';
-import ReactLoading from "react-loading";
 import { createUser } from '../graphql/mutations';
 // import RaceList from '../Partials/Home/RaceList';
 // import LeaderBoard from '../Partials/Home/LeaderBoard';
-// import CommissionersCorner from '../Partials/Home/CommissionersCorner';
+import CommissionersCorner from '../Partials/Home/CommissionersCorner';
 
 
 export function UserHome() {
@@ -72,17 +69,17 @@ export function UserHome() {
         <>
             <Layout pageName='Home'>
                 <div className='p-6 grid sm:grid-cols-2 grid-cols-1 gap-8 bg-gray-100'>
-                    {/* <div>
-                        <RaceList />
+                    <div>
+                        {/* <RaceList /> */}
                     </div>
                     <div className='flex flex-col gap-8 '>
                         <div>
-                            <LeaderBoard />
+                            {/* <LeaderBoard /> */}
                         </div>
                         <div>
                             <CommissionersCorner />
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             </Layout>
         </>
