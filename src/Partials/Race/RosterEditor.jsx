@@ -16,6 +16,7 @@ export default function RosterEditor({
      * allow the user to update that order with some interace
      * and save that order in setDriverOrder, then a re-render should be automatic
      */
+
 	return (
         <div className="flex justify-center">
             <div>
@@ -30,7 +31,7 @@ export default function RosterEditor({
                     className='w-56'>
                     {
                         driverOrder.map((d, i) => {
-                            let driver = driverData.find(x => x.driver.abbreviation==d.id);
+                            let driver = driverData.find(x => x.abbreviation === d.id);
                             return (
                                 <div
                                     className={`w-full my-2 border border-gray-300 rounded-sm py-1 px-3 shadow-lg cursor-move
@@ -39,7 +40,7 @@ export default function RosterEditor({
                                     ${i==2 ? 'bg-yellow-500' : ''}
                                     ${i>2 ? 'bg-white' : ''}`}
                                     key={d.id}>
-                                    <b>{i+1}</b> {driver.driver.first_name} {driver.driver.last_name}
+                                    <b>{i+1}</b> {driver.first_name} {driver.last_name}
                                 </div>
                             )
                         })

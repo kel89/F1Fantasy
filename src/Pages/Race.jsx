@@ -11,6 +11,7 @@ import YourRoster from '../Partials/Race/YourRoster';
 import ResultsPreview from '../Partials/Race/ResultsPreview';
 import { generateClient } from '@aws-amplify/api';
 import { getRace, listDrivers } from '../graphql/queries';
+import { getRaceAndRosters } from '../graphql/customQueries';
 
 
 export default function Race({}){
@@ -47,7 +48,7 @@ export default function Race({}){
     }
 
     const getRaceData = async () => {
-        const result = await apiClient.graphql({query: getRace, variables: {id: id}});
+        const result = await apiClient.graphql({query: getRaceAndRosters, variables: {id: id}});
         setRaceData(result.data.getRace);
         console.log(result);
         // let qs = String(`
