@@ -11,93 +11,137 @@ import RosterEditor from "./RosterEditor";
 import { useAuthenticator } from "@aws-amplify/ui-react";
 // import { API } from "aws-amplify";
 import { generateClient } from "@aws-amplify/api";
+import { get } from "sortablejs";
+import { getRoster } from "../../graphql/queries";
 
 const Transition = forwardRef(function Transition(props, ref) {
 	return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function SetRosterDialog({ open, setOpen, rosterId, raceId, refreshRaceData }) {
+export default function SetRosterDialog({ drivers, open, setOpen, rosterId, raceId, refreshRaceData }) {
 
     const { user } = useAuthenticator(context => [context.user]);
 
     const [rosterData, setRosterData] = useState();
-    const [driverData, setDriverData] = useState();
     const [driverOrder, setDriverOrder] = useState();
+
     const apiClient = generateClient();
 
     useEffect(() => {
         getData();
     }, [rosterId]);
 
-    const getData = async () => {
-        // Querry for roster and driver data
-        let qs = String(`
-            query RosterData {
-                ${rosterId != undefined ? `getRoster(id: "${rosterId}"){
-                    id
-                    breakdown
-                    driver_order
-                    createdAt
-                    updatedAt
-                    total_points
-                    raceRostersId
-                    userRostersId
-                }` : ''}
-                
-                getRace(id: "${raceId}"){
-                    drivers {
-                        items {
-                            driver {
-                                abbreviation
-                                first_name
-                                last_name
-                                id
-                                number
-                                team
-                            }
-                        }
-                    }
-                }
-            }
-        `);
-        // let resp = await API.graphql({query: qs});
-        const resp = {};
-
-        // extract order from roster data 
-        let _drivers = resp.data.getRace.drivers.items;
-        // let _roster = resp.data.getRoster;
-        let _roster;
-        if (rosterId == undefined){
-            _roster = null;
-        } else {
-            _roster = resp.data.getRoster;
-        }
-
-        setDriverData(_drivers);
-        setRosterData(_roster);
-
-        // Defined a default driver order (semi random based on teams)
+    const getDefaultOrder = () => {
         let TEAM_ORDER = ["Mercedes", "Red Bull", "Ferrari", "McLaren", "Alpine", "Aston Martin", "Haas", "Alpha Tauri", "Williams", "Alpha Romeo"]
-        let _order = _drivers.sort((a,b) => {
+        let _order = drivers.sort((a,b) => {
             let t1 = TEAM_ORDER.indexOf(a.driver.team);
             let t2 = TEAM_ORDER.indexOf(b.driver.team);
             t1 = t1 == -1 ? 100 : t1;
             t2 = t2 == -1 ? 100 : t2;
             return t1 - t2;
         }).map((dat, i) => {return {id: dat.driver.abbreviation}});
+        return _order;
+    }
 
-
-        // let _order = _drivers.map((dat, i) => {return {id: dat.driver.abbreviation}});
-        // console.log(_roster);
-        if (_roster == null || !Object.keys(_roster).includes("driver_order")){
-            // No driver order
-            setDriverOrder(_order);
-        } else if (_roster.driver_order == null || _roster.driver_order.length < _drivers.length) {
-            setDriverOrder(_order);
-        } else {
-            // Have a complete set
-            setDriverOrder(_roster.driver_order.map(x => {return{id:x.split('-')[0]}}));
+    const hasValidDriverOrder = (roster) => {
+        if (!roster){
+            return false;
+        } else if (!Object.keys(roster).includes("driver_order")){
+            return false;
+        } else if (!roster.driver_order){
+            return false;
         }
+        else if (roster.driver_order.length < drivers.length){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    const getData = async () => {
+        const result = await apiClient.graphql({query: getRoster, variables: {id: rosterId}});
+        const _roster = result.data.getRoster;
+        setRosterData(_roster);
+
+        // Define default driver order
+        let _order = getDefaultOrder();
+
+        if (hasValidDriverOrder(_roster)){
+            setDriverOrder(_roster.driver_order.map(x => {return{id:x.split('-')[0]}}));
+        } else{
+            setDriverOrder(_order);
+        }
+
+        // // ------------------------------------------------------------
+        // // Querry for roster and driver data
+        // let qs = String(`
+        //     query RosterData {
+        //         ${rosterId != undefined ? `getRoster(id: "${rosterId}"){
+        //             id
+        //             breakdown
+        //             driver_order
+        //             createdAt
+        //             updatedAt
+        //             total_points
+        //             raceRostersId
+        //             userRostersId
+        //         }` : ''}
+                
+        //         getRace(id: "${raceId}"){
+        //             drivers {
+        //                 items {
+        //                     driver {
+        //                         abbreviation
+        //                         first_name
+        //                         last_name
+        //                         id
+        //                         number
+        //                         team
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // `);
+        // // let resp = await API.graphql({query: qs});
+        // const resp = {};
+
+        // // extract order from roster data 
+        // let _drivers = resp.data.getRace.drivers.items;
+        // // let _roster = resp.data.getRoster;
+        // let _roster;
+        // if (rosterId == undefined){
+        //     _roster = null;
+        // } else {
+        //     _roster = resp.data.getRoster;
+        // }
+
+        // setDriverData(_drivers);
+        // setRosterData(_roster);
+
+        // // Defined a default driver order (semi random based on teams)
+        // let TEAM_ORDER = ["Mercedes", "Red Bull", "Ferrari", "McLaren", "Alpine", "Aston Martin", "Haas", "Alpha Tauri", "Williams", "Alpha Romeo"]
+        // let _order = _drivers.sort((a,b) => {
+        //     let t1 = TEAM_ORDER.indexOf(a.driver.team);
+        //     let t2 = TEAM_ORDER.indexOf(b.driver.team);
+        //     t1 = t1 == -1 ? 100 : t1;
+        //     t2 = t2 == -1 ? 100 : t2;
+        //     return t1 - t2;
+        // }).map((dat, i) => {return {id: dat.driver.abbreviation}});
+
+
+        // // let _order = _drivers.map((dat, i) => {return {id: dat.driver.abbreviation}});
+        // // console.log(_roster);
+        // if (_roster == null || !Object.keys(_roster).includes("driver_order")){
+        //     // No driver order
+        //     setDriverOrder(_order);
+        // } else if (_roster.driver_order == null || _roster.driver_order.length < _drivers.length) {
+        //     setDriverOrder(_order);
+        // } else {
+        //     // Have a complete set
+        //     setDriverOrder(_roster.driver_order.map(x => {return{id:x.split('-')[0]}}));
+        // }
         
     }
 
@@ -186,10 +230,10 @@ export default function SetRosterDialog({ open, setOpen, rosterId, raceId, refre
 				</Toolbar>
 			</AppBar>
             {
-                driverData != undefined && driverOrder != undefined ? (
+                drivers != undefined && driverOrder != undefined ? (
                     <RosterEditor 
                         rosterData={rosterData}
-                        driverData={driverData}
+                        drivers={drivers}
                         driverOrder={driverOrder}
                         setDriverOrder={setDriverOrder}
                         // rosterId={rosterId}

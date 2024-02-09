@@ -4,7 +4,7 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 // import { API } from 'aws-amplify';
 import Layout from "../Utils/Layout";
 import ReactLoading from 'react-loading';
-// import SetRosterDialog from '../Partials/Race/SetRosterDialog';
+import SetRosterDialog from '../Partials/Race/SetRosterDialog';
 import RosterPreview from '../Partials/Race/RosterPreview';
 import RosterList from '../Partials/Race/RosterList';
 import YourRoster from '../Partials/Race/YourRoster';
@@ -168,13 +168,14 @@ export default function Race({}){
                     )}
                 </div>
             </Layout>
-            {/* <SetRosterDialog 
+            <SetRosterDialog 
+                drivers={drivers}
                 open={openSetRoster} 
                 setOpen={setOpenSetRoster}
                 rosterId={rosterId}
                 raceId={id}
                 refreshRaceData={getRaceData}
-                /> */}
+                />
         </>
     )
 }
