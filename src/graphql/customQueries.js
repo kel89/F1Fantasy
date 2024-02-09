@@ -20,6 +20,8 @@ export const getRaceAndRosters = /* GraphQL */ `
           breakdown
           user {
             id
+            nickname
+            given_name
           }
         }
       }
@@ -28,4 +30,38 @@ export const getRaceAndRosters = /* GraphQL */ `
       __typename
     }
   }
+`;
+
+export const getDetailedRoster = /* GraphQl */ `
+    query GetRoster($id: ID!) {
+        getRoster(id: $id){
+            breakdown
+            driver_order
+            total_points
+            updatedAt
+            user {
+                nickname
+                given_name
+                family_name
+            }
+            race {
+                name
+                city
+                country
+                result {
+                    items {
+                        points 
+                        driver {
+                            first_name
+                            last_name
+                            abbreviation
+                            team
+                            number
+                            id
+                        }
+                    }
+                }
+            }
+        }
+    }
 `;

@@ -50,7 +50,6 @@ export default function Race({}){
     const getRaceData = async () => {
         const result = await apiClient.graphql({query: getRaceAndRosters, variables: {id: id}});
         setRaceData(result.data.getRace);
-        console.log(result);
         // let qs = String(`
         // query MyQuery {
         //     getRace(id: "${id}") {
@@ -151,6 +150,7 @@ export default function Race({}){
                                 <div>
                                     <YourRoster
                                         raceData={raceData}
+                                        drivers = {drivers}
                                         setOpenSetRoster={setOpenSetRoster}
                                         setRosterId={setRosterId}
                                         refreshState={refreshState}
@@ -158,6 +158,7 @@ export default function Race({}){
                                 </div>
                                 <div className='flex flex-col gap-4'>
                                     <RosterList rosters={!raceData ? [] : raceData.rosters?.items} />
+                                    {/* Gonna need to work on the following, because the base query does not get that */}
                                     {
                                     raceData.result?.items ? (
                                         <ResultsPreview results={raceData.result?.items}/>

@@ -19,7 +19,7 @@ import { IconButton } from '@mui/material';
  *      --> Show Preview of Roster
  *      X no button to edit/create roster if one does not exist
  */
-export default function YourRoster({raceData, rosterData, setOpenSetRoster, setRosterId, refreshState}){
+export default function YourRoster({raceData, drivers, rosterData, setOpenSetRoster, setRosterId, refreshState}){
     const { user } = useAuthenticator(c => [c.user]);
 
     let now = new Date();
@@ -61,11 +61,6 @@ export default function YourRoster({raceData, rosterData, setOpenSetRoster, setR
                             </IconButton>
                         </div>
                     </div>
-                    {/* <button
-                        onClick={() => {setRosterId(userRoster.id); setOpenSetRoster(true);}}
-                        className='btn w-full py-2 mb-2 border border-blue-500 text-blue-500 rounded-lg hover:bg-blue-500 hover:text-white'>
-                        Edit Roster
-                    </button> */}
                     <RosterPreview id={userRoster.id} toggler={refreshState}/>
                 </div>
             )
