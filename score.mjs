@@ -5,10 +5,13 @@
 // |____/ \___\___/|_|  \___| |_| \_\__,_|\___\___|
                                                 
 import { Note } from '@mui/icons-material';
-import { Amplify, API, graphqlOperation } from 'aws-amplify';
+// import { Amplify, API, graphqlOperation } from 'aws-amplify';
+import  { Amplify } from 'aws-amplify';
+import { generateClient } from '@aws-amplify/api'
 import awsExports from './aws-exports.mjs'; // NOTE, make manually, and may change
 
 Amplify.configure(awsExports);
+const client = generateClient();
 
 const scoreRace = async (raceId, results) => {
     console.log("Creating Results...");
@@ -56,7 +59,7 @@ const getDriverByAbbrev = async (abbrev) => {
     
     // If we got a driver back, return the ID
     try {
-        let resp = await API.graphql({query:qs});
+        let resp = await client.graphql({query:qs});
         let driver = resp.data.listDrivers.items[0];
         return driver.id;
     } catch (error) {
@@ -80,7 +83,7 @@ const makeResultEntry = async (driverId, points, raceId) => {
     }
     `);
     try {
-        let res = await API.graphql({query:qs});
+        let res = await client.graphql({query:qs});
     } catch (error) {
         console.warn(error);
         console.log("Result not created for driver ID", driverId)
@@ -127,7 +130,7 @@ const getRaceRosters = async (raceId) => {
     }
     `);
     try {
-        let res = await API.graphql({query:qs});
+        let res = await client.graphql({query:qs});
         return res.data.listRosters.items;
     } catch (error) {
         console.warn(error);
@@ -145,12 +148,16 @@ const calculatePoints = (driverOrder, results) => {
     let points = 0;
 
     // For each driver in driver order
+    driverOrder = JSON.parse(driverOrder[0]);
+    console.log(driverOrder);
     driverOrder.forEach(driver => {
         // Get that predicted place
         let [abbrev, place] = driver.split("-");
+        console.log(abbrev, place);
         
         // Find match in results
         let res = results.filter(x => x.driver == abbrev);
+        console.log(res);
         if (res.length > 0) {
             let actualPlace = res[0].place;
             if (actualPlace == place){
@@ -158,7 +165,7 @@ const calculatePoints = (driverOrder, results) => {
             }
         }
     });
-
+    console.log(points);
     return points
 }
 
@@ -176,7 +183,7 @@ const updateRosterPoints = async (rosterId, points) => {
     }
     `);
     try {
-        let res = await API.graphql({query:qs});
+        let res = await client.graphql({query:qs});
     } catch (error) {
         console.warn(error);
     }
@@ -189,6 +196,7 @@ const updateRosterPoints = async (rosterId, points) => {
 const updateUserTotalScores = async (raceId) => {
     // get all rosters for a race
     let allRosters = await getRaceRosters(raceId);
+    console.log(allRosters);
     // For each roster, get the user and update their points
     allRosters.forEach(async roster => {
         // Update the points
@@ -206,7 +214,7 @@ const updateUserPoints = async (userId, points) => {
     }
     `);
     try {
-        let resp = await API.graphql({query: qs});
+        let resp = await client.graphql({query: qs});
     } catch (error) {
         console.warn(error);
     }
@@ -256,7 +264,7 @@ const getRaceResults = async (raceId) => {
     `);
 
     try {
-        let res = await API.graphql({query:qs});
+        let res = await client.graphql({query:qs});
         return res.data.listResults.items;
     } catch (error) {
         console.warn(error);
@@ -274,7 +282,7 @@ const deleteResult = async (resultId) => {
     `);
 
     try {
-        let res = await API.graphql({query:qs});
+        let res = await client.graphql({query:qs});
     } catch (error) {
         console.warn(error);
         console.log("Result not deleted for id:", resultId)
@@ -287,61 +295,62 @@ const deleteResult = async (resultId) => {
 let raceResults = [
     {
         place: 1,
-        driver: "VER",
+        driver: "HAM",
         points: 25
     },
     {
         place: 2,
-        driver: "NOR",
+        driver: "VER",
         points: 18
     },
     {
         place: 3,
-        driver: "PER",
+        driver: "RUS",
         points: 15
     },
     {
         place: 4,
-        driver: "HAM",
+        driver: "PER",
         points: 12
     },
     {
         place: 5,
-        driver: "PIA",
+        driver: "SAI",
         points: 10
     },
     {
         place: 6,
-        driver: "RUS",
+        driver: "LEC",
         points: 8
     },
     {
         place: 7,
-        driver: "LEC",
+        driver: "NOR",
         points: 6
     },
     {
         place: 8,
-        driver: "SAI",
+        driver: "PIA",
         points: 4
     },
     {
         place: 9,
-        driver: "ALO",
+        driver: "GAS",
         points: 2
     },
     {
         place: 10,
-        driver: "STR",
+        driver: "OCO",
         points: 1
     }
 ];
 
 // Get the Race ID Mannually from the DB or wherever
-let raceId = "d2caf58c-3d9d-4a1b-b703-2a3761965631";
+let raceId = "a1490084-535c-440b-8766-bb4545c2f1d6";
 
-// await scoreRace(raceId, raceResults); // this await is still not working!
-updateUserTotalScores(raceId);
+await scoreRace(raceId, raceResults); // this await is still not working!
+// scoreRosters(raceId, raceResults);
+// updateUserTotalScores(raceId);
 
 // Note, need scoreRace to finish before starting updateUserTotalScores
 // otherwise it will be adding 0 point rosters
