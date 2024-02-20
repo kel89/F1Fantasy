@@ -53,7 +53,7 @@ export default function SetRosterDialog({
 
       if (hasValidDriverOrder(_roster)) {
         setDriverOrder(
-          _roster.driver_order.map((x) => {
+          JSON.parse(_roster.driver_order[0]).map((x) => {
             return { id: x.split("-")[0] };
           })
         );
@@ -101,7 +101,7 @@ export default function SetRosterDialog({
       return false;
     } else if (!roster.driver_order) {
       return false;
-    } else if (roster.driver_order.length < drivers.length) {
+    } else if (JSON.parse(roster.driver_order[0].length) < drivers.length) {
       return false;
     } else {
       return true;

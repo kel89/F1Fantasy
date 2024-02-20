@@ -31,7 +31,6 @@ export default function YourRoster({raceData, drivers, rosterData, setOpenSetRos
     // Before Race --------------------------------
     if (now < raceDate){
         // No rosters, or this user does not have one
-        console.log(rosters);
         if (!rosters || rosters.find(roster => roster.user.id === user.username) === undefined){
             // Show button to set roster
             return (

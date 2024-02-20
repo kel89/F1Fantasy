@@ -19,7 +19,6 @@ export default function LeaderBoard({}){
 
     const getUsersData = async () => {
         const result = await apiClient.graphql({query: listUsers});
-        console.log(result);
         setUsersData(result.data.listUsers.items);        
     }
 
