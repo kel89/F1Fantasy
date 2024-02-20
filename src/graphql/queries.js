@@ -151,6 +151,7 @@ export const getUser = /* GraphQL */ `
       family_name
       nickname
       total_points
+      admin
       rosters {
         nextToken
         __typename
@@ -175,6 +176,7 @@ export const listUsers = /* GraphQL */ `
         family_name
         nickname
         total_points
+        admin
         createdAt
         updatedAt
         __typename
@@ -198,6 +200,7 @@ export const getRoster = /* GraphQL */ `
         family_name
         nickname
         total_points
+        admin
         createdAt
         updatedAt
         __typename

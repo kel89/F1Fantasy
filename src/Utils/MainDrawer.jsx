@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 // import Button from '@mui/material/Button';
@@ -18,16 +18,25 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 import { useNavigate } from 'react-router-dom';
 import { useAuthenticator } from "@aws-amplify/ui-react";
+import { generateClient } from '@aws-amplify/api';
+import { getUser } from '../graphql/queries';
 
 export default function MainDrawer({open, setOpen}) {
 
 	const { signOut, user } = useAuthenticator((context) => [context.signOut, context.user]);
+	const [ isAdmin, setIsAdmin ] = useState(false);
 	const navigate = useNavigate();
+	const client = generateClient();
 
-    // Determine user groups
-    // let userGroups = user.signInUserSession.idToken.payload['cognito:groups'];
-	let userGroups = []; // TODO find a way to track this??
-    let isAdmin = (userGroups != undefined) && userGroups.includes("admin");
+	useEffect( () => {
+		const getAdmin = async () => {
+			const result = await client.graphql({query: getUser, variables: {id: user.userId}});
+			setIsAdmin(result.data.getUser.admin);
+		}
+		getAdmin();
+	}, [user])
+
+	
   
 	const toggleDrawer = (open) => (event) => {
 	if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -71,16 +80,6 @@ export default function MainDrawer({open, setOpen}) {
 				<ListItemText primary={'Settings'} />
 			</ListItemButton>
 		</ListItem>
-		{/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-		  <ListItem key={text} disablePadding>
-			<ListItemButton>
-			  <ListItemIcon>
-				{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-			  </ListItemIcon>
-			  <ListItemText primary={text} />
-			</ListItemButton>
-		  </ListItem>
-		))} */}
 	  </List>
 	  <Divider />
 	  <List>
@@ -105,16 +104,6 @@ export default function MainDrawer({open, setOpen}) {
 			</ListItemButton>
 		</ListItem>
 
-		{/* {['All mail', 'Trash', 'Spam'].map((text, index) => (
-		  <ListItem key={text} disablePadding>
-			<ListItemButton>
-			  <ListItemIcon>
-				{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-			  </ListItemIcon>
-			  <ListItemText primary={text} />
-			</ListItemButton>
-		  </ListItem>
-		))} */}
 	  </List>
 	</Box>
   );

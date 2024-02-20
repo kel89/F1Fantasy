@@ -15,8 +15,8 @@ import { Login } from "./Pages/Login";
 import About from './Pages/About';
 // import League from './Pages/League';
 import Race from './Pages/Race';
-// import { RequireAdmin } from './Utils/RequireAdmin';
-// import AdminPage from './Pages/AdminPage';
+import { RequireAdmin } from './Utils/RequireAdmin';
+import AdminPage from './Pages/AdminPage';
 import Settings from './Pages/Settings';
 
 // console.log(config);
@@ -55,14 +55,14 @@ function MyRoutes() {
                                             </RequireAuth>
                                         }
                                     />
-                                    {/* <Route
+                                    <Route
                                         path="/admin"
                                         element={
-                                            <RequireAdmin>
+                                            <RequireAuth>
                                                 <AdminPage />
-                                            </RequireAdmin>
+                                            </RequireAuth>
                                         }
-                                    /> */}
+                                    />
                                     <Route
                                         path='/settings'
                                         element={

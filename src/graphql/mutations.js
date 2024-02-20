@@ -265,6 +265,7 @@ export const createUser = /* GraphQL */ `
       family_name
       nickname
       total_points
+      admin
       rosters {
         nextToken
         __typename
@@ -287,6 +288,7 @@ export const updateUser = /* GraphQL */ `
       family_name
       nickname
       total_points
+      admin
       rosters {
         nextToken
         __typename
@@ -309,6 +311,7 @@ export const deleteUser = /* GraphQL */ `
       family_name
       nickname
       total_points
+      admin
       rosters {
         nextToken
         __typename
@@ -336,6 +339,7 @@ export const createRoster = /* GraphQL */ `
         family_name
         nickname
         total_points
+        admin
         createdAt
         updatedAt
         __typename
@@ -375,6 +379,7 @@ export const updateRoster = /* GraphQL */ `
         family_name
         nickname
         total_points
+        admin
         createdAt
         updatedAt
         __typename
@@ -414,6 +419,7 @@ export const deleteRoster = /* GraphQL */ `
         family_name
         nickname
         total_points
+        admin
         createdAt
         updatedAt
         __typename

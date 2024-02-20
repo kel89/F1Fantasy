@@ -33,59 +33,6 @@ export default function RosterPreview({ id, toggler }) {
   }, [rosterData]);
 
   const getData = async () => {
-    // let qs = String(`
-    // query GetRoster {
-    //     getRoster(id: "${id}"){
-    //         breakdown
-    //         driver_order
-    //         total_points
-    //         updatedAt
-    //         user {
-    //             nickname
-    //             given_name
-    //             family_name
-    //         }
-    //         race {
-    //             name
-    //             city
-    //             country
-    //             drivers {
-    //                 items {
-    //                     driver {
-    //                         first_name
-    //                         last_name
-    //                         abbreviation
-    //                         team
-    //                         number
-    //                     }
-    //                 }
-    //             }
-    //             result {
-    //                 items {
-    //                     points
-    //                     driver {
-    //                         first_name
-    //                         last_name
-    //                         abbreviation
-    //                         team
-    //                         number
-    //                         id
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-    // `);
-    // let resp = await API.graphql({query: qs});
-    // setRosterData(resp.data.getRoster);
-    // setDriverData(resp.data.getRoster.race.drivers.items);
-
-    // // Sorts results (if exist, and give a place)
-    // let resultData = resp.data.getRoster.race.result.items;
-    // resultData.sort((a,b) => b.points - a.points)
-    //     .forEach((d,i) => d['place'] = i+1);
-    // setRaceResults(resultData);
     const result = await apiClient.graphql({
       query: getDetailedRoster,
       variables: { id: id },

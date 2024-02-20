@@ -36,7 +36,6 @@ export function UserHome() {
     const addUserToDB = async () => {
         // Get user attributes
         const userAttributes = await fetchUserAttributes();
-        console.log(userAttributes);
 
         const result = await client.graphql({query: createUser, variables: {
             input: {
@@ -45,7 +44,8 @@ export function UserHome() {
                 given_name: userAttributes.given_name,
                 family_name: userAttributes.family_name,
                 nickname: userAttributes.nickname,
-                total_points: 0
+                total_points: 0,
+                admin: false
             }
         }});
        }

@@ -41,6 +41,7 @@ type User @model {
   family_name: String
   nickname: String
   total_points: Int!
+  admin: Boolean
   rosters: [Roster] @hasMany
 }
 
