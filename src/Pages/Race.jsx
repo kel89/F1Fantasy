@@ -9,8 +9,9 @@ import RosterPreview from '../Partials/Race/RosterPreview';
 import RosterList from '../Partials/Race/RosterList';
 import YourRoster from '../Partials/Race/YourRoster';
 import ResultsPreview from '../Partials/Race/ResultsPreview';
+import RaceEditor from '../Partials/Race/RaceEditor';
 import { generateClient } from '@aws-amplify/api';
-import { getRace, listDrivers } from '../graphql/queries';
+import { getRace, getUser, listDrivers } from '../graphql/queries';
 import { getRaceAndRosters } from '../graphql/customQueries';
 
 
@@ -20,6 +21,7 @@ export default function Race({}){
     const [openSetRoster, setOpenSetRoster] = useState(false);
     const [refreshState, setRefreshState] = useState(0);
     const [rosterId, setRosterId] = useState();
+    const [isAdmin, setIsAdmin] = useState(false);
     const { user } = useAuthenticator(context => [context.user]);
     const {id} = useParams();
 
@@ -33,6 +35,7 @@ export default function Race({}){
     useEffect(() => {
         getRaceData();
         getDriverData();
+        getAdminStatus();
     }, [])
 
     useEffect(() => {
@@ -50,41 +53,12 @@ export default function Race({}){
     const getRaceData = async () => {
         const result = await apiClient.graphql({query: getRaceAndRosters, variables: {id: id}});
         setRaceData(result.data.getRace);
-        // let qs = String(`
-        // query MyQuery {
-        //     getRace(id: "${id}") {
-        //       city
-        //       country
-        //       date
-        //       id
-        //       name
-        //       rosters {
-        //         items {
-        //           id
-        //           total_points
-        //           user {
-        //             id
-        //             nickname
-        //             given_name
-        //           }
-        //         }
-        //       }
-        //       result {
-        //         items {
-        //             points
-        //             driver{
-        //                 first_name
-        //                 abbreviation
-        //                 last_name
-        //                 team
-        //             }
-        //         }
-        //       }
-        //     }
-        //   }
-        // `);
-        // let resp = await API.graphql({query:qs});
-        // setRaceData(resp.data.getRace);
+    }
+
+    const getAdminStatus = async () => {
+        const result = await apiClient.graphql({query: getUser, variables: {id: user.username}});
+        console.log(result);
+        setIsAdmin(result.data.getUser.admin);
     }
 
     /**
@@ -158,11 +132,13 @@ export default function Race({}){
                                 </div>
                                 <div className='flex flex-col gap-4'>
                                     <RosterList rosters={!raceData ? [] : raceData.rosters?.items} />
-                                    {/* Gonna need to work on the following, because the base query does not get that */}
                                     {
                                     raceData.result?.items ? (
                                         <ResultsPreview results={raceData.result?.items}/>
                                         ) : null
+                                    }
+                                    {
+                                        isAdmin ? <RaceEditor raceData={raceData} getRaceData={getRaceData} /> : null
                                     }
                                 </div>
                             </div>

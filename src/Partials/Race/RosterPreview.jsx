@@ -67,7 +67,7 @@ export default function RosterPreview({ id, toggler }) {
     );
     if (match.length > 0) {
       let truePlace = match[0].place;
-      if (truePlace == place) {
+      if (truePlace == place+1) {
         return "bg-green-200";
       } else {
         return "bg-red-200";

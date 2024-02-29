@@ -348,10 +348,31 @@ let raceResults = [
 // Get the Race ID Mannually from the DB or wherever
 let raceId = "a1490084-535c-440b-8766-bb4545c2f1d6";
 
-await scoreRace(raceId, raceResults); // this await is still not working!
-// scoreRosters(raceId, raceResults);
+
+// ____  _               _   
+// / ___|| |_ ___ _ __   / |_ 
+// \___ \| __/ _ \ '_ \  | (_)
+//  ___) | ||  __/ |_) | | |_ 
+// |____/ \__\___| .__/  |_(_)
+//               |_|          
+// await scoreRace(raceId, raceResults); // this await is still not working!
+
+// ____  _               ____    
+// / ___|| |_ ___ _ __   |___ \ _ 
+// \___ \| __/ _ \ '_ \    __) (_)
+//  ___) | ||  __/ |_) |  / __/ _ 
+// |____/ \__\___| .__/  |_____(_)
+//               |_|              
 // updateUserTotalScores(raceId);
 
+
+
+// _____ _      _                                                  _     _        _             
+// |  ___(_)_  _(_)_ __   __ _   _   _  ___  _   _ _ __   _ __ ___ (_)___| |_ __ _| | _____  ___ 
+// | |_  | \ \/ / | '_ \ / _` | | | | |/ _ \| | | | '__| | '_ ` _ \| / __| __/ _` | |/ / _ \/ __|
+// |  _| | |>  <| | | | | (_| | | |_| | (_) | |_| | |    | | | | | | \__ \ || (_| |   <  __/\__ \
+// |_|   |_/_/\_\_|_| |_|\__, |  \__, |\___/ \__,_|_|    |_| |_| |_|_|___/\__\__,_|_|\_\___||___/
+//                       |___/   |___/                                                           
 // Note, need scoreRace to finish before starting updateUserTotalScores
 // otherwise it will be adding 0 point rosters
 
