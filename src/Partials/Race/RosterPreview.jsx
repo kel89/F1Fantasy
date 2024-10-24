@@ -84,6 +84,9 @@ export default function RosterPreview({ id, toggler }) {
                     let driver = drivers.find(
                         (x) => x.abbreviation === abbreviation
                     );
+                    if (!driver) {
+                        return null;
+                    }
                     const bgClassColor = getBackgroundColor(abbreviation, i);
                     return (
                         <div
