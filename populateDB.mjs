@@ -1,19 +1,20 @@
-// ____                   _       _         ____  ____  
-// |  _ \ ___  _ __  _   _| | __ _| |_ ___  |  _ \| __ ) 
-// | |_) / _ \| '_ \| | | | |/ _` | __/ _ \ | | | |  _ \ 
+// ____                   _       _         ____  ____
+// |  _ \ ___  _ __  _   _| | __ _| |_ ___  |  _ \| __ )
+// | |_) / _ \| '_ \| | | | |/ _` | __/ _ \ | | | |  _ \
 // |  __/ (_) | |_) | |_| | | (_| | ||  __/ | |_| | |_) |
-// |_|   \___/| .__/ \__,_|_|\__,_|\__\___| |____/|____/ 
-//            |_|                             
+// |_|   \___/| .__/ \__,_|_|\__,_|\__\___| |____/|____/
+//            |_|
 /**
  * Helper script to populate the DB
  * Eventually set this up to read from a CSV or a JSON
  * with the list of Drivers and races, and will probably have
  * something similar to do the scoring
- *  */           
-import { Amplify, API, graphqlOperation } from 'aws-amplify';
-import awsExports from './aws-exports.mjs'; // NOTE, make manually, and may change
-import driverData from './drivers.json' assert {type: 'json'};
-import raceData from './races_2024.json' assert {type: 'json'}
+ *  */
+import { Amplify, API, graphqlOperation } from "aws-amplify";
+import awsExports from "./aws-exports.mjs";
+// NOTE, make manually, and may change
+import driverData from "./drivers.json" assert { type: "json" };
+import raceData from "./races_2024.json" assert { type: "json" };
 
 Amplify.configure(awsExports);
 
@@ -45,7 +46,7 @@ Amplify.configure(awsExports);
 
 // Add all drivers --------------------------------------
 const addDrivers = () => {
-    driverData.forEach(async driver => {
+    driverData.forEach(async (driver) => {
         let addDriverQ = `
     mutation CreateDriver {
         createDriver(input: {
@@ -59,13 +60,13 @@ const addDrivers = () => {
         }
     }`;
         let s = String(addDriverQ); // this step is CRITICAL--for some reason
-        let resp = await API.graphql({query: s});
+        let resp = await API.graphql({ query: s });
         console.log(resp);
     });
-}
+};
 
 const addRaces = () => {
-    raceData.forEach(async race => {
+    raceData.forEach(async (race) => {
         let qs = String(`
         mutation CreateRace {
             createRace( input: {
@@ -79,10 +80,10 @@ const addRaces = () => {
         }
         `);
         // console.log(qs);
-        let resp = await API.graphql({query:qs});
+        let resp = await API.graphql({ query: qs });
         console.log(resp);
-    })
-}
+    });
+};
 
 const addAllDriversToAllRaces = async () => {
     // Get all of the drivers...
@@ -95,7 +96,7 @@ const addAllDriversToAllRaces = async () => {
         }
     }
     `);
-    let driversResp = await API.graphql({query:getDrivers});
+    let driversResp = await API.graphql({ query: getDrivers });
     let allDrivers = driversResp.data.listDrivers.items;
     console.log(allDrivers);
     // Get all of the races...
@@ -107,13 +108,13 @@ const addAllDriversToAllRaces = async () => {
             }
         }
     }
-    `)
-    let racesResp = await API.graphql({query: getRaces});
+    `);
+    let racesResp = await API.graphql({ query: getRaces });
     let allRaces = racesResp.data.listRaces.items;
     console.log(allRaces);
     // Add all of the drivers to all of the races
-    allRaces.forEach(async race => {
-        allDrivers.forEach(async driver => {
+    allRaces.forEach(async (race) => {
+        allDrivers.forEach(async (driver) => {
             let qs = String(`
             mutation AddLink {
                 createRaceDrivers(input: {driverId: "${driver.id}", raceId: "${race.id}"}){
@@ -121,15 +122,15 @@ const addAllDriversToAllRaces = async () => {
                 }
             }
             `);
-            let resp = await API.graphql({query: qs});
+            let resp = await API.graphql({ query: qs });
             console.log(resp);
-        })
-    })
-}
+        });
+    });
+};
 
 /**
  * Adds a new driver to the races
- * @param {String} driverId 
+ * @param {String} driverId
  */
 const addNewDriverToRaces = async (driverId, startDate) => {
     // Get the races to add the driver to
@@ -142,13 +143,13 @@ const addNewDriverToRaces = async (driverId, startDate) => {
             }
         }
     }
-    `)
-    let racesResp = await API.graphql({query: getRaces});
+    `);
+    let racesResp = await API.graphql({ query: getRaces });
     let allRaces = racesResp.data.listRaces.items;
     console.log(allRaces);
 
     // Add the driver to those races
-    allRaces.forEach(async race => {
+    allRaces.forEach(async (race) => {
         let qs = String(`
         mutation AddLink {
             createRaceDrivers(input: {driverId: "${driverId}", raceId: "${race.id}"}){
@@ -156,11 +157,10 @@ const addNewDriverToRaces = async (driverId, startDate) => {
             }
         }
         `);
-        let resp = await API.graphql({query: qs});
+        let resp = await API.graphql({ query: qs });
         console.log(resp);
-    })
-}
-
+    });
+};
 
 // MAIN ------------------------------------
 addDrivers();
